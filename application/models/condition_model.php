@@ -230,8 +230,9 @@ class ConditionPeer extends BasePeer
     	$this->parameters = json_encode($data);
     }
     /**
+     * 
      * 得到本条件所属的TaskPeer
-     * @return Ambigous <boolean, TaskPeer>
+     * @return TaskPeer
      */
     public function getTask()
     {

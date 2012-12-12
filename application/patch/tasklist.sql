@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2012-12-12 22:36:26
+Date: 2012-12-12 22:41:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,13 +31,13 @@ CREATE TABLE `command` (
 -- ----------------------------
 -- Records of command
 -- ----------------------------
-INSERT INTO `command` VALUES ('8', '16', 'url-request', '{\"url\":\"http:\\/\\/www.zgldh.com\"}', '2012-12-12 21:39:51');
+INSERT INTO `command` VALUES ('8', '16', 'url-request', '{\"url\":\"http:\\/\\/www.zgldh.com\"}', '2012-12-12 22:40:23');
 INSERT INTO `command` VALUES ('9', '17', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"none\"}', '2012-12-12 22:34:18');
 INSERT INTO `command` VALUES ('10', '18', 'url-request', '{\"url\":\"asdfasdf\"}', '2012-12-12 21:39:59');
 INSERT INTO `command` VALUES ('11', '19', 'url-request', '{\"url\":\"http:\\/\\/www.sina.com\"}', '2012-12-12 21:40:01');
 INSERT INTO `command` VALUES ('12', '20', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"++\"}', '2012-12-12 21:40:11');
 INSERT INTO `command` VALUES ('14', '21', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"aaa\"}', '2012-12-12 21:40:07');
-INSERT INTO `command` VALUES ('15', '16', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"\\u00a0\\u5e76\\u4e0d<br \\/>\"}', '2012-12-12 21:39:51');
+INSERT INTO `command` VALUES ('15', '16', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"\\u00a0\\u5e76\\u4e0d<br \\/>\"}', '2012-12-12 22:40:23');
 
 -- ----------------------------
 -- Table structure for `condition`
@@ -55,7 +55,7 @@ CREATE TABLE `condition` (
 -- ----------------------------
 -- Records of condition
 -- ----------------------------
-INSERT INTO `condition` VALUES ('16', '16', 'date-static', '{\"year\":\"2013\",\"month\":\"\",\"day\":\"\",\"hour\":\"0\"}', '2012-12-12 21:39:51');
+INSERT INTO `condition` VALUES ('16', '16', 'date-static', '{\"year\":\"2013\",\"month\":\"\",\"day\":\"\",\"hour\":\"0\"}', '2012-12-12 22:40:23');
 INSERT INTO `condition` VALUES ('17', '17', 'date-static', '{\"year\":\"2013\",\"month\":\"2\",\"day\":\"\",\"hour\":\"0\"}', '2012-12-12 22:34:18');
 INSERT INTO `condition` VALUES ('18', '18', 'date-static', '{\"year\":\"2014\",\"month\":\"\",\"day\":\"31\",\"hour\":\"0\"}', '2012-12-12 21:39:59');
 INSERT INTO `condition` VALUES ('19', '19', 'date-static', '{\"year\":\"\",\"month\":\"8\",\"day\":\"\",\"hour\":\"2\"}', '2012-12-12 21:40:01');
@@ -119,7 +119,7 @@ CREATE TABLE `task` (
 -- ----------------------------
 -- Records of task
 -- ----------------------------
-INSERT INTO `task` VALUES ('16', '12', 'active', 'Task 16', '0', '0', '2012-12-09 23:39:23', '2012-12-09 23:39:23');
+INSERT INTO `task` VALUES ('16', '12', 'active', 'Task 16', '5', '0', '2012-12-09 23:39:23', '2012-12-09 23:39:23');
 INSERT INTO `task` VALUES ('17', '12', 'pause', 'Task 17', '0', '0', '2012-12-09 23:41:58', '2012-12-09 23:41:58');
 INSERT INTO `task` VALUES ('18', '12', 'active', 'Task 18', '22', '0', '2012-12-09 23:45:30', '2012-12-09 23:45:30');
 INSERT INTO `task` VALUES ('19', '12', 'pause', 'lol', '0', '0', '2012-12-09 23:46:17', '2012-12-09 23:46:17');
@@ -142,7 +142,7 @@ CREATE TABLE `timing_process` (
   KEY `plan_time` (`plan_time`,`skip`),
   KEY `gen_time` (`gen_time`),
   KEY `task_id` (`task_id`,`plan_time`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 -- ----------------------------
 -- Records of timing_process
@@ -154,16 +154,11 @@ INSERT INTO `timing_process` VALUES ('92', '18', '', '', '2012-12-12 22:34:29', 
 INSERT INTO `timing_process` VALUES ('91', '18', '', '', '2012-12-12 22:34:29', null, '2014-05-31 00:00:00');
 INSERT INTO `timing_process` VALUES ('90', '18', '', '', '2012-12-12 22:34:29', null, '2014-03-31 00:00:00');
 INSERT INTO `timing_process` VALUES ('89', '18', '', '', '2012-12-12 22:34:29', null, '2014-01-31 00:00:00');
-INSERT INTO `timing_process` VALUES ('78', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-10 00:00:00');
-INSERT INTO `timing_process` VALUES ('77', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-09 00:00:00');
-INSERT INTO `timing_process` VALUES ('76', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-08 00:00:00');
-INSERT INTO `timing_process` VALUES ('75', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-07 00:00:00');
-INSERT INTO `timing_process` VALUES ('74', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-06 00:00:00');
-INSERT INTO `timing_process` VALUES ('73', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-05 00:00:00');
-INSERT INTO `timing_process` VALUES ('72', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-04 00:00:00');
-INSERT INTO `timing_process` VALUES ('71', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-03 00:00:00');
-INSERT INTO `timing_process` VALUES ('70', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-02 00:00:00');
-INSERT INTO `timing_process` VALUES ('69', '16', '', '', '2012-12-12 22:34:23', null, '2013-01-01 00:00:00');
+INSERT INTO `timing_process` VALUES ('96', '16', '', '', '2012-12-12 22:40:23', null, '2013-01-01 00:00:00');
+INSERT INTO `timing_process` VALUES ('97', '16', '', '', '2012-12-12 22:40:23', null, '2013-01-02 00:00:00');
+INSERT INTO `timing_process` VALUES ('98', '16', '', '', '2012-12-12 22:40:23', null, '2013-01-03 00:00:00');
+INSERT INTO `timing_process` VALUES ('99', '16', '', '', '2012-12-12 22:40:23', null, '2013-01-04 00:00:00');
+INSERT INTO `timing_process` VALUES ('100', '16', '', '', '2012-12-12 22:40:23', null, '2013-01-05 00:00:00');
 
 -- ----------------------------
 -- Table structure for `user`

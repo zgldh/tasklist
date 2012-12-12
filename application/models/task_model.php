@@ -3,6 +3,11 @@ class Task_model extends MY_Model
 {
 	const TABLE = 'task';
 
+	/**
+	 * 
+	 * @param int $task_id
+	 * @return Ambigous <NULL, TaskPeer>
+	 */
 	public function getByPK($task_id)
 	{
 		if($this->cache_pk->hasData($task_id))
@@ -11,7 +16,7 @@ class Task_model extends MY_Model
 		}
 
 		$raw = $this->db->get_where ( self::TABLE, array (TaskPeer::PK => $task_id ) )->row_array ();
-		$task = $raw ? new TaskPeer( $raw ) : false;
+		$task = $raw ? new TaskPeer( $raw ) : null;
 
 		$this->cache_pk->setData($task_id, $task);
 

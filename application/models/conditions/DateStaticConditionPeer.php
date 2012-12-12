@@ -94,6 +94,12 @@ class DateStaticConditionPeer extends ConditionPeer
     {
         //生成未来10个TimingProcessPeer
         $max_count = 10;
+        $task_limit = $this->getTask()->limit;
+        if($task_limit != 0)
+        {
+            $max_count = min($max_count,$task_limit);
+        }
+
         $current_date = getdate();
         $now = time();
 
