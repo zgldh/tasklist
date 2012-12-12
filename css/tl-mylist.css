@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+.mylist-page{}
+.mylist-page .btn{font-weight: normal;}
+.alert-info .link{color: #red;}

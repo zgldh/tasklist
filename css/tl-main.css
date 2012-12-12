@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+#nav-bar,footer,.container{
+    width: 940px;
+    margin: 0 auto;
+}
+.dropdown-menu a{cursor: pointer;}
+a.disabled{color: grey !important;}
+a.disabled:hover{background: transparent !important; cursor: not-allowed;}

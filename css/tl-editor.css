@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+.editor-sidenav {
+	top:20px;
+    background-color: #FFFFFF;
+    border-radius: 0 0 0 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    margin: 30px 10px 0;
+    padding: 0;
+    width: 228px;
+}
+.editor-sidenav {
+    width: 160px;
+}
+.editor-sidenav > li > a {
+    border: 1px solid #E5E5E5;
+    display: block;
+    margin: 0 0 -1px;
+    padding: 8px 14px;
+}
+.editor-sidenav > li:first-child > a {
+    border-radius: 0 0 0 0;
+}
+
+.editor-sidenav > li > a:hover {
+    background-color: #F5F5F5;
+}
+.editor-sidenav > li.divider{
+    margin: 0;
+}
+
+.editor-page{}
+.editor-page .page-header{border: none;margin: 20px 0 10px;}
+.editor-page .page-header h2{display: inline;}
+.editor-page .page-header .alert{margin: 0;}
+.editor-page .page-header .functions-menu{clear: both;}
+.editor-page .page-header .functions-menu .dropdown{display: inline;}
+.editor-page .no-conditions{}
+.editor-page section{border-bottom: 2px solid #ccc; padding-bottom: 5px;margin-bottom: 10px;}
+.editor-page section#task_done{border:none; padding-bottom: 5px;margin-bottom: 10px;}
+.editor-page section .control-group{}
+.editor-page section .control-group .control-label,.editor-page section .control-group input{display: inline-block;}
+.editor-page section .control-group .control-label{width:180px;text-align: right;font-weight: bold;}
+.editor-page section .control-group .help-block{margin-left: 180px;}
+.editor-page .condition-item,
+.editor-page .command-item{position: relative;}
+.editor-page .condition-item.hide,
+.editor-page .command-item.hide{}
+.editor-page .condition-item label,
+.editor-page .command-item label{display: inline;font-size: 18px;font-weight: bold;}
+.editor-page .condition-item .condition-delete-btn,
+.editor-page .command-item .command-delete-btn{vertical-align: top;top:0;right: 0;position: absolute;}
+
