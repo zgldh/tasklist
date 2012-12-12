@@ -4,11 +4,8 @@ class Task extends MY_Controller
 {
 	public function index()
 	{
-	    $this->setTitle("我的任务--自动任务");
-
-	    $data = array();
-
-		$this->view('/task/list', $data);
+		header('Location: /task/list');
+		exit();
 	}
 
 	public function edit($task_id)

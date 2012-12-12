@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['task/list'] = 'task/mylist';
+$route['process/list'] = 'process/mylist';
 $route['404_override'] = '';
 
 
