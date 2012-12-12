@@ -21,7 +21,9 @@ class Task extends MY_Controller
 	    $this->navbar->setHeaderTitle("[编辑]".$task->getName());
 	    $this->javascript_css_manager->addStyleFile('/css/tl-editor.css');
 	    $this->javascript_css_manager->addJavascriptFile('/js/tl-editor.js');
-	    $this->navbar->setBackBtn('/task/list','返回“我的任务”');
+	    
+	    $ref = $this->inputGet('ref');
+	    $this->navbar->setBackBtn($ref);
 	    
 	    $data = array('task'=>$task);
 
@@ -60,6 +62,68 @@ class Task extends MY_Controller
 	    $data = array('task'=>$task);
 
 		$this->view('/task/editor', $data);
+	}
+	/**
+	 * 将一个任务暂停
+	 * @param int $task_id
+	 */
+	public function pause($task_id)
+	{
+	    $this->needLoginOrExit();
+	    
+	    $response = new Response_JSON();
+	    $this->loadTaskModel();
+	    $task = $this->task_model->getByPK($task_id);
+	    if(!$task)
+	    {
+	        $response->setErrors('您不能暂停不存在的任务。');
+	        $response->output();
+	    }
+	    if($task->user_id != $this->webuser->getUserId())
+	    {
+	        $response->setErrors('您不能暂停不属于您的任务。');
+	        $response->output();
+	    }
+	    if($task->setPause(true))
+	    {
+	        $response->setSuccess();
+	    }
+	    else
+	    {
+	        $response->setErrors('数据库错误，暂停失败。');
+	    }
+	    $response->output();
+	}
+	/**
+	 * 将一个任务激活
+	 * @param int $task_id
+	 */
+	public function active($task_id)
+	{
+	    $this->needLoginOrExit();
+	    
+	    $response = new Response_JSON();
+	    $this->loadTaskModel();
+	    $task = $this->task_model->getByPK($task_id);
+	    if(!$task)
+	    {
+	        $response->setErrors('您不能激活不存在的任务。');
+	        $response->output();
+	    }
+	    if($task->user_id != $this->webuser->getUserId())
+	    {
+	        $response->setErrors('您不能激活不属于您的任务。');
+	        $response->output();
+	    }
+	    if($task->setActive(true))
+	    {
+	        $response->setSuccess();
+	    }
+	    else
+	    {
+	        $response->setErrors('数据库错误，激活失败。');
+	    }
+	    $response->output();
 	}
 
 	public function delete($task_id)

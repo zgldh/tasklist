@@ -3,3 +3,8 @@
 .mylist-page{}
 .mylist-page .btn{font-weight: normal;}
 .alert-info .link{color: #red;}
+
+tr.active{}
+tr.pause{color: #aaa;}
+tr.prevent{color: maroon; text-decoration: line-through;}
+tr.pending{}

@@ -33,7 +33,7 @@ class Task_model extends MY_Model
 	    }
 	    if($no_pending)
 	    {
-	    	$this->db->where("status != 'pending'");
+	    	$this->db->where('status != ',TaskPeer::STATUS_PENDING);
 	    }
 	    
 	    $rows = $this->db->get_where ( self::TABLE, array ('user_id'=> $user_id) )->result();
@@ -155,7 +155,7 @@ class Task_model extends MY_Model
 		{
 			$this->db->where('user_id',$user_id);
 		}
-		$this->db->where('status','pending');
+		$this->db->where('status',TaskPeer::STATUS_PENDING);
 		$this->db->limit(1);
 		$this->db->order_by('task_id','DESC');
 		$raw = $this->db->get( self::TABLE)->row_array ();
@@ -175,7 +175,7 @@ class Task_model extends MY_Model
 		{
 			$this->db->where('user_id',$user_id);
 		}
-		$this->db->where('status','pending');
+		$this->db->where('status',TaskPeer::STATUS_PENDING);
 		$rows = $this->db->get ( self::TABLE )->result();
 		foreach($rows as $row)
 		{
@@ -204,6 +204,10 @@ class Task_model extends MY_Model
 class TaskPeer extends BasePeer
 {
 	const PK = 'task_id';
+	const STATUS_PENDING = 'pending';
+	const STATUS_ACTIVE = 'active';
+	const STATUS_PAUSE = 'pause';
+	const STATUS_PREVENT = 'prevent';
 
 	/**
 	 * 任务id
@@ -216,7 +220,7 @@ class TaskPeer extends BasePeer
 	 */
 	public $user_id = 0;
     /**
-     * 任务状态. pending, active, pause, prevent
+     * 任务状态. TaskPeer::STATUS_xxx pending, active, pause, prevent
      * @var string
      */
 	public $status = 'pending';
@@ -267,7 +271,7 @@ class TaskPeer extends BasePeer
 	public function save()
 	{
 	    $this->alter_date = $this->create_date;
-		TaskPeer::model()->save($this);
+		self::model()->save($this);
 	}
 	/**
 	 * 删除一个TaskPeer。 包括所有的 Conditions 和 Commands
@@ -275,7 +279,7 @@ class TaskPeer extends BasePeer
 	 */
 	public function delete()
 	{
-		TaskPeer::model()->db->trans_start();
+		self::model()->db->trans_start();
 		
 		$conditions = $this->getConditions();
 		$commands = $this->getCommands();
@@ -291,11 +295,11 @@ class TaskPeer extends BasePeer
 			$command->delete();
 		}
 		
-		TaskPeer::model()->delete($this);
-		TaskPeer::model()->db->trans_complete();
+		self::model()->delete($this);
+		self::model()->db->trans_complete();
 		
 
-		if (TaskPeer::model()->db->trans_status() === FALSE)
+		if (self::model()->db->trans_status() === FALSE)
 		{
 			return false;
 		}
@@ -444,23 +448,63 @@ class TaskPeer extends BasePeer
 
 	/**
 	 * 将本任务置为'活动'  status = active
+	 * @param boolean $create_processes = false 是否顺带创建未来的Process
 	 */
-	public function setActive()
+	public function setActive($create_processes = false)
 	{
-		$this->status = 'active';
+	    self::model()->db->trans_start();
+		
+	    $this->status = self::STATUS_ACTIVE;
 		$this->save();
 		
-		return null;
+		if($create_processes)
+		{
+		    $this->updateProcess();
+		}
+		
+		self::model()->db->trans_complete();
+		
+		if (self::model()->db->trans_status() === FALSE)
+		{
+		    return false;
+		}
+		else
+		{
+		    return true;
+		}
 	}
 	/**
 	 * 将本任务置为'暂停'  status = pause
+	 * @param boolean $remove_processes = false 是否顺带删除尚未执行的Process
+	 * @return 成功设置为暂停则返回true,否则返回false
 	 */
-	public function setPause()
+	public function setPause($remove_processes = false)
 	{
-		$this->status = 'pause';
+	    self::model()->db->trans_start();
+		
+	    $this->status = self::STATUS_PAUSE;
 		$this->save();
 		
-		return null;
+		if($remove_processes)
+		{
+		    $timing_processes = $this->getTimingProcesses(false);
+		    foreach($timing_processes as $process)
+		    {
+		        $process instanceof TimingProcessPeer;
+		        $process->delete();
+		    }
+		}
+		
+		self::model()->db->trans_complete();
+		
+		if (self::model()->db->trans_status() === FALSE)
+		{
+		    return false;
+		}
+		else
+		{
+		    return true;
+		}
 	}
 	
 	/**
@@ -595,6 +639,38 @@ class TaskPeer extends BasePeer
 	    	return null;
 	    }
 	    return $errors;
+	}
+	/**
+	 * 是否是激活状态
+	 * @return boolean
+	 */
+	public function isActive()
+	{
+	    return $this->status == self::STATUS_ACTIVE;
+	}
+	/**
+	 * 是否是暂停状态
+	 * @return boolean
+	 */
+	public function isPause()
+	{
+	    return $this->status == self::STATUS_PAUSE;
+	}
+	/**
+	 * 是否是准备状态
+	 * @return boolean
+	 */
+	public function isPending()
+	{
+	    return $this->status == self::STATUS_PENDING;
+	}
+	/**
+	 * 是否是被屏蔽了
+	 * @return boolean
+	 */
+	public function isPrevent()
+	{
+	    return $this->status == self::STATUS_PREVENT;
 	}
 }
 

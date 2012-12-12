@@ -87,7 +87,7 @@ class DateStaticConditionPeer extends ConditionPeer
     }
     
     /**
-     * TODO NEXT 生成特定日期触发的 TimingProcessPeer
+     * 生成特定日期触发的 TimingProcessPeer
      * @see ConditionPeer::generateAndSaveProcesses()
      */
     public function generateAndSaveProcesses()
@@ -158,14 +158,17 @@ class DateStaticConditionPeer extends ConditionPeer
 			        
 			        if($valid_date_string == $date_string && $date > $now)
 			        {
-			        	$timing_process = TimingProcessPeer::model()->create($this->task_id, $date_string);
-			        	$timing_process->save();
-
-			        	$max_count -- ;
-			        	if($max_count == 0)
-			        	{
-			        		break 3;
-			        	}
+			            if(!TimingProcessPeer::model()->exist($this->task_id, $date_string))
+			            {
+    			        	$timing_process = TimingProcessPeer::model()->create($this->task_id, $date_string);
+    			        	$timing_process->save();
+    
+    			        	$max_count -- ;
+    			        	if($max_count == 0)
+    			        	{
+    			        		break 3;
+    			        	}
+			            }
 			        }
 			        else
 			        {

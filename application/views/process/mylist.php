@@ -4,30 +4,30 @@
         <thead>
             <tr>
                 <th class="span1">编号</th>
+                <th class="span2">计划执行时间</th>
+                <th class="span2">实际执行时间</th>
                 <th>任务名</th>
-                <th class="span2">执行次数</th>
-                <th class="span2">创建日期</th>
                 <th class="span2">操作</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($processes as $process):?>
-            <?php $process instanceof TaskPeer;?>
+            <?php $process instanceof TimingProcessPeer;?>
+            
+            <?php if($process->executed)?>
             <tr>
-                <td><?php echo $process->task_id;?></td>
-                <td><?php echo $process->getName();?></td>
-                <td><?php echo $process->times;?>/<?php echo $process->limit?$process->limit:'无限';?></td>
-                <td><?php echo $process->create_date;?></td>
+                <td><?php echo $process->process_id;?></td>
+                <td><?php echo $process->getPlanTime();?></td>
+                <td><?php echo $process->getExecTime();?></td>
+                <td><?php echo $process->getTask()->getName();?></td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-small btn-link"
-                        	href="/task/edit/<?php echo $process->task_id;?>"
-                        >编辑</a>
-                        <a class="btn btn-small btn-link">暂停</a>
-                        <a class="btn btn-small btn-danger delete-task-btn" href="/task/delete/<?php echo $process->task_id;?>"
-							data-loading-text="正在删除"
-							data-task-name="<?php echo $process->name; ?>"
-						>删除</a>
+                        	href="/process/skip/<?php echo $process->process_id;?>"
+                        >跳过</a>
+                        <a class="btn btn-small btn-link"
+                        	href="/task/edit/<?php echo $process->getTask()->task_id;?>?ref=/process/list"
+                        >编辑任务</a>
                     </div>
                 </td>
             </tr>

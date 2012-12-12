@@ -13,7 +13,7 @@
         <tbody>
             <?php foreach($tasks as $task):?>
             <?php $task instanceof TaskPeer;?>
-            <tr>
+            <tr class="<?php echo $task->status; ?>">
                 <td><?php echo $task->task_id;?></td>
                 <td><?php echo $task->getName();?></td>
                 <td><?php echo $task->times;?>/<?php echo $task->limit?$task->limit:'无限';?></td>
@@ -21,10 +21,22 @@
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-small btn-link"
-                        	href="/task/edit/<?php echo $task->task_id;?>"
+                        	href="/task/edit/<?php echo $task->task_id;?>?ref=/task/list"
                         >编辑</a>
-                        <a class="btn btn-small btn-link">暂停</a>
-                        <a class="btn btn-small btn-danger delete-task-btn" href="/task/delete/<?php echo $task->task_id;?>"
+                        <a class="btn btn-small btn-link active-task-btn
+                        <?php echo $task->isPause()?null:'hide';?>
+                        "
+                            href="/task/active/<?php echo $task->task_id;?>"
+							data-loading-text="正在激活"
+						>激活</a>
+                        <a class="btn btn-small btn-link pause-task-btn
+                        <?php echo $task->isPause()?'hide':null;?>
+                        "
+                            href="/task/pause/<?php echo $task->task_id;?>"
+							data-loading-text="正在暂停"
+						>暂停</a>
+                        <a class="btn btn-small btn-danger delete-task-btn" 
+                            href="/task/delete/<?php echo $task->task_id;?>"
 							data-loading-text="正在删除"
 							data-task-name="<?php echo $task->name; ?>"
 						>删除</a>
