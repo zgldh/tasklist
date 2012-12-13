@@ -130,15 +130,18 @@ class Task_model extends MY_Model
 	    {
 	    	$error['process'] = $generate_process_error;
 	    }
-
-	    $this->db->trans_complete();
+	    
+	    if(count($error)>0)
+	    {
+	        $this->db->_trans_status = false;
+	    }
+        $this->db->trans_complete();
 
 	    if ($this->db->trans_status() === FALSE)
 	    {
-	    	$error = array('system'=>'数据库内部错误。无法保存任务。');
 	    	$task = null;
 	    }
-	    else
+	    else 
 	    {
 	    	$task = $peer;
 	    }
@@ -364,7 +367,12 @@ class TaskPeer extends BasePeer
 		            //这个老条件，会被新配置修改
 		            $condition_data = $data[$old_condition->type];
 		            unset($condition_data['condition_id']);
-		            $old_condition->setParameters($condition_data);
+		            $temp_error = $old_condition->setParameters($condition_data);
+
+		            if($temp_error)
+		            {
+		                $error[$old_condition->type] = $temp_error;
+		            }
 		            $old_condition->save();
 		            unset($data[$old_condition->type]);
 		        }
@@ -418,7 +426,13 @@ class TaskPeer extends BasePeer
 	                //这个老命令，会被新配置修改
 	                $command_data = $data[$old_command->type];
 	                unset($command_data['command_id']);
-	                $old_command->setParameters($command_data);
+	                $temp_error = $old_command->setParameters($command_data);
+	                
+	                if($temp_error)
+	                {
+	                    $error[$old_command->type] = $temp_error;
+	                    break;
+	                }
 	                $old_command->save();
 	                unset($data[$old_command->type]);
 	            }

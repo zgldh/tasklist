@@ -8,3 +8,5 @@ tr.active{}
 tr.pause{color: #aaa;}
 tr.prevent{color: maroon; text-decoration: line-through;}
 tr.pending{}
+
+.btn.btn-small.btn-link.active-task-btn{color: #FF3300;}

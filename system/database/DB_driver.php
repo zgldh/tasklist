@@ -494,6 +494,11 @@ class CI_DB_driver {
 	 */
 	function trans_start($test_mode = FALSE)
 	{
+	    if ($this->trans_strict === FALSE)
+        {
+            $this->_trans_status = TRUE;    //在开始事务处理时，重新设定这个属性的值为TRUE
+        }
+	        
 		if ( ! $this->trans_enabled)
 		{
 			return FALSE;
@@ -507,6 +512,7 @@ class CI_DB_driver {
 		}
 
 		$this->trans_begin($test_mode);
+		$this->_trans_depth += 1;
 	}
 
 	// --------------------------------------------------------------------
@@ -530,6 +536,10 @@ class CI_DB_driver {
 			$this->_trans_depth -= 1;
 			return TRUE;
 		}
+		elseif($this->_trans_depth==1)
+		{
+            $this->_trans_depth -= 1;
+        }
 
 		// The query() function will set this flag to FALSE in the event that a query failed
 		if ($this->_trans_status === FALSE)

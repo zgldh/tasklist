@@ -13,7 +13,7 @@ class Condition_model extends MY_Model
         }
         
         $raw = $this->db->get_where ( self::TABLE, array (ConditionPeer::PK => $condition_id ) )->row_array ();
-        $condition = $raw ? $this->makeConditionPeer($raw->type,$raw): false;
+        $condition = $raw ? $this->makeConditionPeer($raw->type,$raw): null;
         
         $this->cache_pk->setData ( $condition_id, $condition );
         
@@ -90,7 +90,12 @@ class Condition_model extends MY_Model
     		$condition->task_id = $task_id;
     	}
     	$condition->type = $type;
-    	$condition->setParameters($parameters);
+    	$parameters_error = $condition->setParameters($parameters);
+    	if($parameters_error)
+    	{
+    		$this->setLastError(array('parameters'=>$parameters_error));
+    		return false;
+    	}
     	return $condition;
     }
     /**
@@ -224,10 +229,12 @@ class ConditionPeer extends BasePeer
     /**
      * 设置parameters  
      * @param mixed $data 本参数会被 json_encode
+     * @return null|string 正常返回null， 出错返回错误信息
      */
     public function setParameters($data)
     {
     	$this->parameters = json_encode($data);
+    	return null;
     }
     /**
      * 

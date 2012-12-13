@@ -3,7 +3,7 @@
 		<div class="container-fluid">
 			<h1>自动任务</h1>
 			<h2>互联网事件中心</h2>
-			<p>您可以设置在特定的日子，特定的情况下来执行发送邮件、微博、访问URL等等任务。</p>
+			<p>您可以设置在特定的日子，特定的情况下来执行发送邮件、发送微博、访问URL等等任务。</p>
 			<p>
 				<a class="btn btn-primary"
 					href="/task/create"

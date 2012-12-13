@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+.mylist-page{}
+.mylist-page .btn{font-weight: normal;}
+.alert-info .link{color: #red;}
+
+tr.skip{color: #aaa;}
+.btn.btn-small.btn-link.restore-process-btn{color: #FF3300;}

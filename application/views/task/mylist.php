@@ -27,17 +27,17 @@
                         <?php echo $task->isPause()?null:'hide';?>
                         "
                             href="/task/active/<?php echo $task->task_id;?>"
-							data-loading-text="正在激活"
+							data-loading-text="激活"
 						>激活</a>
                         <a class="btn btn-small btn-link pause-task-btn
                         <?php echo $task->isPause()?'hide':null;?>
                         "
                             href="/task/pause/<?php echo $task->task_id;?>"
-							data-loading-text="正在暂停"
+							data-loading-text="暂停"
 						>暂停</a>
                         <a class="btn btn-small btn-danger delete-task-btn" 
                             href="/task/delete/<?php echo $task->task_id;?>"
-							data-loading-text="正在删除"
+							data-loading-text="删除"
 							data-task-name="<?php echo $task->name; ?>"
 						>删除</a>
                     </div>

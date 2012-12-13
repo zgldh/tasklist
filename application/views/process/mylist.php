@@ -15,16 +15,25 @@
             <?php $process instanceof TimingProcessPeer;?>
             
             <?php if($process->executed)?>
-            <tr>
+            <tr class="<?php echo $process->isSkip()?'skip':null; ?>">
                 <td><?php echo $process->process_id;?></td>
                 <td><?php echo $process->getPlanTime();?></td>
                 <td><?php echo $process->getExecTime();?></td>
                 <td><?php echo $process->getTask()->getName();?></td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-small btn-link"
+                        <a class="btn btn-small btn-link skip-process-btn
+                        <?php echo $process->isSkip()?'hide':null;?>
+                        "
                         	href="/process/skip/<?php echo $process->process_id;?>"
+                        	data-loading-text="跳过"
                         >跳过</a>
+                        <a class="btn btn-small btn-link restore-process-btn
+                        <?php echo $process->isSkip()?null:'hide';?>
+                        "
+                        	href="/process/restore/<?php echo $process->process_id;?>"
+                        	data-loading-text="恢复"
+                        >恢复</a>
                         <a class="btn btn-small btn-link"
                         	href="/task/edit/<?php echo $process->getTask()->task_id;?>?ref=/process/list"
                         >编辑任务</a>

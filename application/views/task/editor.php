@@ -202,7 +202,7 @@
 		                		<br />
 		                		<textarea name="Task[Commands][send-email][recipients]" class="span7"
 	                			<?php echo $command?null:'disabled="disabled"';?>
-	                		><?php echo @$parameters->recipients?@$parameters->recipients:($current_user->email.';');?></textarea>
+	                		><?php echo $command?$command->getRecipientsString($current_user->email.';'):($current_user->email.';');?></textarea>
 	                		<br />
 	                		<input type="hidden" name="Task[Commands][send-email][content]" class="send-email-content-input"
 	                		<?php echo $command?null:'disabled="disabled"';?>
@@ -285,3 +285,14 @@
 		$('#send-email-content-modal').data('editor',editor1);
 	});
 </script>
+
+
+
+<div id="error-modal" class="modal hide fade warning" tabindex="-1" role="dialog" aria-labelledby="error-modal-label" aria-hidden="true">
+	<div class="modal-header">
+		<h3 id="error-modal-label">错误</h3>
+	</div>
+	<div class="modal-body">
+		<p></p>
+	</div>
+</div>

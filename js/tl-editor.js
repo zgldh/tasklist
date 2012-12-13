@@ -2,6 +2,9 @@
  * tl-editor.js
  */
 $(function(){
+    var error_modal = $('#error-modal');
+    error_modal.modal({show:false});
+    
 	var editor_form = $('#editor-form');
 	var task_conditions = $('#task_conditions');
 	var condition_list = task_conditions.find('.condition-list');
@@ -239,17 +242,39 @@ $(function(){
 	        }
     	    else
 	        {
-    	        errors = re.errors;
-    	        if(errors.system)
-	            {
-    	            $('.TaskError_system').text(errors.system).show();
-	            }
+    	        errors = getSaveErrorString(re.errors);
+    	        showErrorModal(errors);
+    	        editor_submit.button('reset');
 	        }
     	});
 		return false;
 		
 	});
 	
+	function getSaveErrorString(errors)
+	{
+	    var str = '';
+        if(typeof(errors) == 'string')
+        {
+            str = str+errors+"<br />";
+        }
+        else
+        {
+            for(var key in errors)
+            {
+                var item = errors[key];
+    	        str = str + getSaveErrorString(item);
+    	    }
+        }
+	    return str;
+	}
+
+    function showErrorModal(message)
+    {
+        error_modal.find('.modal-body p').html(message);
+        error_modal.modal('show');
+    }
+
 
     $(function(){$('[rel="tooltip"]').tooltip();});
 });

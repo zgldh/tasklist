@@ -210,11 +210,11 @@ class TimingProcessPeer extends BasePeer
     }
     public function save()
     {
-        self::model ()->save ( $this );
+    	return self::model ()->save ( $this );
     }
     public function delete()
     {
-        self::model ()->delete ( $this );
+        return self::model ()->delete ( $this );
     }
     /**
      *
@@ -258,6 +258,46 @@ class TimingProcessPeer extends BasePeer
             $str = date('Y-m-d H:i:s',strtotime($this->exec_time));
         }
         return $str;
+    }
+    
+    /**
+     * 跳过本条Process
+     */
+    public function setSkip()
+    {
+    	$this->skip = 1;
+    	return $this->save();
+    }
+    /**
+     * 恢复本条Process
+     */
+    public function setRestore()
+    {
+    	$this->skip = 0;
+    	return $this->save();
+    }
+    
+    /**
+     * 该用户是否可以编辑该Process
+     * @param UserPeer $author
+     */
+    public function isEditable($author)
+    {
+    	//TODO 将来可能加上管理员权限
+    	$task = $this->getTask();
+    	if($task->user_id == $author->user_id)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * 当前process是否是跳过
+     */
+    public function isSkip()
+    {
+    	return ($this->skip == 1) ?true:false;
     }
 }
 
