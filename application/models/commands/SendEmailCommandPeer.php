@@ -24,7 +24,7 @@ class SendEmailCommandPeer extends CommandPeer
     }
     
     /**
-     * TODO NEXT 设置参数
+     * 设置参数
      * 
      * @param array $recipients
      *            收件人email array('john@email.com', 'mike@email.com')
@@ -34,7 +34,7 @@ class SendEmailCommandPeer extends CommandPeer
      */
     public function setupParameters($recipients, $content)
     {
-        $content = trim ( $content );
+        $content = trim ( $content,' ;' );
         $recipients = str_replace ( '；', ';', $recipients );
         $valid_recipients = array ();
         $count = 0;
@@ -57,7 +57,7 @@ class SendEmailCommandPeer extends CommandPeer
         
         $data = array ('recipients' => $this->recipients, 'content' => $this->content );
         parent::setParameters ( $data );
-        return null;
+        return true;
     }
     /**
      * 重载 设置参数
@@ -94,7 +94,11 @@ class SendEmailCommandPeer extends CommandPeer
      */
     public function getRecipientsString($default)
     {
-        if (count ( $this->recipients ))
+        if(is_string($this->recipients))
+        {
+            $str = $this->recipients;
+        }
+        elseif (count ( $this->recipients ))
         {
             $str = join ( ';', $this->recipients );
         }

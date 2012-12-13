@@ -45,12 +45,21 @@ class DateStaticConditionPeer extends ConditionPeer
 	 */
 	public function setupParameters($year = null, $month = null, $day = null, $hour = 0)
 	{
-		$year = max ( 2012, min ( self::MAX_YEAR, ( int ) $year ) );
-		$month = max ( 1, min ( self::MAX_MONTH, ( int ) $month ) );
-		$hour = max ( 0, min ( self::MAX_HOUR, ( int ) $hour ) );
+	    if($year)
+	    {
+		    $year = max ( 2012, min ( self::MAX_YEAR, ( int ) $year ) );
+	    }
+	    if($month)
+	    {
+		    $month = max ( 1, min ( self::MAX_MONTH, ( int ) $month ) );
+	    }
+	    $hour = max ( 0, min ( self::MAX_HOUR, ( int ) $hour ) );
 		
-		$day_max = $this->getMonthLastDay ( $year, $month );
-		$day = max ( 1, min ( $day_max, ( int ) $day ) );
+	    if($day)
+	    {
+    		$day_max = $this->getMonthLastDay ( $year, $month );
+    		$day = max ( -1, min ( $day_max, ( int ) $day ) );
+	    }
 		
 		$data = compact ( 'year', 'month', 'day', 'hour' );
 		parent::setParameters( $data );
@@ -102,6 +111,10 @@ class DateStaticConditionPeer extends ConditionPeer
 	 */
 	private function getMonthLastDay($year, $month)
 	{
+	    if(!$month)
+	    {
+	        return 31;
+	    }
 		$day = $this->_month_day [$month];
 		if ($this->is_leap_year ( $year ) && $month == 2)
 		{
@@ -167,6 +180,7 @@ class DateStaticConditionPeer extends ConditionPeer
 		$CI = & get_instance ();
 		$CI->load->model ( 'Timing_process_model', 'timing_process_model', true );
 		
+		$count = 0;
 		for($y = $year_start; $y <= $year_end; $y ++)
 		{
 			for($m = $month_start; $m <= $month_end; $m ++)
@@ -177,15 +191,13 @@ class DateStaticConditionPeer extends ConditionPeer
 					{
 						$last_day = $this->getMonthLastDay ( $y, $m );
 						$date_string = sprintf ( "%04d-%02d-%02d %02d:00:00", $y, $m, $last_day, $this->hour );
-						$date = strtotime ( $date_string );
-						$valid_date_string = date ( 'Y-m-d H:i:s', $date );
 					}
 					else
 					{
 						$date_string = sprintf ( "%04d-%02d-%02d %02d:00:00", $y, $m, $d, $this->hour );
-						$date = strtotime ( $date_string );
-						$valid_date_string = date ( 'Y-m-d H:i:s', $date );
 					}
+					$date = strtotime ( $date_string );
+					$valid_date_string = date ( 'Y-m-d H:i:s', $date );
 					
 					if ($valid_date_string == $date_string && $date > $now)
 					{
@@ -193,7 +205,7 @@ class DateStaticConditionPeer extends ConditionPeer
 						{
 							$timing_process = TimingProcessPeer::model ()->create ( $this->task_id, $date_string );
 							$timing_process->save ();
-							
+							$count++;
 							$max_count --;
 							if ($max_count == 0)
 							{
@@ -201,18 +213,16 @@ class DateStaticConditionPeer extends ConditionPeer
 							}
 						}
 					}
-					else
-					{
-						if ($this->day && $this->month && $this->year)
-						{
-							return '特定时间 不得小于当前日期：' . $date_string;
-						}
-					}
 				}
 			}
 		}
 		
-		return;
+		if ($count == 0)
+		{
+			return '特定时间 不可能被执行：' . $valid_date_string;
+		}
+		
+		return null;
 	}
 }
 
