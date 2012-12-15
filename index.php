@@ -174,6 +174,12 @@ if (defined('ENVIRONMENT'))
 
 	// Name of the "system folder"
 	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
+	
+	/**
+	 * path to /uploads folder "e:/wwwroot/tasklist/uploads"
+	 * @var string
+	 */
+	define('UPLOADS',FCPATH.'/uploads');
 
 
 	// The path to the "application" folder

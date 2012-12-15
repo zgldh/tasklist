@@ -206,7 +206,7 @@
 	                		<br />
 	                		<input type="hidden" name="Task[Commands][send-email][content]" class="send-email-content-input"
 	                		<?php echo $command?null:'disabled="disabled"';?>
-	                			value="<?php echo @$parameters->content;?>"
+	                			value="<?php echo htmlspecialchars(@$parameters->content);?>"
 	                		/>
 	                		<a class="btn btn-info command-send-email-edit" href="#send-email-content-modal" data-toggle="modal" title="设置邮件内容"><i class="icon-write"></i>编辑邮件内容</a>
 	                		<button class="btn btn-warning command-delete-btn" type="button" title="删除命令"><i class="icon-remove"></i></button>

@@ -14,7 +14,14 @@
 | path to your installation.
 |
 */
-define('BASEURL', '/');
+if($_SERVER['HTTP_HOST'] == 'tasklist')
+{
+    define('BASEURL', '/');
+}
+else
+{
+    define('BASEURL', 'http://tasklist.zgldh.com/');
+}
 $config['base_url']	= BASEURL;
 
 /*

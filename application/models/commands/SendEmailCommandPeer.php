@@ -52,6 +52,9 @@ class SendEmailCommandPeer extends CommandPeer
             }
         }
         
+        //抽取图片，并且转存
+        $content = $this->purifyContent($content);
+        
         $this->recipients = $valid_recipients;
         $this->content = $content;
         
@@ -107,6 +110,63 @@ class SendEmailCommandPeer extends CommandPeer
             $str = $default;
         }
         return $str;
+    }
+    
+    const REG_BASE64_JPG = '/data:image\/(jpeg);base64,(.*?)"/';
+    const REG_BASE64_GIF = '/data:image\/(gif);base64,(.*?)"/';
+    const REG_BASE64_PNG = '/data:image\/(png);base64,(.*?)"/';
+    
+    /**
+     * 转存所有的图片
+     * @param string $content
+     * @return string
+     */
+    private function purifyContent($content)
+    {
+        $content = preg_replace_callback(self::REG_BASE64_JPG, array($this,'purifyContentCallback'), $content);
+        $content = preg_replace_callback(self::REG_BASE64_GIF, array($this,'purifyContentCallback'), $content);
+        $content = preg_replace_callback(self::REG_BASE64_PNG, array($this,'purifyContentCallback'), $content);
+        
+        return $content;
+    }
+    
+    private function purifyContentCallback($args)
+    {
+        $type = $args[1];
+        $str = $args[2];
+        
+        $content = base64_decode($str); 
+        
+        if($type == 'jpeg')
+        {
+            $file_name = md5($str).'.jpg';
+        }
+        elseif($type == 'gif')
+        {
+            $file_name = md5($str).'.gif';
+        }
+        elseif($type == 'png')
+        {
+            $file_name = md5($str).'.png';            
+        }
+        else
+        {
+            return null;
+        }
+        
+        $date_folder = date('Y-m-d');
+        $dir = UPLOADS.'/'.$date_folder;
+        if(!is_dir($dir))
+        {
+            mkdir($dir);
+        }
+        
+        $file_path = $dir.'/'.$file_name;
+        file_put_contents($file_path, $content);
+        
+        $url = BASEURL.'uploads/'.$date_folder.'/'.$file_name;
+        
+        return $url.'"';
     }
 }
 
