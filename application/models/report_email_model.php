@@ -277,7 +277,7 @@ class ReportEmailPeer extends BasePeer
     {
         $dir = LOG_PATH . '/temp_attachment/';
         
-        $files = scandir('aaa');
+        $files = scandir($dir);
         foreach($files as $file)
         {
             $p = $dir.$file;
