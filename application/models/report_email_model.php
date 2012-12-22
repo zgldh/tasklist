@@ -69,7 +69,7 @@ class Report_email_model extends MY_Model
             $this->db->where ( 'sent', 0 );
         }
         
-        $rows = $this->db->get_where ( self::TABLE );
+        $rows = $this->db->get_where ( self::TABLE )->result();
         foreach ( $rows as $row )
         {
             $re [] = new ReportEmailPeer ( $row );
