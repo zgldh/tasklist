@@ -24,7 +24,7 @@ else
 }
 $config['base_url']	= BASEURL;
 
-define('SITE_EMAIL','tasklist@zgldh.com');
+define('SITE_EMAIL','cronjob@tasklist.zgldh.com');
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol'] = isset($_SERVER['REQUEST_URI']) ? 'AUTO' : 'CLI';
+$config['uri_protocol'] = 'AUTO';
 
 
 /*
