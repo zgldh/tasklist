@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2012-12-23 02:35:45
+Date: 2012-12-23 03:05:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -167,9 +167,9 @@ CREATE TABLE `timing_process` (
 -- ----------------------------
 -- Records of timing_process
 -- ----------------------------
-INSERT INTO `timing_process` VALUES ('100', '16', '0', '0', '2012-12-12 22:40:23', '2012-12-23 01:29:58', '2012-12-23 02:00:00');
-INSERT INTO `timing_process` VALUES ('109', '18', '0', '0', '2012-12-13 23:59:20', '2012-12-23 01:29:58', '2012-12-23 02:00:00');
-INSERT INTO `timing_process` VALUES ('121', '17', '0', '0', '2012-12-15 17:31:48', '2012-12-23 01:29:56', '2012-12-23 02:00:00');
+INSERT INTO `timing_process` VALUES ('100', '16', '0', '0', '2012-12-12 22:40:23', '2012-12-23 01:29:58', '2012-12-23 03:00:00');
+INSERT INTO `timing_process` VALUES ('109', '18', '0', '0', '2012-12-13 23:59:20', '2012-12-23 01:29:58', '2012-12-23 03:00:00');
+INSERT INTO `timing_process` VALUES ('121', '17', '0', '0', '2012-12-15 17:31:48', '2012-12-23 01:29:56', '2012-12-23 03:00:00');
 INSERT INTO `timing_process` VALUES ('128', '17', '0', '0', '2012-12-23 01:19:28', null, '2013-01-01 00:00:00');
 
 -- ----------------------------
@@ -194,4 +194,4 @@ INSERT INTO `user` VALUES ('8', 'test1', '746927de0a4cb6be835d299e761e12e4', 'te
 INSERT INTO `user` VALUES ('9', 'test2', '746927de0a4cb6be835d299e761e12e4', 'test2@email.com', '2012-11-28 06:12:07', '39546989e37910d93a9c93a566e6eaf11354679578', '2013-01-04 00:00:00');
 INSERT INTO `user` VALUES ('10', 'test3', '746927de0a4cb6be835d299e761e12e4', 'test3@email.com', '2012-11-28 06:12:16', null, null);
 INSERT INTO `user` VALUES ('11', 'test4', '746927de0a4cb6be835d299e761e12e4', 'test4@email.com', '2012-11-28 06:12:25', null, null);
-INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'test@email.com', '2012-11-28 06:12:32', '51332bbae860a4f51d7792fa0fa3225d1356186235', '2013-01-21 00:00:00');
+INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', '51332bbae860a4f51d7792fa0fa3225d1356186235', '2013-01-21 00:00:00');
