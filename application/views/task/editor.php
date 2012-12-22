@@ -228,13 +228,13 @@
 	                <?php if($has_condition && $has_command):?>
 	                <button type="button" id="editor-submit-fake" class="btn btn-primary disabled hide">请先设定触发条件与执行内容</button>
 	                <button type="button" id="editor-submit" class="btn btn-primary"
-	                    data-loading-text="保存中。。。" autocomplete="off"
+	                    data-loading-text="上传&保存中。。。" autocomplete="off"
 	                >保存</button> 
 	                <a class="btn" href="/task/edit/<?php echo $task->task_id;?>">复原</a>
 	                <?php else:?> 
 	                <button type="button" id="editor-submit-fake" class="btn btn-primary disabled">请先设定触发条件与执行内容</button>
 	                <button type="button" id="editor-submit" class="btn btn-primary hide"
-	                    data-loading-text="保存中。。。" autocomplete="off"
+	                    data-loading-text="上传&保存中。。。" autocomplete="off"
 	                >保存</button>
 	                <?php endif;?>
 	                

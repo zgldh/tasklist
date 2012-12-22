@@ -39,7 +39,7 @@ class SendEmailCommandPeer extends CommandPeer
      */
     public function setupParameters($recipients, $content)
     {
-        $content = trim ( $content, ' ;' );
+        $content = trim ( $content);
         $recipients = str_replace ( '；', ';', $recipients );
         $valid_recipients = array ();
         $count = 0;

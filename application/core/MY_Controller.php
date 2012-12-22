@@ -308,10 +308,6 @@ class MY_Controller extends CI_Controller{
      */
     public function needCliOrExit($out_string = null)
     {
-        if(!isLiveServer())
-        {
-            return true;
-        }
     	if(!$this->input->is_cli_request())
     	{
 			exit($out_string);
