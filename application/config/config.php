@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-if($_SERVER['HTTP_HOST'] == 'tasklist')
+if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'tasklist')
 {
     define('BASEURL', '/');
 }
@@ -23,6 +23,8 @@ else
     define('BASEURL', 'http://tasklist.zgldh.com/');
 }
 $config['base_url']	= BASEURL;
+
+define('SITE_EMAIL','tasklist@zgldh.com');
 
 /*
 |--------------------------------------------------------------------------
@@ -200,6 +202,7 @@ $config['log_threshold'] = 0;
 |
 */
 $config['log_path'] = '';
+define('LOG_PATH',APPPATH.'logs');
 
 /*
 |--------------------------------------------------------------------------

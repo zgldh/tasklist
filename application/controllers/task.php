@@ -169,6 +169,25 @@ class Task extends MY_Controller
 
 		$this->view('/task/mylist', $data);
 	}
+	
+	public function check($task_id)
+	{
+		$this->loadTimingProcessModel();
+		$processes = TimingProcessPeer::model()->getByTaskId($task_id);
+		
+		foreach($processes as $process)
+		{
+			$process instanceof TimingProcessPeer;
+			if($process->check())
+			{
+				printf("process id: %d  check OK<br />",$process->process_id);
+			}
+			else
+			{
+				printf("process id: %d  check FAIL<br />",$process->process_id);
+			}
+		}
+	}
 }
 
 /* End of file welcome.php */

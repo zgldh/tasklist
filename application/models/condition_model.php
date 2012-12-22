@@ -270,6 +270,16 @@ class ConditionPeer extends BasePeer
     {
         throw new Exception('ConditionPeer::generateAndSaveProcesses 必须被重载!');
     }
+    
+
+
+    /**
+     * 当前条件是否满足
+     */
+    public function check()
+    {
+        throw new Exception('ConditionPeer::check 必须被重载!');
+    }
 }
 
 ?>

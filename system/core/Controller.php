@@ -20,12 +20,14 @@
  *
  * This class object is the super class that every library in
  * CodeIgniter will be assigned to.
- *
+ * 
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Libraries
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/general/controllers.html
+ * 
+ * @property CI_Loader $load
  */
 class CI_Controller {
 

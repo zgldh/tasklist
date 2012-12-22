@@ -11,7 +11,7 @@ class User_model extends MY_Model
 		}
 		
 		$raw = $this->db->get_where ( self::TABLE, array (UserPeer::PK => $user_id ) )->row_array ();
-		$user = $raw ? new UserPeer ( $raw ) : false;
+		$user = $raw ? new UserPeer ( $raw ) : null;
 		
 		$this->cache_pk->setData ( $user_id, $user );
 		
@@ -20,13 +20,13 @@ class User_model extends MY_Model
 	public function getByName($name)
 	{
 		$raw = $this->db->get_where ( self::TABLE, array ('name' => $name ) )->row_array ();
-		$user = $raw ? new UserPeer ( $raw ) : false;
+		$user = $raw ? new UserPeer ( $raw ) : null;
 		return $user;
 	}
 	public function getByEmail($email)
 	{
 		$raw = $this->db->get_where ( self::TABLE, array ('email' => $email ) )->row_array ();
-		$user = $raw ? new UserPeer ( $raw ) : false;
+		$user = $raw ? new UserPeer ( $raw ) : null;
 		return $user;
 	}
 	/**

@@ -99,6 +99,50 @@ class Timing_process_model extends MY_Model
         return $re;
     }
     /**
+     * 得到某一小时内的TimingProcessPeer<br />
+     * skip = 0
+     * 
+     * @param string $start_hour 开始小时 '2012-12-12 12:00:00'
+     * @param DB_Cache $limitObj
+     *            = null
+     * @param boolean $executed
+     *            = null true只取出执行过的, false只取出没执行过的, null忽略
+     * @return multitype:TimingProcessPeer
+     */
+    public function getInOneHour($start_hour,$limitObj = null,$executed = null)
+    {
+        $re = array ();
+        if ($limitObj)
+        {
+            $limitObj->setLimit ( $this->db );
+        }
+        
+        if ($executed === true)
+        {
+            $this->db->where ( "executed", 1 );
+        }
+        elseif ($executed === false)
+        {
+            $this->db->where ( 'executed', 0 );
+        }
+        
+        $start_timestamp = strtotime($start_hour);
+        $end_hour = date('Y-m-d H:00:00',strtotime('+1 hour',$start_timestamp));
+        
+        $this->db->select ( self::TABLE . '.*' );
+        $this->db->from ( self::TABLE );
+        $this->db->where ( 'skip', 0);
+        $this->db->where ( 'plan_time >= ', $start_hour);
+        $this->db->where ( 'plan_time < ', $end_hour);
+        $this->db->order_by('plan_time','DESC');
+        $rows = $this->db->get ( )->result ();
+        foreach ( $rows as $row )
+        {
+            $re [] = new TimingProcessPeer ( $row );
+        }
+        return $re;
+    }
+    /**
      * 更新数据 或 插入数据
      *
      * @param TimingProcessPeer $peer            
@@ -299,6 +343,37 @@ class TimingProcessPeer extends BasePeer
     {
     	return ($this->skip == 1) ?true:false;
     }
+    
+
+    /**
+     * 当前是否满足条件(non-PHPdoc)
+     * @see ConditionPeer::check()
+     * @param $datetime int 时间戳
+     */
+    public function check($datetime = null)
+    {
+    	if($datetime === null)
+    	{
+    		$datetime = time();
+    	}
+    
+    	$left = strtotime($this->plan_time);
+    	$right = strtotime('+1 hour',$left);
+    
+    	if($left <= $datetime && $datetime < $right)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public function setExecuted()
+    {
+        $this->exec_time = $this->getTimeStamp();
+        $this->executed = 1;
+        $this->save();
+    }
+    
 }
 
 ?>

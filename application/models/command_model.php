@@ -170,6 +170,17 @@ class CommandPeer extends BasePeer
 	const PK = 'command_id';
 	
 	/**
+	 * 本命令的报告章节
+	 * @var string
+	 */
+	protected $report_section = null;
+	/**
+	 * 本命令的报告附件
+	 * @var array (file_name=>file_content)
+	 */
+	protected $report_attachment = array ();
+	
+	/**
 	 * 命令类型 访问URL
 	 * 
 	 * @var string
@@ -264,11 +275,11 @@ class CommandPeer extends BasePeer
 		$this->parameters = json_encode ( $data );
     	return null;
 	}
-	
 	/**
+	 * 
 	 * 得到本命令所属的TaskPeer
 	 * 
-	 * @return Ambigous <boolean, TaskPeer>
+	 * @return TaskPeer
 	 */
 	public function getTask()
 	{
@@ -291,6 +302,57 @@ class CommandPeer extends BasePeer
 			return true;
 		}
 		return false;
+	}
+    /**
+     * 执行该命令, 必须被子类重载。 在这里面为 $this->report_section 和 $this->report_attachment 赋值
+     * @throws Exception
+     */	
+	public function execute()
+	{
+	    throw new Exception('CommandPeer::execute 必须被重载');
+	}
+	
+
+	/**
+	 * 得到本命令的报告章节
+	 * @return string
+	 */
+	public function getReportSection()
+	{
+	    return $this->report_section;
+	}
+	/**
+	 * 得到本命令的报告附件
+	 * @return array (file_name=>file_content)
+	 */
+	public function getReportAttachment()
+	{
+	    return $this->report_attachment;
+	}
+	
+	/**
+	 * 根据一组命令， 得到他们的报告组件<br />
+	 * 这包括： 报告章节， 报告附件<br />
+	 * 使用方法：  list($sections, $attachments) = CommandPeer::getReportComponents($commands);
+	 * @param array&lt;CommandPeer&gt; $commands
+	 */
+	public static function getReportComponents($commands)
+	{
+	    if(!is_array($commands))
+	    {
+	        return false;
+	    }
+	    $sections = array();
+	    $attachments = array();
+	    foreach($commands as $command)
+	    {
+	        $command instanceof CommandPeer;
+	        $sections[] = $command->getReportSection();
+	        $attachments =  array_merge($attachments, $command->getReportAttachment());
+	    }
+	    
+	    $re = array($sections,$attachments);
+	    return $re;
 	}
 }
 

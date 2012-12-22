@@ -6,7 +6,7 @@ class Task_model extends MY_Model
 	/**
 	 * 
 	 * @param int $task_id
-	 * @return Ambigous <NULL, TaskPeer>
+	 * @return TaskPeer
 	 */
 	public function getByPK($task_id)
 	{
@@ -605,6 +605,19 @@ class TaskPeer extends BasePeer
 		return $condition;
 	}
 	/**
+	 * 
+	 * 得到当前task的创建者
+	 * @return UserPeer
+	 */
+	public function getUser()
+	{
+		$CI = & get_instance ();
+		$CI->load->model('User_model','user_model',true);
+		
+		$user = UserPeer::model()->getByPK($this->user_id);
+		return $user;
+	}
+	/**
 	 * 得到所有属于本任务的 TimingProcess 
 	 * @param boolean $executed = null true只取出执行过的, false只取出没执行过的, null忽略
 	 */
@@ -690,6 +703,33 @@ class TaskPeer extends BasePeer
 	public function isPrevent()
 	{
 	    return $this->status == self::STATUS_PREVENT;
+	}
+	/**
+	 * 本任务是不是已经达到了执行次数上限。
+	 * @return boolean
+	 */
+	public function isOverExecuted()
+	{
+	    if($this->limit > 0 && $this->times >= $this->limit)
+	    {
+	        return true;
+	    }
+	    return false;
+	}
+
+	/**
+	 * TODO 删除所有未执行的process。<br />
+	 * 这里会先删除未执行的timing_process。<br />
+	 * 未来可能会要删除更多其它的process
+	 */
+	public function deleteUnexecutedProcesses()
+	{
+	    $timing_processes = $this->getTimingProcesses(false);
+	    foreach($timing_processes as $process)
+	    {
+	        $process instanceof TimingProcessPeer;
+	        $process->delete();
+	    }
 	}
 }
 

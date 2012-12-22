@@ -71,6 +71,16 @@ class MY_Controller extends CI_Controller{
      * @var Command_model
      */
     public $command_model = null;
+    /**
+     * 
+     * @var Process_log_model
+     */
+    public $process_log_model = null;
+    /**
+     * 
+     * @var Report_email_model
+     */
+    public $report_email_model = null;
     
     function loadUserModel()
     {
@@ -95,6 +105,14 @@ class MY_Controller extends CI_Controller{
     function loadCommandModel()
     {
     	$this->load->model('Command_model','command_model',true);
+    }
+    function loadProcessLogModel()
+    {
+    	$this->load->model('Process_log_model','process_log_model',true);
+    }
+    function loadReportEmailModel()
+    {
+    	$this->load->model('Report_email_model','report_email_model',true);
     }
     
     /***
@@ -286,6 +304,21 @@ class MY_Controller extends CI_Controller{
     	}
     }
     /**
+     * 需要命令行方式执行， 不然直接exit
+     */
+    public function needCliOrExit($out_string = null)
+    {
+        if(!isLiveServer())
+        {
+            return true;
+        }
+    	if(!$this->input->is_cli_request())
+    	{
+			exit($out_string);
+    	}
+    	return true;
+    }
+    /**
      * 是否登录
      * @return boolean
      */
@@ -394,6 +427,19 @@ class Response_JSON
 			return $string;
 		}
 	}
+}
+
+/**
+ * 是否是线上服务器
+ * @return boolean
+ */
+function isLiveServer()
+{
+    if(BASEURL == 'http://tasklist.zgldh.com/')
+    {
+        return true;
+    }
+    return false;
 }
 
 /* End of file Controller.php */

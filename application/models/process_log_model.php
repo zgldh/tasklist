@@ -88,6 +88,21 @@ class ProcessLogPeer extends BasePeer
 		$CI = & get_instance ();
 		return $CI->process_log_model;
 	}
+	
+	/**
+	 * 记录一个日志， 自动保存
+	 * @param int $task_id 任务id
+	 * @param string $content 日志内容
+	 */
+	public static function log($task_id, $content)
+	{
+	    $log = new ProcessLogPeer();
+	    $log->task_id = $task_id;
+	    $log->log_content = $content;
+	    $log->log_date = self::getTimeStamp();
+	    $log->save();
+	    return $log;
+	}
 
 }
 
