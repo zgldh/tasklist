@@ -179,8 +179,8 @@ class Cronjob extends MY_Controller
     private function saveReportEmails($task, $commands)
     {
         list ( $sections, $attachements ) = CommandPeer::getReportComponents ( $commands );
-        $sections = serialize ( $sections );
-        $attachements = serialize ( $attachements );
+        $sections = json_encode( $sections );
+        $attachements = json_encode( $attachements );
         
         $user = $task->getUser ();
         

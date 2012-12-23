@@ -100,13 +100,13 @@ class ReportEmailPeer extends BasePeer
      */
     public $task_id = 0;
     /**
-     * 报告的章节(serialized array)
+     * 报告的章节(json string)
      * 
      * @var string
      */
     public $sections = null;
     /**
-     * 报告的附件(serialize array)
+     * 报告的附件(json string)
      * 
      * @var string
      */
@@ -188,9 +188,9 @@ class ReportEmailPeer extends BasePeer
      * @param TaskPeer $task
      *            生成该报告的task
      * @param string $sections
-     *            序列化(serilized)的报告章节
+     *            序列化(json_encode)的报告章节
      * @param string $attachment
-     *            序列化(serilized)的附件
+     *            序列化(json_encode)的附件
      * @return ReportEmailPeer
      */
     public static function create($user_id, $task, $sections = null, $attachment = null)
@@ -292,7 +292,7 @@ class ReportEmailPeer extends BasePeer
     
     /**
      * 得到报告章节数组
-     * @param boolean $unserilize=true 是否自动unserilize
+     * @param boolean $unserilize=true 是否自动json_decode
      * @return multitype:|mixed|string
      */
     public function getSections($unserilize = true)
@@ -303,7 +303,7 @@ class ReportEmailPeer extends BasePeer
         }
         if($unserilize)
         {
-            return unserialize($this->sections);
+            return json_decode($this->sections);
         }
         else
         {
@@ -312,7 +312,7 @@ class ReportEmailPeer extends BasePeer
     }
     /**
      * 得到报告附件数组
-     * @param boolean $unserilize=true 是否自动unserilize
+     * @param boolean $unserilize=true 是否自动json_decode
      * @return multitype:|mixed|string
      */
     public function getAttachment($unserilize = true)
@@ -323,7 +323,7 @@ class ReportEmailPeer extends BasePeer
         }
         if($unserilize)
         {
-            return unserialize($this->attachment);
+            return json_decode($this->attachment);
         }
         else
         {
