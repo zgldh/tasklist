@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2012-12-23 03:05:54
+Date: 2012-12-23 19:01:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,18 +26,15 @@ CREATE TABLE `command` (
   `parameters` longtext COMMENT '本命令的参数',
   `update_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间戳',
   PRIMARY KEY (`command_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of command
 -- ----------------------------
-INSERT INTO `command` VALUES ('8', '16', 'url-request', '{\"url\":\"http:\\/\\/www.zgldh.com\"}', '2012-12-20 00:33:09');
-INSERT INTO `command` VALUES ('9', '17', 'send-email', '{\"recipients\":[\"test@email.com\",\"zgldh@hotmail.com\"],\"content\":\"<p>\\r\\n\\tdfdsfdf\\r\\n<\\/p>\\r\\n<p>\\r\\n\\tdsds<img src=\\\"\\/uploads\\/2012-12-15\\/139a58a2044e93bf380487fda9bfefaf.gif\\\" alt=\\\"\\\" \\/><img src=\\\"\\/uploads\\/2012-12-15\\/9370ab9312b7b76ab7bb6419489c482a.jpg\\\" alt=\\\"\\\" \\/> \\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<br \\/>\\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<img src=\\\"\\/uploads\\/2012-12-15\\/64db23896f7899b019bab4ea7dd27052.png\\\" alt=\\\"\\\" \\/> \\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<br \\/>\\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<img src=\\\"\\/uploads\\/2012-12-23\\/a96e186a1778421780d83ce77404ca43.jpg\\\" alt=\\\"\\\" \\/> \\r\\n<\\/p>\"}', '2012-12-23 01:19:28');
-INSERT INTO `command` VALUES ('10', '18', 'url-request', '{\"url\":\"http:\\/\\/www.sina.com\"}', '2012-12-13 23:59:20');
-INSERT INTO `command` VALUES ('11', '19', 'url-request', '{\"url\":\"http:\\/\\/www.sina.com\"}', '2012-12-12 21:40:01');
-INSERT INTO `command` VALUES ('12', '20', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"++\"}', '2012-12-12 21:40:11');
-INSERT INTO `command` VALUES ('14', '21', 'send-email', '{\"recipients\":\"test@email.com;\",\"content\":\"aaa\"}', '2012-12-12 21:40:07');
-INSERT INTO `command` VALUES ('15', '16', 'send-email', '{\"recipients\":[\"test@email.com\"],\"content\":\"\\u00a0\\u5e76\\u4e0d<br \\/>\"}', '2012-12-20 00:33:10');
+INSERT INTO `command` VALUES ('11', '19', 'url-request', '{\"url\":\"http:\\/\\/www.sina.com\"}', '2012-12-23 18:48:26');
+INSERT INTO `command` VALUES ('12', '20', 'send-email', '{\"recipients\":[\"zgldh@qq.com\"],\"content\":\"<p>\\r\\n\\t\\u795d\\u4f60\\u751f\\u65e5\\u5feb\\u4e50\\uff01\\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<img src=\\\"\\/uploads\\/2012-12-23\\/3b946fd21a522b1d3ec4d2f184cab2d7.gif\\\" alt=\\\"\\\" \\/>\\r\\n<\\/p>\"}', '2012-12-23 18:53:52');
+INSERT INTO `command` VALUES ('14', '21', 'send-email', '{\"recipients\":[\"zgldh@hotmail.com\",\"zgldh123@gmail.com\",\"241826677@qq.com\"],\"content\":\"<p>\\r\\n\\t\\u54c8\\u54c8\\uff01\\u6ca1\\u60f3\\u5230\\u5427\\uff01\\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<img src=\\\"\\/uploads\\/2012-12-23\\/0397610659c40a261a4130f25eb9e8fe.gif\\\" alt=\\\"\\\" \\/>\\r\\n<\\/p>\"}', '2012-12-23 18:57:38');
+INSERT INTO `command` VALUES ('16', '21', 'url-request', '{\"url\":\"http:\\/\\/www.baidu.com\"}', '2012-12-23 18:57:38');
 
 -- ----------------------------
 -- Table structure for `condition`
@@ -55,12 +52,9 @@ CREATE TABLE `condition` (
 -- ----------------------------
 -- Records of condition
 -- ----------------------------
-INSERT INTO `condition` VALUES ('16', '16', 'date-static', '{\"year\":2013,\"month\":\"\",\"day\":\"\",\"hour\":0}', '2012-12-20 00:33:09');
-INSERT INTO `condition` VALUES ('17', '17', 'date-static', '{\"year\":2013,\"month\":1,\"day\":1,\"hour\":0}', '2012-12-23 01:19:28');
-INSERT INTO `condition` VALUES ('18', '18', 'date-static', '{\"year\":2013,\"month\":1,\"day\":31,\"hour\":0}', '2012-12-13 23:59:20');
-INSERT INTO `condition` VALUES ('19', '19', 'date-static', '{\"year\":\"\",\"month\":\"8\",\"day\":\"\",\"hour\":\"2\"}', '2012-12-12 21:40:01');
-INSERT INTO `condition` VALUES ('20', '20', 'date-static', '{\"year\":\"\",\"month\":\"10\",\"day\":\"10\",\"hour\":\"0\"}', '2012-12-12 21:40:11');
-INSERT INTO `condition` VALUES ('21', '21', 'date-static', '{\"year\":\"2015\",\"month\":\"1\",\"day\":\"3\",\"hour\":\"0\"}', '2012-12-12 21:40:07');
+INSERT INTO `condition` VALUES ('19', '19', 'date-static', '{\"year\":\"\",\"month\":\"\",\"day\":\"\",\"hour\":19}', '2012-12-23 18:48:26');
+INSERT INTO `condition` VALUES ('20', '20', 'date-static', '{\"year\":\"\",\"month\":12,\"day\":\"\",\"hour\":19}', '2012-12-23 18:53:52');
+INSERT INTO `condition` VALUES ('21', '21', 'date-static', '{\"year\":\"\",\"month\":\"\",\"day\":23,\"hour\":19}', '2012-12-23 18:57:38');
 
 -- ----------------------------
 -- Table structure for `invitation`
@@ -91,7 +85,7 @@ CREATE TABLE `process_log` (
   `log_content` text COMMENT '日志内容',
   `log_date` datetime NOT NULL COMMENT '记录时间戳',
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of process_log
@@ -111,7 +105,7 @@ CREATE TABLE `report_email` (
   `sent_datetime` datetime DEFAULT NULL COMMENT '发送时间',
   `sent` tinyint(3) unsigned DEFAULT '0' COMMENT '0: not sent; 1: sent',
   PRIMARY KEY (`report_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of report_email
@@ -139,12 +133,9 @@ CREATE TABLE `task` (
 -- ----------------------------
 -- Records of task
 -- ----------------------------
-INSERT INTO `task` VALUES ('16', '12', 'active', 'Task 16', '5', '3', '2012-12-09 23:39:23', '2012-12-09 23:39:23');
-INSERT INTO `task` VALUES ('17', '12', 'active', 'Task 17', '0', '3', '2012-12-09 23:41:58', '2012-12-09 23:41:58');
-INSERT INTO `task` VALUES ('18', '12', 'active', 'Task 18', '22', '3', '2012-12-09 23:45:30', '2012-12-09 23:45:30');
-INSERT INTO `task` VALUES ('19', '12', 'pause', 'lol', '0', '0', '2012-12-09 23:46:17', '2012-12-09 23:46:17');
-INSERT INTO `task` VALUES ('20', '12', 'pause', '<b>sdfds</b>', '0', '0', '2012-12-09 23:47:49', '2012-12-09 23:47:49');
-INSERT INTO `task` VALUES ('21', '12', 'pause', 'Task 212', '998', '0', '2012-12-09 23:54:24', '2012-12-09 23:54:24');
+INSERT INTO `task` VALUES ('19', '12', 'active', '定时访问sina', '0', '0', '2012-12-09 23:46:17', '2012-12-09 23:46:17');
+INSERT INTO `task` VALUES ('20', '12', 'active', '测试邮件任务', '0', '0', '2012-12-09 23:47:49', '2012-12-09 23:47:49');
+INSERT INTO `task` VALUES ('21', '12', 'active', '两个都有', '998', '0', '2012-12-09 23:54:24', '2012-12-09 23:54:24');
 
 -- ----------------------------
 -- Table structure for `timing_process`
@@ -162,15 +153,42 @@ CREATE TABLE `timing_process` (
   KEY `plan_time` (`plan_time`,`skip`),
   KEY `gen_time` (`gen_time`),
   KEY `task_id` (`task_id`,`plan_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 -- ----------------------------
 -- Records of timing_process
 -- ----------------------------
-INSERT INTO `timing_process` VALUES ('100', '16', '0', '0', '2012-12-12 22:40:23', '2012-12-23 01:29:58', '2012-12-23 03:00:00');
-INSERT INTO `timing_process` VALUES ('109', '18', '0', '0', '2012-12-13 23:59:20', '2012-12-23 01:29:58', '2012-12-23 03:00:00');
-INSERT INTO `timing_process` VALUES ('121', '17', '0', '0', '2012-12-15 17:31:48', '2012-12-23 01:29:56', '2012-12-23 03:00:00');
 INSERT INTO `timing_process` VALUES ('128', '17', '0', '0', '2012-12-23 01:19:28', null, '2013-01-01 00:00:00');
+INSERT INTO `timing_process` VALUES ('129', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('130', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-24 19:00:00');
+INSERT INTO `timing_process` VALUES ('131', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-25 19:00:00');
+INSERT INTO `timing_process` VALUES ('132', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-26 19:00:00');
+INSERT INTO `timing_process` VALUES ('133', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-27 19:00:00');
+INSERT INTO `timing_process` VALUES ('134', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-28 19:00:00');
+INSERT INTO `timing_process` VALUES ('135', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-29 19:00:00');
+INSERT INTO `timing_process` VALUES ('136', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-30 19:00:00');
+INSERT INTO `timing_process` VALUES ('137', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-31 19:00:00');
+INSERT INTO `timing_process` VALUES ('138', '19', '0', '0', '2012-12-23 18:48:26', null, '2013-01-01 19:00:00');
+INSERT INTO `timing_process` VALUES ('139', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('140', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-24 19:00:00');
+INSERT INTO `timing_process` VALUES ('141', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-25 19:00:00');
+INSERT INTO `timing_process` VALUES ('142', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-26 19:00:00');
+INSERT INTO `timing_process` VALUES ('143', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-27 19:00:00');
+INSERT INTO `timing_process` VALUES ('144', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-28 19:00:00');
+INSERT INTO `timing_process` VALUES ('145', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-29 19:00:00');
+INSERT INTO `timing_process` VALUES ('146', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-30 19:00:00');
+INSERT INTO `timing_process` VALUES ('147', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-31 19:00:00');
+INSERT INTO `timing_process` VALUES ('148', '20', '0', '0', '2012-12-23 18:53:52', null, '2013-12-01 19:00:00');
+INSERT INTO `timing_process` VALUES ('149', '21', '0', '0', '2012-12-23 18:57:38', null, '2012-12-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('150', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-01-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('151', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-02-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('152', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-03-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('153', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-04-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('154', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-05-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('155', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-06-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('156', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-07-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('157', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-08-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('158', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-09-23 19:00:00');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -194,4 +212,4 @@ INSERT INTO `user` VALUES ('8', 'test1', '746927de0a4cb6be835d299e761e12e4', 'te
 INSERT INTO `user` VALUES ('9', 'test2', '746927de0a4cb6be835d299e761e12e4', 'test2@email.com', '2012-11-28 06:12:07', '39546989e37910d93a9c93a566e6eaf11354679578', '2013-01-04 00:00:00');
 INSERT INTO `user` VALUES ('10', 'test3', '746927de0a4cb6be835d299e761e12e4', 'test3@email.com', '2012-11-28 06:12:16', null, null);
 INSERT INTO `user` VALUES ('11', 'test4', '746927de0a4cb6be835d299e761e12e4', 'test4@email.com', '2012-11-28 06:12:25', null, null);
-INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', '51332bbae860a4f51d7792fa0fa3225d1356186235', '2013-01-21 00:00:00');
+INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', '86dd1ef95b0141f63ae5e7e86b9a9f981356259665', '2013-01-22 00:00:00');

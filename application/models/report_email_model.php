@@ -205,11 +205,14 @@ class ReportEmailPeer extends BasePeer
     }
     
     /**
-     * 将本报告邮件发送出去
+     * 将本报告邮件发送出去<br />
+     * 需要先 $CI->load->library ( 'email' );
      */
     public function send()
     {
         $CI = & get_instance ();
+        $CI->email->clear(TRUE);
+        
         $user = $this->getUser();
         $task = $this->getTask();
 
@@ -219,8 +222,7 @@ class ReportEmailPeer extends BasePeer
         
         if (isLiveServer ())
         {
-            $CI->load->library ( 'email' );
-        
+            $CI->email->from ( SITE_EMAIL, 'TaskList' );
             $CI->email->from ( SITE_EMAIL, 'TaskList' );
             $CI->email->to ( $user->email);
             $CI->email->subject ( sprintf ( "%s 的任务执行报告", $task->getName()));

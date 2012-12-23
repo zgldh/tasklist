@@ -266,5 +266,21 @@ class DateStaticConditionPeer extends ConditionPeer
         }
         return false;
     }
+    
+    /**
+     * 删除特定日期(non-PHPdoc)
+     * @see ConditionPeer::delete()
+     */
+    public function delete()
+    {
+        $timing_processes = $this->getTask()->getTimingProcesses(false);
+        foreach($timing_processes as $timing_process)
+        {
+            $timing_process instanceof TimingProcessPeer;
+            $timing_process->delete();
+        }
+        
+         return parent::delete();
+    }
 }
 

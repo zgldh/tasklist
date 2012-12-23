@@ -207,7 +207,7 @@ class ConditionPeer extends BasePeer
     }
     public function delete()
     {
-        ConditionPeer::model ()->delete($this);
+        return ConditionPeer::model ()->delete($this);
     }
     /**
      *
