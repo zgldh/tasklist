@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2012-12-23 19:52:17
+Date: 2012-12-23 20:35:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -85,7 +85,7 @@ CREATE TABLE `process_log` (
   `log_content` text COMMENT '日志内容',
   `log_date` datetime NOT NULL COMMENT '记录时间戳',
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of process_log
@@ -93,6 +93,16 @@ CREATE TABLE `process_log` (
 INSERT INTO `process_log` VALUES ('1', '21', '全部命令执行成功。', '2012-12-23 19:51:34');
 INSERT INTO `process_log` VALUES ('2', '20', '部分命令执行失败： 命令Id: 12; 命令类型: send-email', '2012-12-23 19:51:35');
 INSERT INTO `process_log` VALUES ('3', '19', '全部命令执行成功。', '2012-12-23 19:51:35');
+INSERT INTO `process_log` VALUES ('4', '21', '全部命令执行成功。', '2012-12-23 20:07:09');
+INSERT INTO `process_log` VALUES ('5', '20', '部分命令执行失败： 命令Id: 12; 命令类型: send-email', '2012-12-23 20:07:10');
+INSERT INTO `process_log` VALUES ('6', '19', '全部命令执行成功。', '2012-12-23 20:07:12');
+INSERT INTO `process_log` VALUES ('7', '21', '全部命令执行成功。', '2012-12-23 20:12:05');
+INSERT INTO `process_log` VALUES ('8', '20', '全部命令执行成功。', '2012-12-23 20:12:05');
+INSERT INTO `process_log` VALUES ('9', '21', '全部命令执行成功。', '2012-12-23 20:12:40');
+INSERT INTO `process_log` VALUES ('10', '20', '全部命令执行成功。', '2012-12-23 20:12:42');
+INSERT INTO `process_log` VALUES ('11', '19', '全部命令执行成功。', '2012-12-23 20:12:45');
+INSERT INTO `process_log` VALUES ('12', '21', '全部命令执行成功。', '2012-12-23 20:28:19');
+INSERT INTO `process_log` VALUES ('13', '21', '全部命令执行成功。', '2012-12-23 20:29:20');
 
 -- ----------------------------
 -- Table structure for `report_email`
@@ -102,13 +112,13 @@ CREATE TABLE `report_email` (
   `report_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '报告邮件Id',
   `user_id` bigint(20) unsigned NOT NULL COMMENT '要发给的用户id',
   `task_id` bigint(20) unsigned NOT NULL,
-  `sections` longtext COMMENT '报告章节(json string)',
-  `attachment` longtext COMMENT '附件(json string)',
+  `sections` longtext COMMENT '报告章节(serialized string)',
+  `attachment` longtext COMMENT '附件(serialized string)',
   `gen_datetime` datetime NOT NULL COMMENT '生成时间',
   `sent_datetime` datetime DEFAULT NULL COMMENT '发送时间',
   `sent` tinyint(3) unsigned DEFAULT '0' COMMENT '0: not sent; 1: sent',
   PRIMARY KEY (`report_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of report_email
@@ -136,9 +146,9 @@ CREATE TABLE `task` (
 -- ----------------------------
 -- Records of task
 -- ----------------------------
-INSERT INTO `task` VALUES ('19', '12', 'active', '定时访问sina', '0', '1', '2012-12-09 23:46:17', '2012-12-09 23:46:17');
-INSERT INTO `task` VALUES ('20', '12', 'active', '测试邮件任务', '0', '1', '2012-12-09 23:47:49', '2012-12-09 23:47:49');
-INSERT INTO `task` VALUES ('21', '12', 'active', '两个都有', '998', '1', '2012-12-09 23:54:24', '2012-12-09 23:54:24');
+INSERT INTO `task` VALUES ('19', '12', 'active', '定时访问sina', '0', '3', '2012-12-09 23:46:17', '2012-12-09 23:46:17');
+INSERT INTO `task` VALUES ('20', '12', 'active', '测试邮件任务', '0', '4', '2012-12-09 23:47:49', '2012-12-09 23:47:49');
+INSERT INTO `task` VALUES ('21', '12', 'active', '两个都有', '998', '6', '2012-12-09 23:54:24', '2012-12-09 23:54:24');
 
 -- ----------------------------
 -- Table structure for `timing_process`
@@ -162,7 +172,7 @@ CREATE TABLE `timing_process` (
 -- Records of timing_process
 -- ----------------------------
 INSERT INTO `timing_process` VALUES ('128', '17', '0', '0', '2012-12-23 01:19:28', null, '2013-01-01 00:00:00');
-INSERT INTO `timing_process` VALUES ('129', '19', '0', '0', '2012-12-23 18:48:26', '2012-12-23 19:51:35', '2012-12-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('129', '19', '0', '0', '2012-12-23 18:48:26', '2012-12-23 20:12:43', '2012-12-23 20:00:00');
 INSERT INTO `timing_process` VALUES ('130', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-24 19:00:00');
 INSERT INTO `timing_process` VALUES ('131', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-25 19:00:00');
 INSERT INTO `timing_process` VALUES ('132', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-26 19:00:00');
@@ -172,7 +182,7 @@ INSERT INTO `timing_process` VALUES ('135', '19', '0', '0', '2012-12-23 18:48:26
 INSERT INTO `timing_process` VALUES ('136', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-30 19:00:00');
 INSERT INTO `timing_process` VALUES ('137', '19', '0', '0', '2012-12-23 18:48:26', null, '2012-12-31 19:00:00');
 INSERT INTO `timing_process` VALUES ('138', '19', '0', '0', '2012-12-23 18:48:26', null, '2013-01-01 19:00:00');
-INSERT INTO `timing_process` VALUES ('139', '20', '0', '0', '2012-12-23 18:53:52', '2012-12-23 19:51:34', '2012-12-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('139', '20', '0', '0', '2012-12-23 18:53:52', '2012-12-23 20:12:42', '2012-12-23 20:00:00');
 INSERT INTO `timing_process` VALUES ('140', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-24 19:00:00');
 INSERT INTO `timing_process` VALUES ('141', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-25 19:00:00');
 INSERT INTO `timing_process` VALUES ('142', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-26 19:00:00');
@@ -182,7 +192,7 @@ INSERT INTO `timing_process` VALUES ('145', '20', '0', '0', '2012-12-23 18:53:52
 INSERT INTO `timing_process` VALUES ('146', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-30 19:00:00');
 INSERT INTO `timing_process` VALUES ('147', '20', '0', '0', '2012-12-23 18:53:52', null, '2012-12-31 19:00:00');
 INSERT INTO `timing_process` VALUES ('148', '20', '0', '0', '2012-12-23 18:53:52', null, '2013-12-01 19:00:00');
-INSERT INTO `timing_process` VALUES ('149', '21', '0', '0', '2012-12-23 18:57:38', '2012-12-23 19:51:32', '2012-12-23 19:00:00');
+INSERT INTO `timing_process` VALUES ('149', '21', '0', '0', '2012-12-23 18:57:38', '2012-12-23 20:29:17', '2012-12-23 20:00:00');
 INSERT INTO `timing_process` VALUES ('150', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-01-23 19:00:00');
 INSERT INTO `timing_process` VALUES ('151', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-02-23 19:00:00');
 INSERT INTO `timing_process` VALUES ('152', '21', '0', '0', '2012-12-23 18:57:38', null, '2013-03-23 19:00:00');

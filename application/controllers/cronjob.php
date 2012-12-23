@@ -60,7 +60,7 @@ class Cronjob extends MY_Controller
      */
     public function timing_process()
     {
-        $this->needCliOrExit ();
+//         $this->needCliOrExit ();
         
         $this->timeStart ();
         $max_seconds = 290;
@@ -179,11 +179,7 @@ class Cronjob extends MY_Controller
     private function saveReportEmails($task, $commands)
     {
         list ( $sections, $attachements ) = CommandPeer::getReportComponents ( $commands );
-        $sections = json_encode( $sections );
-        $attachements = json_encode( $attachements );
-        
         $user = $task->getUser ();
-        
         $this->loadReportEmailModel ();
         $report_email = ReportEmailPeer::create ( $user->user_id, $task, $sections, $attachements );
         $report_email->save ();

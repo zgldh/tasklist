@@ -100,13 +100,13 @@ class ReportEmailPeer extends BasePeer
      */
     public $task_id = 0;
     /**
-     * 报告的章节(json string)
+     * 报告的章节(serialized string)
      * 
      * @var string
      */
     public $sections = null;
     /**
-     * 报告的附件(json string)
+     * 报告的附件(serialized string)
      * 
      * @var string
      */
@@ -187,10 +187,8 @@ class ReportEmailPeer extends BasePeer
      *            该报告要发给哪个用户
      * @param TaskPeer $task
      *            生成该报告的task
-     * @param string $sections
-     *            序列化(json_encode)的报告章节
-     * @param string $attachment
-     *            序列化(json_encode)的附件
+     * @param array $sections 报告章节数组
+     * @param array $attachment 报告附件数组
      * @return ReportEmailPeer
      */
     public static function create($user_id, $task, $sections = null, $attachment = null)
@@ -198,8 +196,8 @@ class ReportEmailPeer extends BasePeer
         $report = new ReportEmailPeer ();
         $report->user_id = $user_id;
         $report->task_id = $task->task_id;
-        $report->sections = $sections;
-        $report->attachment = $attachment;
+        $report->sections = serialize($sections);
+        $report->attachment = serialize($attachment);
         $report->gen_datetime = self::getTimeStamp ();
         return $report;
     }
@@ -292,7 +290,7 @@ class ReportEmailPeer extends BasePeer
     
     /**
      * 得到报告章节数组
-     * @param boolean $unserilize=true 是否自动json_decode
+     * @param boolean $unserilize=true 是否自动 unserialize
      * @return multitype:|mixed|string
      */
     public function getSections($unserilize = true)
@@ -303,7 +301,7 @@ class ReportEmailPeer extends BasePeer
         }
         if($unserilize)
         {
-            return json_decode($this->sections);
+            return unserialize($this->sections);
         }
         else
         {
@@ -312,7 +310,7 @@ class ReportEmailPeer extends BasePeer
     }
     /**
      * 得到报告附件数组
-     * @param boolean $unserilize=true 是否自动json_decode
+     * @param boolean $unserilize=true 是否自动 unserialize
      * @return multitype:|mixed|string
      */
     public function getAttachment($unserilize = true)
@@ -323,7 +321,7 @@ class ReportEmailPeer extends BasePeer
         }
         if($unserilize)
         {
-            return json_decode($this->attachment);
+            return unserialize($this->attachment);
         }
         else
         {
