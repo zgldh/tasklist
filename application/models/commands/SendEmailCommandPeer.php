@@ -60,7 +60,7 @@ class SendEmailCommandPeer extends CommandPeer
         // 抽取图片，并且转存
         $content = $this->purifyContent ( $content );
         
-        $this->recipients = $valid_recipients;
+        $this->recipients = join(';',$valid_recipients);
         $this->content = $content;
         
         $data = array ('recipients' => $this->recipients, 'content' => $this->content );
