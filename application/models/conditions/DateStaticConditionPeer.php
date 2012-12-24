@@ -134,6 +134,7 @@ class DateStaticConditionPeer extends ConditionPeer
         $max_count = 10;
         $task = $this->getTask ();
         $task_limit = $task->limit - $task->times;
+        $task_limit = max(0,$task_limit);
         
         //如果不是无限执行， 而且执行次数已经超限。 则返回null
         if($task->limit!= 0 && $task_limit <= 0)

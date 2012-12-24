@@ -5,4 +5,5 @@
 .alert-info .link{color: #red;}
 
 tr.skip{color: #aaa;}
+tr.execute-bolder td{border-top: 2px solid red;}
 .btn.btn-small.btn-link.restore-process-btn{color: #FF3300;}
