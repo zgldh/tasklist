@@ -133,42 +133,42 @@ class WebUser
 	private function storeUserDataInSession($user_id, $user_name)
 	{
 		$ci = & get_instance ();
-		$ci->load->library ( 'session' );
 		$userdata = array (WebUser::SESSION_KEY => array ('user_id' => $user_id, 'user_name' => $user_name ) );
 		$ci->session->set_userdata ( $userdata );
 	}
 
+	public function unsetSessData($newdata = array())
+	{
+	    $ci = & get_instance ();
+	    $ci->session->unset_userdata($newdata);
+	}
 	public function setSessData($newdata = array(), $newval = '')
 	{
 	    $ci = & get_instance ();
-	    $ci->load->library ( 'session' );
 	    $ci->session->set_userdata($newdata,$newval);
 	}
 
     public function getSessData($key)
 	{
 	    $ci = & get_instance ();
-	    $ci->load->library ( 'session' );
-	    $ci->session->set_userdata($key);
+	    $ci->session->userdata($key);
 	}
+	
 	public function setSessFlashData($newdata = array(), $newval = '')
 	{
 	    $ci = & get_instance ();
-	    $ci->load->library ( 'session' );
 	    $ci->session->set_flashdata($newdata,$newval);
 	}
 
     public function getSessFlashData($key)
 	{
 	    $ci = & get_instance ();
-	    $ci->load->library ( 'session' );
 	    $ci->session->flashdata($key);
 	}
 
 	public function keepSessFlashData($key)
 	{
 	    $ci = & get_instance ();
-	    $ci->load->library ( 'session' );
 	    $ci->session->keep_flashdata($key);
 	}
 	

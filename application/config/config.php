@@ -35,7 +35,7 @@ define('WB_APP_KEY',3417457198);
  * @var string
  */
 define('WB_APP_SECRET','29c6e9cc2e9b5e5033819597d9354a11');
-define("WB_CALLBACK_URL" , BASEURL.'weibo/callback.php' );
+define("WB_CALLBACK_URL" , BASEURL.'weibo/callback' );
 
 /*
 |--------------------------------------------------------------------------
