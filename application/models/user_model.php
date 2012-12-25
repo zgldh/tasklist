@@ -223,7 +223,7 @@ class UserPeer extends BasePeer
 		$CI = & get_instance ();
 		$CI->load->model('Weibo_link_model','weibo_link_model',true);
 		
-		$link = WeiboLinkPeer::model()->getByPK($this->user_id);
+		$link = WeiboLinkPeer::model()->getByUserId($this->user_id);
 		return $link;
 	}
 }

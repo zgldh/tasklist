@@ -2,33 +2,63 @@
 class Weibo_link_model extends MY_Model
 {
 	const TABLE = 'weibo_link';
-	public function getByPK($user_id)
+	
+	private $cache_user_id = null;
+	
+	public function __construct()
 	{
-		if ($this->cache_pk->hasData ( $user_id ))
+	    parent::__construct();
+	    $this->cache_user_id = new DB_Cache();
+	}
+	public function getByPK($id)
+	{
+		if ($this->cache_pk->hasData ( $id ))
 		{
-			return $this->cache_pk->getData ( $user_id );
+			return $this->cache_pk->getData ( $id );
 		}
 		
-		$raw = $this->db->get_where ( self::TABLE, array (WeiboLinkPeer::PK => $user_id ) )->row_array ();
+		$raw = $this->db->get_where ( self::TABLE, array (WeiboLinkPeer::PK => $id ) )->row_array ();
 		$user = $raw ? new WeiboLinkPeer ( $raw ) : null;
 		
-		$this->cache_pk->setData ( $user_id, $user );
+		$this->cache_pk->setData ( $id, $user );
+		
+		return $user;
+	}
+	public function getByUserId($user_id)
+	{
+		if ($this->cache_user_id->hasData ( $user_id ))
+		{
+			return $this->cache_user_id->getData ( $user_id );
+		}
+		
+		$raw = $this->db->get_where ( self::TABLE, array ('user_id' => $user_id ) )->row_array ();
+		$user = $raw ? new WeiboLinkPeer ( $raw ) : null;
+		
+		$this->cache_user_id->setData ( $user_id, $user );
 		
 		return $user;
 	}
 	/**
 	 * 更新数据 或 插入数据
 	 *
-	 * @param WeiboLinkPeer $user        	
+	 * @param WeiboLinkPeer $link        	
 	 */
-	public function save(& $user)
+	public function save(& $link)
 	{
-		parent::base_save( self::TABLE, $user );
+		parent::base_save( self::TABLE, $link );
 	}
 }
+/**
+ * sina weibo 的链接对象。<br /> 
+ * TODO 本地服务器缓存用户名等基础信息。<br />
+ * 每次生成会检查多久没更新了， 超过3天就请求一次sina服务器刷新基础信息<br />
+ * @author zgldh
+ *
+ */
 class WeiboLinkPeer extends BasePeer
 {
-	const PK = 'user_id';
+	const PK = 'id';
+	public $id = 0;
 	/**
 	 * 用户ID
 	 *
@@ -78,7 +108,7 @@ class WeiboLinkPeer extends BasePeer
 	}
 	public function getPrimaryKeyValue()
 	{
-		return $this->user_id;
+		return $this->id;
 	}
 	public function save()
 	{

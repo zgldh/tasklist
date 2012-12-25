@@ -56,7 +56,8 @@ class Weibo extends MY_Controller
 	                $token['remind_in']);
 	        
 	        $this->load->helper('url');
-	        redirect('/user/hub');
+	        redirect('/user/hub?weibo_success=1');
+	        exit();
 		}
 		else
 		{

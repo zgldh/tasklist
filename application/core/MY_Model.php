@@ -29,6 +29,15 @@ class MY_Model extends CI_Model
         }
         return $re;
     }
+    public static function timestampToDatetimeString($timestamp, $format = 'Y-m-d H:i:s')
+    {
+        $str = null;
+        if($timestamp)
+        {
+            $str = date($format,$timestamp);
+        }
+        return $str;
+    }
     
     /**
      *
@@ -256,6 +265,17 @@ class BasePeer
         else
         {
             return MY_Model::getTimeStamp ( $return_string ,$format);
+        }
+    }
+    public function timestampToDatetimeString($timestamp, $format = null)
+    {
+        if ($format === null)
+        {
+            return MY_Model::timestampToDatetimeString ( $timestamp );
+        }
+        else
+        {
+            return MY_Model::timestampToDatetimeString ( $timestamp ,$format);
         }
     }
 }

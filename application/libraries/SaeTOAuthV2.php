@@ -510,7 +510,13 @@ class SaeTClientV2
 	 */
 	function __construct( $akey, $skey, $access_token, $refresh_token = NULL)
 	{
-		$this->oauth = new SaeTOAuthV2( $akey, $skey, $access_token, $refresh_token );
+	    $config = array(
+    		'client_id'=>$akey,
+            'client_secret'=>$skey,
+            'access_token'=>$access_token,
+            'refresh_token'=>$refresh_token
+	    );
+		$this->oauth = new SaeTOAuthV2( $config);
 	}
 
 	/**
