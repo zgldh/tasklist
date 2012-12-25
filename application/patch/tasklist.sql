@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2012-12-25 18:35:29
+Date: 2012-12-25 18:38:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,11 +30,11 @@ CREATE TABLE `command` (
 -- ----------------------------
 -- Records of command
 -- ----------------------------
-INSERT INTO command VALUES ('11', '19', 'url-request', '{\"url\":\"http:\\/\\/www.sina.com\"}', '2012-12-24 09:48:26');
-INSERT INTO command VALUES ('12', '20', 'send-email', '{\"recipients\":[\"241826677@qq.com\",\"wengyl@shinetechchina.com\",\"zgldh@hotmail.com\",\"zgldh123@gmail.com\"],\"content\":\"<p>\\n\\t\\u8fd9\\u662f\\u4e00\\u5c01\\u90ae\\u4ef6\\n<\\/p>\\n<p>\\n\\t<img src=\\\"http:\\/\\/tasklist.zgldh.com\\/uploads\\/2012-12-24\\/d78e188c334ebdf1079b34d7d946e3a3.jpg\\\" alt=\\\"\\\" height=\\\"269\\\" width=\\\"405\\\" \\/> \\n<\\/p>\"}', '2012-12-25 03:55:12');
-INSERT INTO command VALUES ('14', '21', 'send-email', '{\"recipients\":[\"zgldh@hotmail.com\",\"zgldh123@gmail.com\",\"241826677@qq.com\"],\"content\":\"<p>\\r\\n\\t\\u54c8\\u54c8\\uff01\\u6ca1\\u60f3\\u5230\\u5427\\uff01\\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<img src=\\\"\\/uploads\\/2012-12-23\\/0397610659c40a261a4130f25eb9e8fe.gif\\\" alt=\\\"\\\" \\/>\\r\\n<\\/p>\"}', '2012-12-24 09:57:38');
-INSERT INTO command VALUES ('16', '21', 'url-request', '{\"url\":\"http:\\/\\/www.baidu.com\"}', '2012-12-24 09:57:38');
-INSERT INTO command VALUES ('17', '22', 'url-request', '{\"url\":\"sxsoft.com\"}', '2012-12-25 04:06:05');
+INSERT INTO `command` VALUES ('11', '19', 'url-request', '{\"url\":\"http:\\/\\/www.sina.com\"}', '2012-12-24 09:48:26');
+INSERT INTO `command` VALUES ('12', '20', 'send-email', '{\"recipients\":[\"241826677@qq.com\",\"wengyl@shinetechchina.com\",\"zgldh@hotmail.com\",\"zgldh123@gmail.com\"],\"content\":\"<p>\\n\\t\\u8fd9\\u662f\\u4e00\\u5c01\\u90ae\\u4ef6\\n<\\/p>\\n<p>\\n\\t<img src=\\\"http:\\/\\/tasklist.zgldh.com\\/uploads\\/2012-12-24\\/d78e188c334ebdf1079b34d7d946e3a3.jpg\\\" alt=\\\"\\\" height=\\\"269\\\" width=\\\"405\\\" \\/> \\n<\\/p>\"}', '2012-12-25 03:55:12');
+INSERT INTO `command` VALUES ('14', '21', 'send-email', '{\"recipients\":[\"zgldh@hotmail.com\",\"zgldh123@gmail.com\",\"241826677@qq.com\"],\"content\":\"<p>\\r\\n\\t\\u54c8\\u54c8\\uff01\\u6ca1\\u60f3\\u5230\\u5427\\uff01\\r\\n<\\/p>\\r\\n<p>\\r\\n\\t<img src=\\\"\\/uploads\\/2012-12-23\\/0397610659c40a261a4130f25eb9e8fe.gif\\\" alt=\\\"\\\" \\/>\\r\\n<\\/p>\"}', '2012-12-24 09:57:38');
+INSERT INTO `command` VALUES ('16', '21', 'url-request', '{\"url\":\"http:\\/\\/www.baidu.com\"}', '2012-12-24 09:57:38');
+INSERT INTO `command` VALUES ('17', '22', 'url-request', '{\"url\":\"sxsoft.com\"}', '2012-12-25 04:06:05');
 
 -- ----------------------------
 -- Table structure for `condition`
@@ -52,10 +52,10 @@ CREATE TABLE `condition` (
 -- ----------------------------
 -- Records of condition
 -- ----------------------------
-INSERT INTO condition VALUES ('19', '19', 'date-static', '{\"year\":\"\",\"month\":\"\",\"day\":\"\",\"hour\":19}', '2012-12-24 09:48:26');
-INSERT INTO condition VALUES ('20', '20', 'date-static', '{\"year\":\"\",\"month\":12,\"day\":\"\",\"hour\":13}', '2012-12-25 03:55:12');
-INSERT INTO condition VALUES ('21', '21', 'date-static', '{\"year\":\"\",\"month\":\"\",\"day\":23,\"hour\":19}', '2012-12-24 09:57:38');
-INSERT INTO condition VALUES ('22', '22', 'date-static', '{\"year\":2012,\"month\":12,\"day\":24,\"hour\":14}', '2012-12-25 04:06:05');
+INSERT INTO `condition` VALUES ('19', '19', 'date-static', '{\"year\":\"\",\"month\":\"\",\"day\":\"\",\"hour\":19}', '2012-12-24 09:48:26');
+INSERT INTO `condition` VALUES ('20', '20', 'date-static', '{\"year\":\"\",\"month\":12,\"day\":\"\",\"hour\":13}', '2012-12-25 03:55:12');
+INSERT INTO `condition` VALUES ('21', '21', 'date-static', '{\"year\":\"\",\"month\":\"\",\"day\":23,\"hour\":19}', '2012-12-24 09:57:38');
+INSERT INTO `condition` VALUES ('22', '22', 'date-static', '{\"year\":2012,\"month\":12,\"day\":24,\"hour\":14}', '2012-12-25 04:06:05');
 
 -- ----------------------------
 -- Table structure for `invitation`
@@ -271,12 +271,12 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO user VALUES ('8', 'test1', '746927de0a4cb6be835d299e761e12e4', 'test1@email.com', '2012-11-28 06:11:18', 'b40d5fcd915a443e8174a6de5e23028d1354873077', '2013-01-06 00:00:00');
-INSERT INTO user VALUES ('9', 'test2', '746927de0a4cb6be835d299e761e12e4', 'test2@email.com', '2012-11-28 06:12:07', '39546989e37910d93a9c93a566e6eaf11354679578', '2013-01-04 00:00:00');
-INSERT INTO user VALUES ('10', 'test3', '746927de0a4cb6be835d299e761e12e4', 'test3@email.com', '2012-11-28 06:12:16', null, null);
-INSERT INTO user VALUES ('11', 'test4', '746927de0a4cb6be835d299e761e12e4', 'test4@email.com', '2012-11-28 06:12:25', null, null);
-INSERT INTO user VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', 'f78881bc3d88223474d26c8ee4bfc30a1356428008', '2013-01-24 00:00:00');
-INSERT INTO user VALUES ('13', 'wengyuli', '9df686a2e5516d3d1525019ca4b8dd34', 'wengyuli@gmail.com', '2012-12-24 13:03:58', '9ee58a8c7abcb24c1cbe4297f091ac5a1356325455', '2013-01-23 00:00:00');
+INSERT INTO `user` VALUES ('8', 'test1', '746927de0a4cb6be835d299e761e12e4', 'test1@email.com', '2012-11-28 06:11:18', 'b40d5fcd915a443e8174a6de5e23028d1354873077', '2013-01-06 00:00:00');
+INSERT INTO `user` VALUES ('9', 'test2', '746927de0a4cb6be835d299e761e12e4', 'test2@email.com', '2012-11-28 06:12:07', '39546989e37910d93a9c93a566e6eaf11354679578', '2013-01-04 00:00:00');
+INSERT INTO `user` VALUES ('10', 'test3', '746927de0a4cb6be835d299e761e12e4', 'test3@email.com', '2012-11-28 06:12:16', null, null);
+INSERT INTO `user` VALUES ('11', 'test4', '746927de0a4cb6be835d299e761e12e4', 'test4@email.com', '2012-11-28 06:12:25', null, null);
+INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', 'f78881bc3d88223474d26c8ee4bfc30a1356428008', '2013-01-24 00:00:00');
+INSERT INTO `user` VALUES ('13', 'wengyuli', '9df686a2e5516d3d1525019ca4b8dd34', 'wengyuli@gmail.com', '2012-12-24 13:03:58', '9ee58a8c7abcb24c1cbe4297f091ac5a1356325455', '2013-01-23 00:00:00');
 
 -- ----------------------------
 -- Table structure for `weibo_link`
