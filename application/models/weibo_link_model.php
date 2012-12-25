@@ -39,7 +39,28 @@ class WeiboLinkPeer extends BasePeer
 	 * 访问token
 	 * @var string
 	 */
-	public $token = '';
+    public $access_token = '';
+	/**
+	 * 刷新token， sina 暂时不提供
+	 * @var string
+	 * @ignore
+	 */
+    public $refresh_token = null;
+    /**
+     * 提醒时间
+     * @var string
+     */
+    public $remind_in = '';
+    /**
+     * 过期时间
+     * @var string
+     */
+    public $expries_in = '';
+    /**
+     * sina微博id号
+     * @var int
+     */
+    public $uid = 0;
 	/**
 	 * 更新时间戳
 	 * @var string
@@ -84,6 +105,19 @@ class WeiboLinkPeer extends BasePeer
 		
 		$user = UserPeer::model()->getByPK($this->user_id);
 		return $user;
+	}
+	
+	public static function createAndSave($user_id,$uid,$access_token,$expires_in,$remind_in)
+	{
+	    $link = new WeiboLinkPeer();
+	    $link->user_id = $user_id;
+	    $link->uid = $uid;
+	    $link->access_token = $access_token;
+	    $link->expries_in = $expires_in;
+	    $link->remind_in = $remind_in;
+	    $link->update_datetime = $link->getTimeStamp();
+	    $link->save();
+	    return $link;
 	}
 }
 

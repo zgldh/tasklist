@@ -46,14 +46,14 @@ class Weibo extends MY_Controller
 		{
 			// 授权成功。
 			$this->webuser->setSessData('token', $token);
-			setcookie ( 'weibojs_' . $o->client_id, http_build_query ( $token ) );
+			setcookie ( 'weibojs_' . $this->sae_oauth->client_id, http_build_query ( $token ) );
 			
 	        $this->loadWeiboLinkModel();
-	        $weibo_link = new WeiboLinkPeer();
-	        $weibo_link->user_id = $this->webuser->getUserId();
-	        $weibo_link->token = $token;
-	        $weibo_link->update_datetime = WeiboLinkPeer::getTimeStamp();
-	        $weibo_link->save();
+	        $weibo_link = WeiboLinkPeer::createAndSave($this->webuser->getUserId(), 
+	                $token['uid'], 
+	                $token['access_token'],
+	                $token['expires_in'],
+	                $token['remind_in']);
 	        
 	        $this->load->helper('url');
 	        redirect('/user/hub');

@@ -151,7 +151,7 @@ class WebUser
     public function getSessData($key)
 	{
 	    $ci = & get_instance ();
-	    $ci->session->userdata($key);
+	    return $ci->session->userdata($key);
 	}
 	
 	public function setSessFlashData($newdata = array(), $newval = '')
@@ -163,7 +163,7 @@ class WebUser
     public function getSessFlashData($key)
 	{
 	    $ci = & get_instance ();
-	    $ci->session->flashdata($key);
+	    return $ci->session->flashdata($key);
 	}
 
 	public function keepSessFlashData($key)
