@@ -25,6 +25,17 @@ else
 $config['base_url']	= BASEURL;
 
 define('SITE_EMAIL','cronjob@tasklist.zgldh.com');
+/**
+ * sina微博app key
+ * @var int
+ */
+define('WB_APP_KEY',3417457198);
+/**
+ * sina微博app secret
+ * @var string
+ */
+define('WB_APP_SECRET','29c6e9cc2e9b5e5033819597d9354a11');
+define("WB_CALLBACK_URL" , BASEURL.'weibo/callback.php' );
 
 /*
 |--------------------------------------------------------------------------

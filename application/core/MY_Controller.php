@@ -18,6 +18,17 @@ class MY_Controller extends CI_Controller{
      * @var NavBar
      */
     public $navbar = null;
+    
+    /**
+     * 
+     * @var SaeTOAuthV2
+     */
+    public $sae_oauth = null;
+    /**
+     * 
+     * @var SaeTClientV2
+     */
+    public $sae_client = null;
 
     private $_javascripts = array();
     private $_auto_javascript_codes = array();
@@ -81,6 +92,11 @@ class MY_Controller extends CI_Controller{
      * @var Report_email_model
      */
     public $report_email_model = null;
+    /**
+     * 
+     * @var Weibo_link_model
+     */
+    public $weibo_link_model = null;
     
     function loadUserModel()
     {
@@ -113,6 +129,23 @@ class MY_Controller extends CI_Controller{
     function loadReportEmailModel()
     {
     	$this->load->model('Report_email_model','report_email_model',true);
+    }
+    function loadWeiboLinkModel()
+    {
+    	$this->load->model('Weibo_link_model','weibo_link_model',true);
+    }
+    
+    
+    
+    
+    function loadSaeTAuthV2()
+    {
+    	$config = array(
+    			'client_id'=>WB_APP_KEY,
+    			'client_secret'=>WB_APP_SECRET,
+    			'access_token'=>null,
+    			'refresh_token'=>null);
+    	$this->load->library('SaeTOAuthV2',$config,'sae_oauth');
     }
     
     /***

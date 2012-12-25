@@ -57,7 +57,7 @@
 			</a>
 	            <?php if($this->navbar->isDisplaySignIn()):?>
 	            <hr class="separator pull-left" />
-	            <a class="pull-left" data-toggle="modal" href="#login_modal">
+	            <a class="pull-left" data-toggle="modal" href="/signin">
 					<span class="top-info-block">
 					<h4>登录</h4>
 					</span>

@@ -21,7 +21,12 @@ class Register extends MY_Controller
 	public function index()
 	{
 		$errors = '';
-
+		if($this->webuser->isLogin())
+		{
+			$this->load->helper('url');
+			redirect('/user/hub');
+			exit();
+		}
 		if($this->isPostRequest())
 		{
 			$form = $this->inputPost('Register');
@@ -39,7 +44,6 @@ class Register extends MY_Controller
 				exit();
 			}
 		}
-		$this->navbar->hideSignIn();
 	    $this->navbar->setCurrentItem(NavBar::ITEM_REGISTER);
 	    $this->navbar->setHeaderTitle('注册会员');
 	    $this->setTitle("注册会员--自动任务");

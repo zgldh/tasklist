@@ -213,6 +213,19 @@ class UserPeer extends BasePeer
 		}
 		return false;
 	}
+	
+	/**
+	 * 得到用户对应的WeiboLinkPeer
+	 * @return WeiboLinkPeer
+	 */
+	public function getWeiboLink()
+	{
+		$CI = & get_instance ();
+		$CI->load->model('Weibo_link_model','weibo_link_model',true);
+		
+		$link = WeiboLinkPeer::model()->getByPK($this->user_id);
+		return $link;
+	}
 }
 
 ?>

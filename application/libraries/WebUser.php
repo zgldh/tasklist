@@ -60,7 +60,7 @@ class WebUser
 					// 换自动登录token
 					$this->_user->newAutoLoginToken ();
 					// 设置 session
-					$this->setSessionData ( $this->_user_id, $this->_user_name );
+					$this->storeUserDataInSession ( $this->_user_id, $this->_user_name );
 					// 设置cookie
 					$this->setCookieData ( $this->_user_id, $this->_user->auto_login_token );
 				}
@@ -112,7 +112,7 @@ class WebUser
 		$this->_user_name = $_user->name;
 		
 		// 设置session
-		$this->setSessionData ( $this->_user_id, $this->_user_name );
+		$this->storeUserDataInSession ( $this->_user_id, $this->_user_name );
 		
 		// 设置 cookie 自动登录
 		$this->setCookieData ( $this->_user_id, $this->_user->auto_login_token );
@@ -120,7 +120,7 @@ class WebUser
 	public function logout()
 	{
 		// 设置session
-		$this->setSessionData ( 0, null );
+		$this->storeUserDataInSession ( 0, null );
 		
 		// 抹掉 cookie
 		$this->deleteCookieData ();
@@ -130,7 +130,7 @@ class WebUser
 		$this->_user_id = 0;
 		$this->_user_name = null;
 	}
-	private function setSessionData($user_id, $user_name)
+	private function storeUserDataInSession($user_id, $user_name)
 	{
 		$ci = & get_instance ();
 		$ci->load->library ( 'session' );
@@ -138,6 +138,19 @@ class WebUser
 		$ci->session->set_userdata ( $userdata );
 	}
 
+	public function setSessData($newdata = array(), $newval = '')
+	{
+	    $ci = & get_instance ();
+	    $ci->load->library ( 'session' );
+	    $ci->session->set_userdata($newdata,$newval);
+	}
+
+    public function getSessData($key)
+	{
+	    $ci = & get_instance ();
+	    $ci->load->library ( 'session' );
+	    $ci->session->set_userdata($key);
+	}
 	public function setSessFlashData($newdata = array(), $newval = '')
 	{
 	    $ci = & get_instance ();
