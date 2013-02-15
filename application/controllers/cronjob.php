@@ -106,6 +106,7 @@ class Cronjob extends MY_Controller
         {
             if ($this->isOvertime ( $max_seconds ))
             {
+                printf("Is Overtime: %s;\n", date ( 'Y-m-d H:i:s' ));
                 break;
             }
             
@@ -113,6 +114,7 @@ class Cronjob extends MY_Controller
             var_dump($this->db->last_query());
             if (count ( $timings ) == 0)
             {
+                printf("Sleep 1\n");
                 sleep ( 1 );
                 continue;
             }
