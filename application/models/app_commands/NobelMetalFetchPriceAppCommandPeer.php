@@ -39,6 +39,9 @@ class NobelMetalFetchPriceAppCommandPeer extends AppCommandPeer
 
         $CI = & get_instance ();
         $CI->load->model ('Kitco_gold_model','kitco_gold_model',true);
+        
+        echo "NobelMetalFetchPriceAppCommandPeer::execute\n";
+        
         KitcoGoldPeer::model()->fetch();
         
         return true;
