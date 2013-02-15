@@ -105,38 +105,46 @@ class Cronjob extends MY_Controller
         
         printf("max_execution_time: %s;\n",ini_get('max_execution_time'));
         
-        while ( 1 )
+        try{
+        
+            while ( 1 )
+            {
+                if ($this->isOvertime ( $max_seconds ))
+                {
+                    printf("Is Overtime: %s;\n", date ( 'Y-m-d H:i:s' ));
+                    break;
+                }
+                
+                $timings = $this->timing_process_model->getRunnableBefore ( null, $limit );
+                printf("%s\n",$this->db->last_query());
+                if (count ( $timings ) == 0)
+                {
+                    printf("Sleep 1\n");
+                    sleep ( 1 );
+                    continue;
+                }
+                
+                foreach ( $timings as $timing )
+                {
+                    $count ++;
+                    $timing instanceof TimingProcessPeer;
+                    if ($timing->isStatusTrigger ())
+                    {
+                        $timing->runTrigger ();
+                    }
+                    elseif ($timing->isStatusCommand ())
+                    {
+                        printf("status command=>run\n");
+                        $timing->runCommand ();
+                        $timing->next ();
+                    }
+                }
+            }
+        }
+        catch(Exception $e)
         {
-            if ($this->isOvertime ( $max_seconds ))
-            {
-                printf("Is Overtime: %s;\n", date ( 'Y-m-d H:i:s' ));
-                break;
-            }
+            printf ( "Cronjob::timing_process error %s;\n", $e->getMessage());
             
-            $timings = $this->timing_process_model->getRunnableBefore ( null, $limit );
-            printf($this->db->last_query());
-            if (count ( $timings ) == 0)
-            {
-                printf("Sleep 1\n");
-                sleep ( 1 );
-                continue;
-            }
-            
-            foreach ( $timings as $timing )
-            {
-                $count ++;
-                $timing instanceof TimingProcessPeer;
-                if ($timing->isStatusTrigger ())
-                {
-                    $timing->runTrigger ();
-                }
-                elseif ($timing->isStatusCommand ())
-                {
-                    printf('status command=>run');
-                    $timing->runCommand ();
-                    $timing->next ();
-                }
-            }
         }
         
         printf ( "Cronjob::timing_process count %d;\n", $count );
