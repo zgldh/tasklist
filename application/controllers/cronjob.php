@@ -90,10 +90,11 @@ class Cronjob extends MY_Controller
     public function timing_process()
     {
         // $this->needCliOrExit ();
+        set_time_limit(300);
         printf ( "Cronjob::timing_process start at %s;\n", date ( 'Y-m-d H:i:s' ) );
         
         $this->timeStart ();
-        $max_seconds = 10;
+        $max_seconds = 290;
         
         $this->loadProcessLogModel ();
         $this->loadTimingProcessModel ();
