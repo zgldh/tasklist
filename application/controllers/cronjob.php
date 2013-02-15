@@ -88,7 +88,7 @@ class Cronjob extends MY_Controller
 //         $this->needCliOrExit ();
         
         $this->timeStart ();
-        $max_seconds = 5;
+        $max_seconds = 290;
 
         $this->loadProcessLogModel ();
         $this->loadTimingProcessModel ();
