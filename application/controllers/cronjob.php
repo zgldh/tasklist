@@ -102,6 +102,8 @@ class Cronjob extends MY_Controller
         
         $count = 0;
         
+        printf("max_execution_time: %s;\n",ini_get('max_execution_time'));
+        
         while ( 1 )
         {
             if ($this->isOvertime ( $max_seconds ))
