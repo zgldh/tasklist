@@ -102,9 +102,10 @@ class Cronjob extends MY_Controller
             }
             
         	$timings = $this->timing_process_model->getRunnableBefore(null,$limit);
+//         	var_dump($this->db->last_query());
         	if(count($timings) == 0)
         	{
-        		sleep(100);
+        		sleep(1);
         		continue;
         	}
         	
