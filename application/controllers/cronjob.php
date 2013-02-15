@@ -91,6 +91,7 @@ class Cronjob extends MY_Controller
     {
         // $this->needCliOrExit ();
         set_time_limit(60);
+        ob_start();
         printf ( "Cronjob::timing_process start at %s;\n", date ( 'Y-m-d H:i:s' ) );
         
         $this->timeStart ();
@@ -139,6 +140,7 @@ class Cronjob extends MY_Controller
         
         printf ( "Cronjob::timing_process count %d;\n", $count );
         printf ( "Cronjob::timing_process end at %s;\n", date ( 'Y-m-d H:i:s' ) );
+        ob_end_flush();
     }
 }
 
