@@ -244,9 +244,12 @@ class TaskCommandPeer extends BasePeer
      */
     public function execute()
     {
+        echo "execute 1\n";
         $app_command = $this->getAppCommand();
         $app_command->praseParameters($this->getParameters());
         $result = $app_command->execute();
+
+        echo "execute 2\n";
         return $result;
     }
 }
