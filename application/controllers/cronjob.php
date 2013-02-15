@@ -93,7 +93,7 @@ class Cronjob extends MY_Controller
         printf ( "Cronjob::timing_process start at %s;\n", date ( 'Y-m-d H:i:s' ) );
         
         $this->timeStart ();
-        $max_seconds = 290;
+        $max_seconds = 10;
         
         $this->loadProcessLogModel ();
         $this->loadTimingProcessModel ();
@@ -109,7 +109,7 @@ class Cronjob extends MY_Controller
             }
             
             $timings = $this->timing_process_model->getRunnableBefore ( null, $limit );
-            // var_dump($this->db->last_query());
+            var_dump($this->db->last_query());
             if (count ( $timings ) == 0)
             {
                 sleep ( 1 );
