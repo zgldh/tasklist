@@ -43,8 +43,6 @@ class Kitco_gold_model extends MY_Model
      */
     public function fetch()
     {
-        echo "KitcoGoldModel::fetch 1";
-        
         $request_url_rmb = 'http://www.kitco.cn/KitcoDynamicSite/RequestHandler?requestName=getFileContent&AttributeId=PreciousMetalsSpotPricesCNY';
         $request_url = 'http://www.kitco.cn/KitcoDynamicSite/RequestHandler?requestName=getFileContent&AttributeId=PreciousMetalsSpotPrices';
         
