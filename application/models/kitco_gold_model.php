@@ -52,8 +52,7 @@ class Kitco_gold_model extends MY_Model
         
         $content = file_get_contents ( $request_url_rmb );
         $content = mb_convert_encoding ( $content, 'UTF-8', 'gbk' );
-
-        echo "KitcoGoldModel::fetch 2";        
+        
         
         if ($content)
         {
@@ -85,12 +84,9 @@ class Kitco_gold_model extends MY_Model
             $peer->dollar_ounce_change_value = 0 + trim ( $gold_array [4] );
             $peer->dollar_ounce_change_rate = 0 + trim ( $gold_array [5] );
         }
-
-        echo "KitcoGoldModel::fetch 3";
+        
         $peer->fetch_date = $this->getTimeStamp ();
         $peer->save ();
-
-        echo "KitcoGoldModel::fetch 4";
     }
     private function getBetween($string, $start, $end, & $offset = 0)
     {

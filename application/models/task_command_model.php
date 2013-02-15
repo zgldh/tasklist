@@ -234,13 +234,9 @@ class TaskCommandPeer extends BasePeer
      */
     public function getAppCommand()
     {
-        echo "getAppCommand 1\n";
         $CI = & get_instance ();
-        echo "getAppCommand 2\n";
         $CI->load->model ( 'App_command_model', 'app_command_model', true );
-        echo "getAppCommand 3\n";
         $app_command = AppCommandPeer::model()->getByPK($this->app_command_id);
-        echo "getAppCommand 4\n";
         return $app_command;
     }
     /**
@@ -248,13 +244,9 @@ class TaskCommandPeer extends BasePeer
      */
     public function execute()
     {
-        echo "execute 1\n";
         $app_command = $this->getAppCommand();
-        echo "execute 2\n";
         $app_command->praseParameters($this->getParameters());
-        echo "execute 3\n";
         $result = $app_command->execute();
-        echo "execute 4\n";
         return $result;
     }
 }

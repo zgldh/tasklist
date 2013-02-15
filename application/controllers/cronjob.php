@@ -135,7 +135,6 @@ class Cronjob extends MY_Controller
                     }
                     elseif ($timing->isStatusCommand ())
                     {
-                        printf("status command=>run\n");
                         $timing->runCommand ();
                         $timing->next ();
                     }
@@ -151,6 +150,7 @@ class Cronjob extends MY_Controller
         printf ( "Cronjob::timing_process count %d;\n", $count );
         printf ( "Cronjob::timing_process end at %s;\n", date ( 'Y-m-d H:i:s' ) );
         ob_end_flush();
+        exit();
     }
 }
 
