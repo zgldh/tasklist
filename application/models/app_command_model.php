@@ -24,15 +24,21 @@ class App_command_model extends MY_Model
      */
     public function getByPK($command_id)
     {
+        echo "App_command_model::getByPK 1\n";
         if ($this->cache_pk->hasData ( $command_id ))
         {
+        echo "App_command_model::getByPK 2\n";
             return $this->cache_pk->getData ( $command_id );
         }
-        
+
+        echo "App_command_model::getByPK 3\n";
         $raw = $this->db->get_where ( self::TABLE, array (AppCommandPeer::PK => $command_id ) )->row_array ();
+        echo "App_command_model::getByPK 4\n";
         $task = $raw ? $this->factory ( $raw ) : null;
+        echo "App_command_model::getByPK 5\n";
         
         $this->cache_pk->setData ( $command_id, $task );
+        echo "App_command_model::getByPK 6\n";
         
         return $task;
     }
