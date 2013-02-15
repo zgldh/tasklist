@@ -16,8 +16,9 @@ class Weibo extends MY_Controller
 	public function callback()
 	{
 		$this->needLoginOrExit ();
+		$user = $this->webuser->getUser();
+		$weibo_link = $user->getWeiboLink();
 		
-		$this->loadSaeTAuthV2 ();
 		if ($this->inputGet ( 'code' ))
 		{
 			$keys = array ();
@@ -35,7 +36,7 @@ class Weibo extends MY_Controller
 			$keys ['redirect_uri'] = WB_CALLBACK_URL;
 			try
 			{
-				$token = $this->sae_oauth->getAccessToken('code', $keys );
+				$token = Weibo_link_model::$sae_oauth->getAccessToken('code', $keys );
 			}
 			catch ( OAuthException $e )
 			{
@@ -46,9 +47,8 @@ class Weibo extends MY_Controller
 		{
 			// 授权成功。
 			$this->webuser->setSessData('token', $token);
-			setcookie ( 'weibojs_' . $this->sae_oauth->client_id, http_build_query ( $token ) );
+			setcookie ( 'weibojs_' . Weibo_link_model::$sae_oauth->client_id, http_build_query ( $token ) );
 			
-	        $this->loadWeiboLinkModel();
 	        $weibo_link = WeiboLinkPeer::createAndSave($this->webuser->getUserId(), 
 	                $token['uid'], 
 	                $token['access_token'],

@@ -1,9 +1,57 @@
 @CHARSET "UTF-8";
 
 #nav-bar,footer,.container{
-    width: 940px;
+    width: 960px;
     margin: 0 auto;
 }
 .dropdown-menu a{cursor: pointer;}
 a.disabled{color: grey !important;}
 a.disabled:hover{background: transparent !important; cursor: not-allowed;}
+
+select, input[type="file"] {
+    height: 28px;
+}
+
+.tile .image-wrapper i{
+	font-size: 72px;
+    line-height: 72px;
+    width: 72px;
+}
+.metro .tile:hover:active{
+	color: #fff;
+	font-weight: bold;
+}
+.tile.red{
+	background-color: #EF2C54;
+}
+.tile.orange{
+	background-color: #EF952C;
+}
+.tile.yellow{
+	background-color: #E3ED2D;
+}
+.tile.green{
+	background-color: #2CEF34;
+}
+.tile.sea{
+	background-color: #652CEF;
+}
+.tile.purple{
+	background-color: #EF2CE6;
+}
+.tile.muted{
+	background-color: #ccc;
+}
+
+/** 应用tile **/
+.tile{text-shadow:0px 0px 2px #000;}
+.tile.app{}
+.tile.app.unactived{}
+.tile.app_1{}/*日期时间*/
+.tile.app_1 i:before{content: "E";}
+.tile.app_2{background-color: #EB182C;}/*新浪微博*/
+.tile.app_2 i{background: url(/img/icon-weibo.png) no-repeat;width:72px;height:72px;}
+.tile.app_3{background-color: navy;}/*电子邮件*/
+.tile.app_3 i:before{content: "";}
+.tile.app_4{background-color: #FFCC00;}/*贵金属*/
+.tile.app_4 i{background: url(/img/icon-coin.png) no-repeat;width:72px;height:72px;}

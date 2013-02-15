@@ -4,7 +4,7 @@
  * @author zgldh
  *
  */
-class SendEmailCommandPeer extends CommandPeer
+class SendEmailCommandPeer extends TaskCommandPeer
 {
     /**
      * 最多地址数

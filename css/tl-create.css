@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.create-page{margin: 20px auto;}
+.create-page h1{display: inline-block;}
+.create-page .row-fluid{position: relative;}
+.create-page .row-fluid.fade{opacity: 0.2;}
+.create-page .row-fluid.fade .mask{position: absolute;z-index: 1;}
+.create-page .row-fluid .back{position: absolute; right: 10px; top: 30px; font-size: 28px;}
+.create-page .controls .help-inline{vertical-align: top;width: 500px;}
+
+.first-btn,.first-btn:link,.first-btn:hover,.first-btn:active{color: #FFA81E;text-decoration: none;cursor: pointer;}

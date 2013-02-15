@@ -31,37 +31,15 @@ class Task extends MY_Controller
 	}
 	public function create()
 	{
-	    $this->needLoginOrExit('/task/create');
-
-	    $this->loadTaskModel();
-	    $this->loadConditionModel();
-	    $this->loadCommandModel();
-	    if($this->isPostRequest())
-	    {
-	        $form_data = $this->inputPost('Task');
-	        $task = null;
-	        $error = $this->task_model->saveForm($this->webuser->getUser(),$form_data,$task);
-	        $re = new Response_JSON();
-	        if($error)
-	        {
-	        	$re->setErrors($error);
-	        	$re->output();
-	        }
-	        $re->setSuccess();
-	        $re->output();
-	    }
-
-	    $task = $this->task_model->createOrGetPending($this->webuser->getUser());
+	    $this->needLoginOrExit('/task/create');	    
 
 	    $this->setTitle("新建任务--自动任务");
 	    $this->navbar->setHeaderTitle('新建任务');
-	    $this->javascript_css_manager->addStyleFile('/css/tl-editor.css');
-	    $this->javascript_css_manager->addJavascriptFile('/js/tl-editor.js');
+	    $this->javascript_css_manager->addStyleFile('/css/tl-create.css');
+	    $this->javascript_css_manager->addJavascriptFile('/js/tl-create.js');
+	    $this->javascript_css_manager->addJavascriptFile('/js/jqScroll.js');
 
-
-	    $data = array('task'=>$task);
-
-		$this->view('/task/editor', $data);
+		$this->view('/task/create');
 	}
 	/**
 	 * 将一个任务暂停
@@ -172,7 +150,7 @@ class Task extends MY_Controller
 	
 	public function check($task_id)
 	{
-		$this->loadTimingProcessModel();
+		$this->loadTimeTriggerModel();
 		$processes = TimingProcessPeer::model()->getByTaskId($task_id);
 		
 		foreach($processes as $process)
@@ -187,6 +165,44 @@ class Task extends MY_Controller
 				printf("process id: %d  check FAIL<br />",$process->process_id);
 			}
 		}
+	}
+	
+	/**
+	 * ajax post来一个新的task， 然后存起来， 然后激活
+	 */
+	public function ajax_create_submit()
+	{
+	    $this->needLoginOrExit();
+	    $response = new Response_JSON();
+    
+	    $this->loadTaskModel();
+	    $this->loadAppTriggerModel();
+	    $this->loadAppCommandModel();
+		    
+	    $this->beginTransaction();
+	    try{
+		    $trigger_parameters = $this->inputPost('trigger');
+		    $command_parameters = $this->inputPost('command');
+		    $task_parameters = $this->inputPost('task');
+		    
+		    $trigger = $this->app_trigger_model->parseFormParameters($trigger_parameters);
+		    $command = $this->app_command_model->parseFormParameters($command_parameters);
+	
+		    $task_name = $task_parameters['name'];
+		    $task = $this->task_model->createByAppTriggerAndCommand($this->getWebUser()->getUser(),$task_name,$trigger, $command);
+		    $task->setActive(true);
+		    
+		    $response->setData($task);
+		    $response->setSuccess();
+	        
+		    $this->commit();
+	    }
+	    catch(Exception $e)
+	    {
+	        $this->rollback();
+	    	$response->setErrors($e->getMessage());
+	    }
+	    $response->output();
 	}
 }
 

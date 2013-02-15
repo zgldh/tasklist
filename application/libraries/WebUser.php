@@ -70,6 +70,15 @@ class WebUser
 		{
 			// 啥都没，游客
 		}
+		
+		if($this->_user)
+		{
+		    $weibo_link = $this->_user->getWeiboLink();
+		    if($weibo_link && $weibo_link->isTimeToUpdateData())
+		    {
+		        $weibo_link->updateUserData();
+		    }
+		}
 	}
 	public function getUser()
 	{

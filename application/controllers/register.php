@@ -39,6 +39,7 @@ class Register extends MY_Controller
 			$errors = UserPeer::model()->register($user_name,$password,$re_password,$email);
 			if(!$errors)
 			{
+				$this->webuser->login($user_name, $password);
 				$this->load->helper('url');
 				redirect('/register/ok');
 				exit();

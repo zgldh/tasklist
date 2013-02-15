@@ -15,7 +15,7 @@ class Process extends MY_Controller
 	{
 	    $this->needLoginOrExit('/process/list');
 
-        $this->loadTimingProcessModel();
+        $this->loadTimeTriggerModel();
         $processes = $this->timing_process_model->getByUserId($this->webuser->getUserId());
 
 	    $this->setTitle("任务执行历史和计划管理--自动任务");
@@ -37,7 +37,7 @@ class Process extends MY_Controller
 		$this->needLoginOrExit();
 		 
 		$response = new Response_JSON();
-		$this->loadTimingProcessModel();
+		$this->loadTimeTriggerModel();
 		$timing_process = $this->timing_process_model->getByPK($process_id);
 		if(!$timing_process)
 		{
@@ -68,7 +68,7 @@ class Process extends MY_Controller
 		$this->needLoginOrExit();
 		 
 		$response = new Response_JSON();
-		$this->loadTimingProcessModel();
+		$this->loadTimeTriggerModel();
 		$timing_process = $this->timing_process_model->getByPK($process_id);
 		if(!$timing_process)
 		{

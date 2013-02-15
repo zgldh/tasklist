@@ -4,7 +4,7 @@
  * @author zgldh
  *
  */
-class UrlRequestCommandPeer extends CommandPeer
+class UrlRequestCommandPeer extends TaskCommandPeer
 {
 	const REG_URL = '/^([a-z]+:\/\/)?([a-z]([a-z0-9\-]*\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)|(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:[0-9]{1,5})?(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-z][a-z0-9_]*)?$/';
 	private $url = null;
@@ -41,7 +41,7 @@ class UrlRequestCommandPeer extends CommandPeer
 	 *
 	 * @param array $url
 	 *        	http://xxx.xxx.com
-	 * @see ConditionPeer::setParameters()
+	 * @see TaskTriggerPeer::setParameters()
 	 */
 	public function setParameters($data)
 	{

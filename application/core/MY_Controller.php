@@ -1,7 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * 
+ * @author zgldh
+ *
+ * @property CI_DB_active_record $db
+ */
 class MY_Controller extends CI_Controller{
 
+    
 	/**
 	 * 
 	 * @var JavascriptCssManager
@@ -68,20 +75,43 @@ class MY_Controller extends CI_Controller{
      */
     public $task_model = null;
     /**
+     *
+     * @var Task_trigger_model
+     */
+    public $task_trigger_model = null;
+    /**
      * 
-     * @var Timing_Process_model
+     * @var Task_command_model
+     */
+    public $task_command_model = null;
+    /**
+     * 
+     * @var App_model
+     */
+    public $app_model = null;
+    /**
+     *
+     * @var App_trigger_model
+     */
+    public $app_trigger_model = null;
+    /**
+     * 
+     * @var App_command_model
+     */
+    public $app_command_model = null;
+    /**
+     * 
+     * @var App_active_model
+     */
+    public $app_active_model = null;
+    
+    
+    /**
+     * 
+     * @var Timing_process_model
      */
     public $timing_process_model = null;
-    /**
-     * 
-     * @var Condition_model
-     */
-    public $condition_model = null;
-    /**
-     * 
-     * @var Command_model
-     */
-    public $command_model = null;
+
     /**
      * 
      * @var Process_log_model
@@ -97,6 +127,11 @@ class MY_Controller extends CI_Controller{
      * @var Weibo_link_model
      */
     public $weibo_link_model = null;
+    /**
+     * 
+     * @var Kitco_gold_model
+     */
+    public $kitco_gold_model = null;
     
     function loadUserModel()
     {
@@ -110,18 +145,35 @@ class MY_Controller extends CI_Controller{
     {
     	$this->load->model('Task_model','task_model',true);
     }
+    function loadTaskTriggerModel()
+    {
+    	$this->load->model('Task_trigger_model','task_trigger_model',true);
+    }
+    function loadTaskCommandModel()
+    {
+    	$this->load->model('Task_command_model','task_command_model',true);
+    }
+    function loadAppActiveModel()
+    {
+    	$this->load->model('App_active_model','app_active_model',true);
+    }
+    function loadAppModel()
+    {
+    	$this->load->model('App_model','app_model',true);
+    }
+    function loadAppTriggerModel()
+    {
+    	$this->load->model('App_trigger_model','app_trigger_model',true);
+    }
+    function loadAppCommandModel()
+    {
+    	$this->load->model('App_command_model','app_command_model',true);
+    }
     function loadTimingProcessModel()
     {
     	$this->load->model('Timing_process_model','timing_process_model',true);
     }
-    function loadConditionModel()
-    {
-    	$this->load->model('Condition_model','condition_model',true);
-    }
-    function loadCommandModel()
-    {
-    	$this->load->model('Command_model','command_model',true);
-    }
+
     function loadProcessLogModel()
     {
     	$this->load->model('Process_log_model','process_log_model',true);
@@ -134,8 +186,10 @@ class MY_Controller extends CI_Controller{
     {
     	$this->load->model('Weibo_link_model','weibo_link_model',true);
     }
-    
-    
+    function loadKitcoGoldModel()
+    {
+    	$this->load->model('Kitco_gold_model','kitco_gold_model',true);
+    }
     
     
     function loadSaeTAuthV2()
@@ -159,7 +213,7 @@ class MY_Controller extends CI_Controller{
      */
     public function getWebUser()
     {
-        return $this->_webuser;
+        return $this->webuser;
     }
     /**
      *
@@ -167,7 +221,7 @@ class MY_Controller extends CI_Controller{
      */
     public function setWebUser($webuser)
     {
-        $this->_webuser = $webuser;
+        $this->webuser = $webuser;
     }
 
     /**
@@ -355,6 +409,21 @@ class MY_Controller extends CI_Controller{
     {
     	return $this->webuser->isLogin();
     }
+    
+    
+    public function beginTransaction()
+    {
+        $this->db->trans_start();
+    }
+    public function commit()
+    {
+        return $this->db->trans_complete();
+    }
+    public function rollback()
+    {
+        $this->db->_trans_status = false;
+        $this->db->trans_complete();
+    }
 }
 // END Controller class
 
@@ -404,7 +473,15 @@ class Response_JSON
 	}
 	public function setData($data)
 	{
-		$this->data = $data;
+	    if($data instanceof BasePeer)
+	    {
+	        $data instanceof BasePeer;
+	        $this->data = $data->getVars();
+	    }
+	    else
+	    {
+		    $this->data = $data;
+	    }
 	}
 	/**
 	 * 得到本相应的json字符串

@@ -37,6 +37,19 @@ define('WB_APP_KEY',3417457198);
 define('WB_APP_SECRET','29c6e9cc2e9b5e5033819597d9354a11');
 define("WB_CALLBACK_URL" , BASEURL.'weibo/callback' );
 
+
+/**
+ * qq app id
+ * @var int
+ */
+define('QQ_APP_ID',100355297);
+/**
+ * qq app key
+ * @var string
+ */
+define('QQ_APP_KEY','4a972d4405a4aa578a41e125ffdb6078');
+define("QQ_CALLBACK_URL" , BASEURL.'qq/callback' );
+
 /*
 |--------------------------------------------------------------------------
 | Index File

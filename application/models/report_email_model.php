@@ -34,7 +34,7 @@ class Report_email_model extends MY_Model
     
     /**
      * 得到一批ReportEmailPeer
-     * 
+     *
      * @param int $user_id
      *            = null 限定某用户
      * @param
@@ -69,67 +69,47 @@ class Report_email_model extends MY_Model
             $this->db->where ( 'sent', 0 );
         }
         
-        $rows = $this->db->get_where ( self::TABLE )->result();
+        $rows = $this->db->get_where ( self::TABLE )->result ();
         foreach ( $rows as $row )
         {
             $re [] = new ReportEmailPeer ( $row );
         }
         return $re;
     }
+    /*
+     * (non-PHPdoc) @see MY_Model::columns()
+     */
+    protected function columns()
+    {
+        return array(
+                'report_id',
+                'user_id',
+                'task_id',
+                'sections',
+                'attachment',
+                'gen_datetime',
+                'sent_datetime',
+                'sent'
+                );
+    }
 }
+/**
+ * @property int $report_id = 0 报告邮件Id
+ * @property int $user_id = 0 要发给的用户id
+ * @property int $task_id = 0 产生报告的任务id
+ * @property string $sections = null 报告的章节(serialized string)
+ * @property string $attachment = null 报告的附件(serialized string)
+ * @property string $gen_datetime = '' 生成时间
+ * @property string $sent_datetime = '' 发送时间
+ * @property int $sent = 0 邮件是否发送 0: not sent; 1: sent
+ * @author zgldh
+ *
+ */
 class ReportEmailPeer extends BasePeer
 {
     const PK = 'report_id';
     
-    /**
-     * 报告邮件Id
-     * 
-     * @var int
-     */
-    public $report_id = 0;
-    /**
-     * 要发给的用户id
-     * 
-     * @var int
-     */
-    public $user_id = 0;
-    /**
-     * 产生报告的任务id
-     * 
-     * @var int
-     */
-    public $task_id = 0;
-    /**
-     * 报告的章节(serialized string)
-     * 
-     * @var string
-     */
-    public $sections = null;
-    /**
-     * 报告的附件(serialized string)
-     * 
-     * @var string
-     */
-    public $attachment = null;
-    /**
-     * 生成时间
-     * 
-     * @var string
-     */
-    public $gen_datetime = '';
-    /**
-     * 发送时间
-     * 
-     * @var string
-     */
-    public $sent_datetime = null;
-    /**
-     * 邮件是否发送
-     * 0: not sent; 1: sent
-     * 
-     * @var int
-     */
-    public $sent = 0;
+ 
     function __construct($raw = null)
     {
         parent::__construct ( $raw, __CLASS__ );
@@ -157,38 +137,42 @@ class ReportEmailPeer extends BasePeer
     }
     /**
      * 得到生成本报告的任务
+     * 
      * @return TaskPeer
      */
     public function getTask()
     {
         $CI = & get_instance ();
-        $CI->load->model('Task_model','task_model',true);
+        $CI->load->model ( 'Task_model', 'task_model', true );
         
-        $task = TaskPeer::model()->getByPK($this->task_id);
+        $task = TaskPeer::model ()->getByPK ( $this->task_id );
         return $task;
     }
     /**
      * 得到要发送给的用户
+     * 
      * @return UserPeer
      */
     public function getUser()
     {
         $CI = & get_instance ();
-        $CI->load->model('User_model','user_model',true);
+        $CI->load->model ( 'User_model', 'user_model', true );
         
-        $user = UserPeer::model()->getByPK($this->user_id);
+        $user = UserPeer::model ()->getByPK ( $this->user_id );
         return $user;
     }
     
     /**
      * 创建一个新的ReportEmailPeer
-     * 
+     *
      * @param int $user_id
      *            该报告要发给哪个用户
      * @param TaskPeer $task
      *            生成该报告的task
-     * @param array $sections 报告章节数组
-     * @param array $attachment 报告附件数组
+     * @param array $sections
+     *            报告章节数组
+     * @param array $attachment
+     *            报告附件数组
      * @return ReportEmailPeer
      */
     public static function create($user_id, $task, $sections = null, $attachment = null)
@@ -196,8 +180,8 @@ class ReportEmailPeer extends BasePeer
         $report = new ReportEmailPeer ();
         $report->user_id = $user_id;
         $report->task_id = $task->task_id;
-        $report->sections = serialize($sections);
-        $report->attachment = serialize($attachment);
+        $report->sections = serialize ( $sections );
+        $report->attachment = serialize ( $attachment );
         $report->gen_datetime = self::getTimeStamp ();
         return $report;
     }
@@ -209,64 +193,65 @@ class ReportEmailPeer extends BasePeer
     public function send()
     {
         $CI = & get_instance ();
-        $CI->email->clear(TRUE);
+        $CI->email->clear ( TRUE );
         
-        $user = $this->getUser();
-        $task = $this->getTask();
-
-        $data = array('task'=>$task,'report'=>$this);
-        $content = $CI->load->view('email_report/report',$data,true);
+        $user = $this->getUser ();
+        $task = $this->getTask ();
+        
+        $data = array ('task' => $task, 'report' => $this );
+        $content = $CI->load->view ( 'email_report/report', $data, true );
         $debug_content = null;
         
         if (isLiveServer ())
         {
             $CI->email->from ( SITE_EMAIL, 'TaskList' );
             $CI->email->from ( SITE_EMAIL, 'TaskList' );
-            $CI->email->to ( $user->email);
-            $CI->email->subject ( sprintf ( "%s 的任务执行报告", $task->getName()));
-            foreach($this->prepareTempAttachment() as $attachment_path)
+            $CI->email->to ( $user->email );
+            $CI->email->subject ( sprintf ( "%s 的任务执行报告", $task->getName () ) );
+            foreach ( $this->prepareTempAttachment () as $attachment_path )
             {
-                $CI->email->attach($attachment_path);
+                $CI->email->attach ( $attachment_path );
             }
-            $CI->email->message ( $content);
+            $CI->email->message ( $content );
             $result = $CI->email->send ();
-            $debug_content = $CI->email->print_debugger();
+            $debug_content = $CI->email->print_debugger ();
         }
         
         $log_file = fopen ( LOG_PATH . '/send_email_log.txt', 'a+' );
-        if($result == true)
+        if ($result == true)
         {
-            fwrite ( $log_file, sprintf ( "%s ReportEmailPeer::send() TaskID=%d, 向%s(%s)发送报告邮件。 成功\n", $this->getTimeStamp(), $task->task_id, $user->name,$user->email));
+            fwrite ( $log_file, sprintf ( "%s ReportEmailPeer::send() TaskID=%d, 向%s(%s)发送报告邮件。 成功\n", $this->getTimeStamp (), $task->task_id, $user->name, $user->email ) );
         }
         else
         {
-            fwrite ( $log_file, sprintf ( "%s ReportEmailPeer::send() TaskID=%d, 向%s(%s)发送报告邮件。 失败\n%s", $this->getTimeStamp(), $task->task_id, $user->name,$user->email,$debug_content));
+            fwrite ( $log_file, sprintf ( "%s ReportEmailPeer::send() TaskID=%d, 向%s(%s)发送报告邮件。 失败\n%s", $this->getTimeStamp (), $task->task_id, $user->name, $user->email, $debug_content ) );
         }
         fclose ( $log_file );
         
-        $this->cleanTempAttachment();
+        $this->cleanTempAttachment ();
         $this->sent = 1;
-        $this->sent_datetime = $this->getTimeStamp();
-        $this->save();
-         
+        $this->sent_datetime = $this->getTimeStamp ();
+        $this->save ();
+        
         return $result;
     }
     
     /**
      * 准备附件临时文件
+     * 
      * @return multitype:string
      */
     private function prepareTempAttachment()
     {
         $dir = LOG_PATH . '/temp_attachment/';
-        $re = array();
+        $re = array ();
         
-        $attachments = $this->getAttachment();
-        foreach($attachments as $file_name=>$file_content)
+        $attachments = $this->getAttachment ();
+        foreach ( $attachments as $file_name => $file_content )
         {
-            $file_path = $dir.$file_name;
-            file_put_contents($file_path, $file_content);
-            $re[] = $file_path;
+            $file_path = $dir . $file_name;
+            file_put_contents ( $file_path, $file_content );
+            $re [] = $file_path;
         }
         return $re;
     }
@@ -277,31 +262,33 @@ class ReportEmailPeer extends BasePeer
     {
         $dir = LOG_PATH . '/temp_attachment/';
         
-        $files = scandir($dir);
-        foreach($files as $file)
+        $files = scandir ( $dir );
+        foreach ( $files as $file )
         {
-            $p = $dir.$file;
-            if($file != 'index.html' && is_file($p))
+            $p = $dir . $file;
+            if ($file != 'index.html' && is_file ( $p ))
             {
-                unlink($p);
+                unlink ( $p );
             }
         }
     }
     
     /**
      * 得到报告章节数组
-     * @param boolean $unserilize=true 是否自动 unserialize
-     * @return multitype:|mixed|string
+     * 
+     * @param boolean $unserilize=true
+     *            是否自动 unserialize
+     * @return multitype: mixed string
      */
     public function getSections($unserilize = true)
     {
-        if(!$this->sections)
+        if (! $this->sections)
         {
-            return array();
+            return array ();
         }
-        if($unserilize)
+        if ($unserilize)
         {
-            return unserialize($this->sections);
+            return unserialize ( $this->sections );
         }
         else
         {
@@ -310,18 +297,20 @@ class ReportEmailPeer extends BasePeer
     }
     /**
      * 得到报告附件数组
-     * @param boolean $unserilize=true 是否自动 unserialize
-     * @return multitype:|mixed|string
+     * 
+     * @param boolean $unserilize=true
+     *            是否自动 unserialize
+     * @return multitype: mixed string
      */
     public function getAttachment($unserilize = true)
     {
-        if(!$this->attachment)
+        if (! $this->attachment)
         {
-            return array();
+            return array ();
         }
-        if($unserilize)
+        if ($unserilize)
         {
-            return unserialize($this->attachment);
+            return unserialize ( $this->attachment );
         }
         else
         {

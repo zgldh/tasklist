@@ -4,7 +4,7 @@
  * @author zgldh
  *
  */
-class DateStaticConditionPeer extends ConditionPeer
+class DateStaticTaskTriggerPeer extends TaskTriggerPeer
 {
     const MAX_YEAR = 2099;
     const MAX_MONTH = 12;
@@ -70,7 +70,7 @@ class DateStaticConditionPeer extends ConditionPeer
      *
      * @param array $data
      *            array('year'=>2012,'month'=>2012,'day'=>2012,'hour'=>2012)
-     * @see ConditionPeer::setParameters()
+     * @see TaskTriggerPeer::setParameters()
      */
     public function setParameters($data)
     {
@@ -126,19 +126,22 @@ class DateStaticConditionPeer extends ConditionPeer
     /**
      * 生成特定日期触发的 TimingProcessPeer
      *
-     * @see ConditionPeer::generateAndSaveProcesses()
+     * @see TaskTriggerPeer::generateAndSaveProcesses()
+     * @param TimingProcessPeer $timing_process
+     *            = null
      */
-    public function generateAndSaveProcesses()
+    public function generateAndSaveProcesses($timing_process = null)
     {
-        // 生成未来10个TimingProcessPeer
-        $max_count = 10;
+        // 生成未来1个TimingProcessPeer
+        $max_count = 1;
         $task = $this->getTask ();
         $task_limit = $task->limit - $task->times;
-        $task_limit = max(0,$task_limit);
+        $task_limit = max ( 0, $task_limit );
         
-        //如果不是无限执行， 而且执行次数已经超限。 则返回null
-        if($task->limit!= 0 && $task_limit <= 0)
+        // 如果不是无限执行， 而且执行次数已经超限。 则返回null
+        if ($task->limit != 0 && $task_limit <= 0)
         {
+        	$timing_process->setStatusIgnore();
             return null;
         }
         
@@ -186,9 +189,6 @@ class DateStaticConditionPeer extends ConditionPeer
             $day_end = $this->day;
         }
         
-        $CI = & get_instance ();
-        $CI->load->model ( 'Timing_process_model', 'timing_process_model', true );
-        
         $count = 0;
         for($y = $year_start; $y <= $year_end; $y ++)
         {
@@ -210,16 +210,23 @@ class DateStaticConditionPeer extends ConditionPeer
                     
                     if ($valid_date_string == $date_string && $date > $now)
                     {
-                        if (! TimingProcessPeer::model ()->exist ( $this->task_id, $date_string ))
+                        if ($timing_process)
                         {
+                            $timing_process->updateParameters ( $date_string, TimingProcessPeer::STATUS_COMMAND );
+                        }
+                        else
+                        {
+                            $CI = & get_instance ();
+                            $CI->load->model ( 'Timing_process_model', 'timing_process_model', true );
+                            
                             $timing_process = TimingProcessPeer::model ()->create ( $this->task_id, $date_string );
                             $timing_process->save ();
-                            $count ++;
-                            $max_count --;
-                            if ($max_count == 0)
-                            {
-                                break 3;
-                            }
+                        }
+                        $count ++;
+                        $max_count --;
+                        if ($max_count == 0)
+                        {
+                            break 3;
                         }
                     }
                 }
@@ -236,7 +243,7 @@ class DateStaticConditionPeer extends ConditionPeer
     
     /**
      * 得到时间戳日期字符串
-     * 
+     *
      * @param int $year            
      * @param int $month            
      * @param int $day            
@@ -251,8 +258,8 @@ class DateStaticConditionPeer extends ConditionPeer
     
     /**
      * 当前时间是否在本条件的一小时内(non-PHPdoc)<br />
-     * 
-     * @see ConditionPeer::check()
+     *
+     * @see TaskTriggerPeer::check()
      */
     public function check()
     {
@@ -270,18 +277,19 @@ class DateStaticConditionPeer extends ConditionPeer
     
     /**
      * 删除特定日期(non-PHPdoc)
-     * @see ConditionPeer::delete()
+     * 
+     * @see TaskTriggerPeer::delete()
      */
     public function delete()
     {
-        $timing_processes = $this->getTask()->getTimingProcesses(false);
-        foreach($timing_processes as $timing_process)
+        $timing_processes = $this->getTask ()->getTimingProcesses ( false );
+        foreach ( $timing_processes as $timing_process )
         {
             $timing_process instanceof TimingProcessPeer;
-            $timing_process->delete();
+            $timing_process->delete ();
         }
         
-         return parent::delete();
+        return parent::delete ();
     }
 }
 

@@ -83,7 +83,7 @@
 	                
 	                <ol class="condition-list">
 	                    <?php $has_condition = false;?>
-	                	<?php $condition = $task->getCondition(ConditionPeer::TYPE_DATE_STATIC);?>
+	                	<?php $condition = $task->getTrigger(TaskTriggerPeer::TYPE_DATE_STATIC);?>
 	                	<?php $parameters = $condition?$condition->getParameters():null;?>
 	                	<li class="condition-item condition-date-static
 	                	<?php echo $condition?null:'hide';?>
@@ -160,14 +160,19 @@
 	                    	<ul class="dropdown-menu">
 	                    		<li><a id="command-url-request-btn">访问URL</a></li>
 	                    		<li><a id="command-send-email-btn">发送电子邮件</a></li>
-	                    		<li><a class="disabled">发送微博(coming soon)</a></li>
+	                    		<?php $weibo_link = $current_user->getWeiboLink();?>
+	                    		<?php if($weibo_link && $weibo_link->access_token):?>
+	                    		<li><a id="command-update-weibo">发送微博</a></li>
+	                    		<?php else:?>
+	                    		<li><a href="/user/hub" target="_blank">发送微博(您必须先绑定新浪微博账号)</a></li>
+	                    		<?php endif;?>
 	                    		<li><a class="disabled">发送短信(coming soon)</a></li>
 	                    	</ul>
 	                    </div>
 	                </div>
 	                <ol class="command-list">
 	                    <?php $has_command = false;?>
-	                	<?php $command = $task->getCommand(CommandPeer::TYPE_URL_REQUEST);?>
+	                	<?php $command = $task->getCommand(TaskCommandPeer::TYPE_URL_REQUEST);?>
 	                	<?php $parameters = $command?$command->getParameters():null;?>
 	                	<li class="command-item command-url-request
 	                	<?php echo $command?null:'hide';?>
@@ -187,7 +192,7 @@
 	                		<p class="hide alert alert-error TaskError_Conditions_url-request"></p>
 	                	</li>
 	                	
-	                	<?php $command = $task->getCommand(CommandPeer::TYPE_SEND_EMAIL);?>
+	                	<?php $command = $task->getCommand(TaskCommandPeer::TYPE_SEND_EMAIL);?>
 	                	<?php $parameters = $command?$command->getParameters():null;?>
 	                	<li class="command-item command-send-email
 		                <?php echo $command?null:'hide';?>
