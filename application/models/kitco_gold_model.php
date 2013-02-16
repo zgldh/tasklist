@@ -43,55 +43,53 @@ class Kitco_gold_model extends MY_Model
      */
     public function fetch()
     {
-    	try
-    	{
-	        $request_url_rmb = 'http://www.kitco.cn/KitcoDynamicSite/RequestHandler?requestName=getFileContent&AttributeId=PreciousMetalsSpotPricesCNY';
-	        $request_url = 'http://www.kitco.cn/KitcoDynamicSite/RequestHandler?requestName=getFileContent&AttributeId=PreciousMetalsSpotPrices';
-	        
-	        $peer = new KitcoGoldPeer ();
-	        
-	        $content = file_get_contents ( $request_url_rmb );
-	        $content = mb_convert_encoding ( $content, 'UTF-8', 'gbk' );
-	        
-	        if ($content)
-	        {
-	            $gold_start = '黄金</td>';
-	            $gold_end = '</tr>';
-	            $gold_html = $this->getBetween ( $content, $gold_start, $gold_end );
-	            $gold_html = trim ( preg_replace ( '/\h/', '', strip_tags ( $gold_html ) ) );
-	            $gold_array = explode ( "\n", $gold_html );
-	            
-	            $peer->rmb_gram_buy = 0 + $gold_array [2];
-	            $peer->rmb_gram_sell = 0 + $gold_array [3];
-	            $peer->rmb_gram_change_value = 0 + trim ( $gold_array [4] );
-	            $peer->rmb_gram_change_rate = 0 + trim ( $gold_array [5] );
-	        }
-	        
-	        $content = file_get_contents ( $request_url );
-	        $content = mb_convert_encoding ( $content, 'UTF-8', 'gbk' );
-	        
-	        if ($content)
-	        {
-	            $gold_start = '黄金</td>';
-	            $gold_end = '</tr>';
-	            $gold_html = $this->getBetween ( $content, $gold_start, $gold_end );
-	            $gold_html = trim ( preg_replace ( '/\h/', '', strip_tags ( $gold_html ) ) );
-	            $gold_array = explode ( "\n", $gold_html );
-	            
-	            $peer->dollar_ounce_buy = 0 + $gold_array [2];
-	            $peer->dollar_ounce_sell = 0 + $gold_array [3];
-	            $peer->dollar_ounce_change_value = 0 + trim ( $gold_array [4] );
-	            $peer->dollar_ounce_change_rate = 0 + trim ( $gold_array [5] );
-	        }
-    	}
-    	catch(Exception $e)
-    	{
-    		throw $e;
-    		return false;
-    	}
+        $request_url_rmb = 'http://www.kitco.cn/KitcoDynamicSite/RequestHandler?requestName=getFileContent&AttributeId=PreciousMetalsSpotPricesCNY';
+        $request_url = 'http://www.kitco.cn/KitcoDynamicSite/RequestHandler?requestName=getFileContent&AttributeId=PreciousMetalsSpotPrices';
+        
+        $peer = new KitcoGoldPeer ();
+        $content = null;
+        for($count = 0;$count < 5 || strlen($content) == 0; $count++)
+        {
+            $content = file_get_contents ( $request_url_rmb );
+        }
+        $content = mb_convert_encoding ( $content, 'UTF-8', 'gbk' );
+        
+        if ($content)
+        {
+            $gold_start = '黄金</td>';
+            $gold_end = '</tr>';
+            $gold_html = $this->getBetween ( $content, $gold_start, $gold_end );
+            $gold_html = trim ( preg_replace ( '/\h/', '', strip_tags ( $gold_html ) ) );
+            $gold_array = explode ( "\n", $gold_html );
+            
+            $peer->rmb_gram_buy = 0 + $gold_array [2];
+            $peer->rmb_gram_sell = 0 + $gold_array [3];
+            $peer->rmb_gram_change_value = 0 + trim ( $gold_array [4] );
+            $peer->rmb_gram_change_rate = 0 + trim ( $gold_array [5] );
+        }
+
+        $content = null;
+        for($count = 0;$count < 5 || strlen($content) == 0; $count++)
+        {
+            $content = file_get_contents ( $request_url );
+        }
+        $content = mb_convert_encoding ( $content, 'UTF-8', 'gbk' );
+        
+        if ($content)
+        {
+            $gold_start = '黄金</td>';
+            $gold_end = '</tr>';
+            $gold_html = $this->getBetween ( $content, $gold_start, $gold_end );
+            $gold_html = trim ( preg_replace ( '/\h/', '', strip_tags ( $gold_html ) ) );
+            $gold_array = explode ( "\n", $gold_html );
+            
+            $peer->dollar_ounce_buy = 0 + $gold_array [2];
+            $peer->dollar_ounce_sell = 0 + $gold_array [3];
+            $peer->dollar_ounce_change_value = 0 + trim ( $gold_array [4] );
+            $peer->dollar_ounce_change_rate = 0 + trim ( $gold_array [5] );
+        }
         $peer->fetch_date = $this->getTimeStamp ();
         $peer->save ();
-        return true;
     }
     private function getBetween($string, $start, $end, & $offset = 0)
     {
