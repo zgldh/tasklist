@@ -66,3 +66,21 @@
 		<button type="submit">设为条件</button>
 	</div>
 </form>
+<script type="text/javascript">
+(function(){
+	var week_checkboxes = $('trigger[week_day][]');
+	var submit = $('.DateTimeWeekly button[type="submit"]');
+	submit.validation = function()
+	{
+		if(week_checkboxes.filter(':checked').size() == 0)
+		{
+			var msg = '请选择周日期。';
+			return msg;
+		}
+		else
+		{
+			return null;
+		} 
+	};
+})();
+</script>

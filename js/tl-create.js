@@ -310,6 +310,18 @@ $(function(){
             return false;
         }
         btn.disabled = true;
+        
+        if(btn.validation)
+    	{
+        	var validation_errors = btn.validation();
+        	if(validation_errors)
+    		{
+                btn.disabled = false;
+                showErrorModal(validation_errors);
+        		return false;
+    		}
+    	}
+        
     	var step_4 = $('#step_4');
     	var url = step_4.attr('data-submit-url');
     	var data = step_4.find('form').serialize();
