@@ -137,12 +137,12 @@ class Cronjob extends MY_Controller
                     	try
                     	{
                     		$timing->runCommand ();
-                    		$timing->next ();
                     	}
                     	catch(Exception $e)
                     	{
-                    		
+                    		continue;
                     	}
+                    	$timing->next ();
                     }
                 }
             }
