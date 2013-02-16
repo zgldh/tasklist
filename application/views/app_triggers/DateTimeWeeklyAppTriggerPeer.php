@@ -70,7 +70,7 @@
 (function(){
 	var week_checkboxes = $('.DateTimeWeekly label.checkbox input[type="checkbox"]');
 	var submit = $('.DateTimeWeekly button[type="submit"]');
-	submit.validation = function()
+	var validation = function()
 	{
 		if(week_checkboxes.filter(':checked').size() == 0)
 		{
@@ -82,5 +82,6 @@
 			return null;
 		} 
 	};
+	submit.data('validation',validation);
 })();
 </script>

@@ -311,9 +311,10 @@ $(function(){
         }
         btn.disabled = true;
         
-        if(btn.validation)
+        var validation = btn.data('validation');
+        if(typeof(validation)=='function')
     	{
-        	var validation_errors = btn.validation();
+        	var validation_errors = validation();
         	if(validation_errors)
     		{
                 btn.disabled = false;
