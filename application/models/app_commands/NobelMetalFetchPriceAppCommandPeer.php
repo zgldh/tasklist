@@ -39,8 +39,7 @@ class NobelMetalFetchPriceAppCommandPeer extends AppCommandPeer
 
         $CI = & get_instance ();
         $CI->load->model ('Kitco_gold_model','kitco_gold_model',true);
-        KitcoGoldPeer::model()->fetch();
-        
-        return true;
+        $re = KitcoGoldPeer::model()->fetch();
+        return $re;
     }
 }
