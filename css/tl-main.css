@@ -19,7 +19,7 @@ select, input[type="file"] {
 }
 .metro .tile:hover:active{
 	color: #fff;
-	font-weight: bold;
+	outline-color: #fff;
 }
 .tile.red{
 	background-color: #EF2C54;
