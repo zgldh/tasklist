@@ -46,7 +46,8 @@ class DateTimeMinutesCycleAppTriggerPeer extends AppTriggerPeer
             throw new Exception ( 'DateTimeMinutesCycleAppTriggerPeer::setNextTimingProcess 时间间隔minutes不能为0' );
             return false;
         }
-        $next_timestamp = time () + ($this->minutes*60);
+        $time_string = date('Y-m-d H:i:00');
+        $next_timestamp = strtotime($time_string) + ($this->minutes*60);
         $timing_process->updateParameters ( $next_timestamp, TimingProcessPeer::STATUS_COMMAND );
     }
     
