@@ -68,7 +68,7 @@
 </form>
 <script type="text/javascript">
 (function(){
-	var week_checkboxes = $('trigger[week_day][]');
+	var week_checkboxes = $('.DateTimeWeekly label.checkbox input[type="checkbox"]');
 	var submit = $('.DateTimeWeekly button[type="submit"]');
 	submit.validation = function()
 	{
