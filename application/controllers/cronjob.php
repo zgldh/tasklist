@@ -134,8 +134,15 @@ class Cronjob extends MY_Controller
                     }
                     elseif ($timing->isStatusCommand ())
                     {
-                        $timing->runCommand ();
-                        $timing->next ();
+                    	try
+                    	{
+                    		$timing->runCommand ();
+                    		$timing->next ();
+                    	}
+                    	catch(Exception $e)
+                    	{
+                    		
+                    	}
                     }
                 }
             }
