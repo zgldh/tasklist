@@ -63,19 +63,31 @@ class App extends MY_Controller
 		$response = new Response_JSON();
 		
 		$app_id = (int)$app_id;
-		$this->loadAppTriggerModel();
-		$triggers = $this->app_trigger_model->getByAppId($app_id);	//能得到全部trigger
-// 		$triggers = $this->app_trigger_model->getByAppId($app_id,0);//只能得到normal 的 trigger
-		$data = array();
-		foreach($triggers as $trigger)
+		$this->loadAppModel();
+		$app = $this->app_model->getByPK($app_id);
+		
+		$actived = $app->getActivedStatusByUser($this->webuser->getUserId());
+		
+		if($actived)
 		{
-		    $trigger instanceof AppTriggerPeer;
-		    $item = $trigger->getVars();
-		    $data[] = $item;
+		    //已经激活了。可以输出trigger列表
+    		$triggers = $app->getTriggers();
+    		
+    		$data = array();
+    		foreach($triggers as $trigger)
+    		{
+    		    $trigger instanceof AppTriggerPeer;
+    		    $item = $trigger->getVars();
+    		    $data[] = $item;
+    		}
+    		$response->setData($data);
+    		$response->setSuccess();
+    		$response->output();
 		}
-		$response->setData($data);
-		$response->setSuccess();
-		$response->output();
+		else
+		{
+		    //TODO NEXT 还没有激活。 需要用户手动设置并确认。
+		}
 	}
 	
 	public function ajax_app_trigger_detail($app_trigger_id)

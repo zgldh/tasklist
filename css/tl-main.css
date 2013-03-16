@@ -55,3 +55,5 @@ select, input[type="file"] {
 .tile.app_3 i:before{content: "";}
 .tile.app_4{background-color: #FFCC00;}/*贵金属*/
 .tile.app_4 i{background: url(/img/icon-coin.png) no-repeat;width:72px;height:72px;}
+.tile.app_5{background-color: #7CBBFF;}/*天气*/
+.tile.app_5 i:before{content: "";}

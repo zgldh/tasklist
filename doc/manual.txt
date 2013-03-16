@@ -1,0 +1,10 @@
+[如何添加新的app]
+1. 在app表中添加新记录, 记录下app_id
+2. 在app_command里面添加新的命令， 注意app_id应该是刚才记录下的app_id, 记录下app_command_id
+3. 在app_trigger里面添加新的条件， 注意app_id应该是刚才记录下的app_id, 记录下app_trigger_id
+4. 在models/app_commands里面添加对应新命令的类，要继承自AppCommandPeer, use app_parameter;
+5. 在models/app_trigger里面添加对应新条件的类，要继承自AppTriggerPeer, use app_parameter;
+6. 修改app_model.php里面的$APP_MAP数组， 注意该数组的下标应该为刚才记录下的app_id
+7. 修改app_command_model.php里面的$APP_COMMAND_MAP数组， 注意该数组的下标应该为刚才记录下的app_command_id
+8. 修改app_trigger_model.php里面的$APP_TRIGGER_MAP数组， 注意该数组的下标应该为刚才记录下的app_trigger_id
+9. 执行 tasklist/app/flush_count 刷新数据库

@@ -85,7 +85,13 @@ class App_model extends MY_Model
      * 
      * @var array
      */
-    private static $APP_MAP = array (null, 'DateTimeAppPeer', 'SinaWeiboAppPeer', 'EmailAppPeer', 'NobelMetalAppPeer', 'WeatherAppPeer' );
+    private static $APP_MAP = array (
+            null, 
+            'DateTimeAppPeer', 
+            'SinaWeiboAppPeer', 
+            'EmailAppPeer', 
+            'NobelMetalAppPeer', 
+            'WeatherAppPeer' );
     
     /**
      *
@@ -132,7 +138,7 @@ class App_model extends MY_Model
  * @author zgldh
  *
  */
-class AppPeer extends BasePeer
+abstract class AppPeer extends BasePeer
 {
     const PK = 'app_id';
     function __construct($raw = null)
@@ -172,6 +178,16 @@ class AppPeer extends BasePeer
     }
     
     /**
+     * 是否是自动active的app
+     */
+    abstract public function isAutoActive();
+    /**
+     * 将某用户的本应用状态设置为actived， 会在app_active表增加一条记录, 返回刚刚增加的peer
+     * @return AppActivePeer
+     */
+    abstract public function autoActive($user_id);
+    
+    /**
      * 得到 应用 的名字
      * 
      * @param boolean $htmlspecialchars
@@ -193,7 +209,27 @@ class AppPeer extends BasePeer
         $CI->load->model ( 'App_active_model', 'app_active_model', true );
         
         $active_peer = AppActivePeer::model ()->getActivedStatus ( $this->app_id, $user_id );
+        
+        if($active_peer == null && $this->isAutoActive())
+        {
+            $active_peer = $this->autoActive($user_id);
+        }
+        
         return $active_peer;
+    }
+    
+    /**
+     * 
+     * @param int $trigger_level = null trigger等级
+     * @return Ambigous <multitype:AppTriggerPeer>
+     */
+    public function getTriggers($trigger_level = null)
+    {
+        $CI = & get_instance ();
+        $CI->load->model ( 'App_trigger_model', 'app_trigger_model', true );
+        
+        $triggers = AppTriggerPeer::model()->getByAppId($this->app_id,$trigger_level);
+        return $triggers;
     }
 }
 

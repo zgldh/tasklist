@@ -5,7 +5,7 @@
 			<h2>互联网事件中心</h2>
 			<p>您可以设置在特定的日子，特定的情况下来执行发送邮件、发送微博、访问URL等等任务。</p>
 				
-			<div class="metro" style="display: inline-block;">
+			<div class="metro" style="display: inline-block;width:480px;">
 				<a class="tile app" href="/task/create">
 					<div class="image-wrapper">
 						<i class="icon-new"></i>

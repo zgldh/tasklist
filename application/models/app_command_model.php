@@ -96,18 +96,22 @@ class App_command_model extends MY_Model
     }
     
     /**
-     * key应当对应着app_command表内的顺序
+     * key应当对应着app_command表内的app_command_id
      * 
-     * @var array 1	3	发送电子邮件	会向一个指定的电子邮箱发送电子邮件	2013-02-03 17:53:54		0
+     * @var array 
+     *      1	3	发送电子邮件	会向一个指定的电子邮箱发送电子邮件	2013-02-03 17:53:54		0
      *      2	2	发送文字微博	用您的微博账号发送一条文字微博	2013-02-03 17:56:56		0
      *      3	2	发送图片微博	用您的微博账号发送一条图片微博	2013-02-03 17:57:02		0
-     *     
-     *      4	4	获取黄金当前价格	抓取kitco.cn的金价数据并且保存。然后激活app_id=4的应用的所有trigger	2013-02-03
-     *      18:33:53		9
+     *      4	4	获取黄金当前价格	抓取kitco.cn的金价数据并且保存。然后激活app_id=4的应用的所有trigger	2013-02-03 18:33:53		9
      *     
      */
-    private static $APP_COMMAND_MAP = array (null,     // 0
-    'EmailSendMailAppCommandPeer', 'SinaWeiboTextStatusAppCommandPeer', 'SinaWeiboPictureStatusAppCommandPeer', 'NobelMetalFetchPriceAppCommandPeer', null, null, null, null, null, null,     // 10
+    private static $APP_COMMAND_MAP = array (
+            null,     // 0
+            'EmailSendMailAppCommandPeer',
+            'SinaWeiboTextStatusAppCommandPeer', 
+            'SinaWeiboPictureStatusAppCommandPeer', 
+            'NobelMetalFetchPriceAppCommandPeer', 
+            null, null, null, null, null, null,     // 10
     null );
     
     /**
@@ -274,7 +278,7 @@ abstract class AppCommandPeer extends BasePeer
     }
     
     /**
-     * TODO next 根据当前app command， 生成一个 task command
+     * 根据当前app command， 生成一个 task command
      * 
      * @return TaskCommandPeer
      */

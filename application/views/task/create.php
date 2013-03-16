@@ -31,7 +31,7 @@
     <div id="step_4" class="row-fluid hide" data-submit-url="/app/ajax_app_trigger_submit">
     	<a class="btn btn-link back" data-target="step_3">上一步</a>
     	<div class="page-header">
-    		<h1><strong style="margin-right: 50px;"></strong> 详细配置本条件</h1>
+    		<h1><strong style="margin-right: 50px;"></strong>详细配置本条件</h1>
     	</div>
     	<div class="span12" id="trigger-detail-box"></div>
     </div>
@@ -76,7 +76,7 @@
     <div id="step_8" class="row-fluid hide" data-submit-url="/app/ajax_app_command_submit">
     	<a class="btn btn-link back" data-target="step_7">上一步</a>
     	<div class="page-header">
-    		<h1><strong style="margin-right: 50px;"></strong> 详细配置本命令</h1>
+    		<h1><strong style="margin-right: 50px;"></strong>详细配置本命令</h1>
     	</div>
     	<div class="span12" id="command-detail-box"></div>
     </div>

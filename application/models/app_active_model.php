@@ -69,6 +69,22 @@ class App_active_model extends MY_Model
                 'update_timestamp'
                 );
     }
+    
+    /**
+     * 
+     * @param int $app_id
+     * @param int $user_id
+     * @return AppActivePeer
+     */
+    public function create($app_id, $user_id)
+    {
+        $peer = new AppActivePeer();
+        $peer->app_id = $app_id;
+        $peer->user_id = $user_id;
+        $peer->actived = AppActivePeer::ACTIVED_YES;
+        $peer->update_timestamp = $this->getTimeStamp();
+        return $peer;
+    }
 }
 /**
  * @property int $active_id = null 应用激活id

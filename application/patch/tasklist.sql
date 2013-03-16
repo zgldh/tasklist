@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2013-02-15 19:40:29
+Date: 2013-02-24 19:08:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,11 +33,11 @@ CREATE TABLE `app` (
 -- ----------------------------
 -- Records of app
 -- ----------------------------
-INSERT INTO `app` VALUES ('1', '日期时间', '按一定周期或特定时间来触发。 是北京时间（东八区）。', '2013-02-03 19:13:56', '8', '0', '0');
-INSERT INTO `app` VALUES ('2', '新浪微博', '您微博的动态可以作为触发条件， 也可以自动用您的微博发出消息。', '2013-02-03 19:13:56', '0', '2', '0');
-INSERT INTO `app` VALUES ('3', '电子邮件', '可以向您的邮箱发送邮件', '2013-02-03 19:13:56', '0', '1', '0');
-INSERT INTO `app` VALUES ('4', '贵金属', '贵金属价格的涨跌可以作为触发条件', '2013-02-03 19:13:56', '3', '1', '0');
-INSERT INTO `app` VALUES ('5', '天气', '气温、雨雪、空气污染指数都可作为触发条件', '2013-02-03 19:13:56', '0', '0', '0');
+INSERT INTO `app` VALUES ('1', '日期时间', '按一定周期或特定时间来触发。 是北京时间（东八区）。', '2013-02-24 18:02:29', '8', '0', '0');
+INSERT INTO `app` VALUES ('2', '新浪微博', '您微博的动态可以作为触发条件， 也可以自动用您的微博发出消息。', '2013-02-24 18:02:29', '0', '2', '0');
+INSERT INTO `app` VALUES ('3', '电子邮件', '可以向您的邮箱发送邮件', '2013-02-24 18:02:29', '0', '1', '0');
+INSERT INTO `app` VALUES ('4', '贵金属', '贵金属价格的涨跌可以作为触发条件', '2013-02-24 18:02:29', '3', '1', '0');
+INSERT INTO `app` VALUES ('5', '天气', '气温、雨雪、空气污染指数都可作为触发条件', '2013-02-24 18:02:29', '9', '0', '0');
 
 -- ----------------------------
 -- Table structure for `app_active`
@@ -95,7 +95,7 @@ CREATE TABLE `app_trigger` (
   `level` tinyint(1) unsigned DEFAULT '0' COMMENT '0:normal; 9: system',
   PRIMARY KEY (`trigger_id`),
   KEY `app_id` (`app_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of app_trigger
@@ -111,6 +111,15 @@ INSERT INTO `app_trigger` VALUES ('8', '1', '每隔几分钟', '每隔几分钟�
 INSERT INTO `app_trigger` VALUES ('9', '4', '黄金变动1元', '当黄金涨跌1元（人民币）/克的时候触发。', '2013-02-03 22:41:23', null, '0');
 INSERT INTO `app_trigger` VALUES ('10', '4', '黄金上涨', '当黄金上涨至特定价格的时候触发', '2013-02-03 22:40:52', null, '0');
 INSERT INTO `app_trigger` VALUES ('11', '4', '黄金下跌', '当黄金下跌至特定价格的时候触发', '2013-02-03 22:40:56', null, '0');
+INSERT INTO `app_trigger` VALUES ('12', '5', '气温变化', '当地气温达到一个特定数值时触发', '2013-02-24 17:49:45', null, '0');
+INSERT INTO `app_trigger` VALUES ('13', '5', '天气变化', '当地天气状况变化时触发。比如下雪的时候触发。', '2013-02-24 17:50:20', null, '0');
+INSERT INTO `app_trigger` VALUES ('14', '5', '明日气温变化', '明天气温达到特定数值时触发。', '2013-02-24 18:16:14', null, '0');
+INSERT INTO `app_trigger` VALUES ('15', '5', '明日天气变化', '明天天气状况变化时触发。', '2013-02-24 18:16:11', null, '0');
+INSERT INTO `app_trigger` VALUES ('16', '5', '空气污染指数', '当地空气污染指数到达特定数值时触发。', '2013-02-24 17:55:35', null, '0');
+INSERT INTO `app_trigger` VALUES ('17', '5', '风力等级', '当地风力达到特定等级时触发。', '2013-02-24 17:55:35', null, '0');
+INSERT INTO `app_trigger` VALUES ('18', '5', '明日风力', '明天风力达到特定等级时触发。', '2013-02-24 17:55:36', null, '0');
+INSERT INTO `app_trigger` VALUES ('19', '5', '相对湿度', '目前相对湿度达到特定数值时触发。', '2013-02-24 18:02:10', null, '0');
+INSERT INTO `app_trigger` VALUES ('20', '5', '紫外线指数', '目前紫外线指数达到特定数值时触发。', '2013-02-24 18:02:26', null, '0');
 
 -- ----------------------------
 -- Table structure for `invitation`
@@ -430,7 +439,7 @@ INSERT INTO `user` VALUES ('8', 'test1', '746927de0a4cb6be835d299e761e12e4', 'te
 INSERT INTO `user` VALUES ('9', 'test2', '746927de0a4cb6be835d299e761e12e4', 'test2@email.com', '2012-11-28 06:12:07', '39546989e37910d93a9c93a566e6eaf11354679578', '2013-01-04 00:00:00');
 INSERT INTO `user` VALUES ('10', 'test3', '746927de0a4cb6be835d299e761e12e4', 'test3@email.com', '2012-11-28 06:12:16', null, null);
 INSERT INTO `user` VALUES ('11', 'test4', '746927de0a4cb6be835d299e761e12e4', 'test4@email.com', '2012-11-28 06:12:25', null, null);
-INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', '38b7f9e04cfc692f67a419451676d6d41360923516', '2013-03-17 00:00:00');
+INSERT INTO `user` VALUES ('12', 'test', '746927de0a4cb6be835d299e761e12e4', 'zgldh@hotmail.com', '2012-11-28 06:12:32', '09b96615df9c4d331c3cf36f1497bcd01361697945', '2013-03-26 00:00:00');
 INSERT INTO `user` VALUES ('13', 'wengyuli', '9df686a2e5516d3d1525019ca4b8dd34', 'wengyuli@gmail.com', '2012-12-24 13:03:58', '9ee58a8c7abcb24c1cbe4297f091ac5a1356325455', '2013-01-23 00:00:00');
 INSERT INTO `user` VALUES ('14', 'system', '918555953b38eaf5121dc961563b587e', 'zgldh123@gmail.com', '2013-01-08 18:25:28', 'cb2125e7b0e713c8c7cf9c009b06e69b1358158046', '2013-02-13 00:00:00');
 INSERT INTO `user` VALUES ('15', 'abc', '6178872b434d75ce00144be34b22ff50', 'abc@email.com', '2013-01-08 19:21:01', 'bd760f5233cef14ab603c385cf8c129b1357644062', '2013-02-07 00:00:00');
@@ -456,5 +465,5 @@ CREATE TABLE `weibo_link` (
 -- ----------------------------
 -- Records of weibo_link
 -- ----------------------------
-INSERT INTO `weibo_link` VALUES ('3', '12', '2.004w1_YB5jSRjD1b2eb2f15aTQY7aB', '157679999', '157679999', null, '1423136987', '2013-02-15 01:46:35', '{\"id\":1423136987,\"idstr\":\"1423136987\",\"screen_name\":\"zgldh\",\"name\":\"zgldh\",\"province\":\"41\",\"city\":\"1\",\"location\":\"\\u6cb3\\u5357 \\u90d1\\u5dde\",\"description\":\"\",\"url\":\"http:\\/\\/hi.baidu.com\\/zgldh\\/home\",\"profile_image_url\":\"http:\\/\\/tp4.sinaimg.cn\\/1423136987\\/50\\/1266905817\\/1\",\"profile_url\":\"zgldh\",\"domain\":\"zgldh\",\"weihao\":\"\",\"gender\":\"m\",\"followers_count\":41,\"friends_count\":20,\"statuses_count\":128,\"favourites_count\":4,\"created_at\":\"Tue Feb 23 14:08:18 +0800 2010\",\"following\":false,\"allow_all_act_msg\":false,\"geo_enabled\":false,\"verified\":false,\"verified_type\":-1,\"remark\":\"\",\"status\":{\"created_at\":\"Tue Feb 12 20:46:36 +0800 2013\",\"id\":3.5449826838365e+15,\"mid\":\"3544982683836455\",\"idstr\":\"3544982683836455\",\"text\":\"\\u8fd9\\u624d\\u662f\\u539f\\u56fe@\\u6b63\\u6b63\\u62ac\\u62ac\\u5934\",\"source\":\"<a href=\\\"http:\\/\\/weibo.com\\/\\\" rel=\\\"nofollow\\\">\\u65b0\\u6d6a\\u5fae\\u535a<\\/a>\",\"favorited\":false,\"truncated\":false,\"in_reply_to_status_id\":\"\",\"in_reply_to_user_id\":\"\",\"in_reply_to_screen_name\":\"\",\"thumbnail_pic\":\"http:\\/\\/ww1.sinaimg.cn\\/thumbnail\\/54d358dbjw1e1qwqrz8akj.jpg\",\"bmiddle_pic\":\"http:\\/\\/ww1.sinaimg.cn\\/bmiddle\\/54d358dbjw1e1qwqrz8akj.jpg\",\"original_pic\":\"http:\\/\\/ww1.sinaimg.cn\\/large\\/54d358dbjw1e1qwqrz8akj.jpg\",\"geo\":null,\"reposts_count\":0,\"comments_count\":0,\"attitudes_count\":0,\"mlevel\":0,\"visible\":{\"type\":0,\"list_id\":0}},\"allow_all_comment\":false,\"avatar_large\":\"http:\\/\\/tp4.sinaimg.cn\\/1423136987\\/180\\/1266905817\\/1\",\"verified_reason\":\"\",\"follow_me\":false,\"online_status\":0,\"bi_followers_count\":18,\"lang\":\"zh-cn\",\"star\":0,\"mbtype\":0,\"mbrank\":0,\"block_word\":0}');
+INSERT INTO `weibo_link` VALUES ('3', '12', '2.004w1_YB5jSRjD1b2eb2f15aTQY7aB', '157679999', '157679999', null, '1423136987', '2013-02-24 17:25:45', '{\"error\":\"source paramter(appkey) is missing\",\"error_code\":10006,\"request\":\"\\/2\\/users\\/show.json\"}');
 INSERT INTO `weibo_link` VALUES ('4', '8', '2.004w1_YB5jSRjD1b2eb2f15aTQY7aB', '157679999', '157679999', null, '1423136987', '2012-12-29 14:18:23', '{\"id\":1423136987,\"idstr\":\"1423136987\",\"screen_name\":\"zgldh\",\"name\":\"zgldh\",\"province\":\"41\",\"city\":\"1\",\"location\":\"\\u6cb3\\u5357 \\u90d1\\u5dde\",\"description\":\"\",\"url\":\"http:\\/\\/hi.baidu.com\\/zgldh\\/home\",\"profile_image_url\":\"http:\\/\\/tp4.sinaimg.cn\\/1423136987\\/50\\/1266905817\\/1\",\"profile_url\":\"zgldh\",\"domain\":\"zgldh\",\"weihao\":\"\",\"gender\":\"m\",\"followers_count\":41,\"friends_count\":20,\"statuses_count\":126,\"favourites_count\":4,\"created_at\":\"Tue Feb 23 14:08:18 +0800 2010\",\"following\":false,\"allow_all_act_msg\":false,\"geo_enabled\":false,\"verified\":false,\"verified_type\":-1,\"remark\":\"\",\"status\":{\"created_at\":\"Sun Dec 16 20:43:40 +0800 2012\",\"id\":3523963445282427,\"mid\":\"3523963445282427\",\"idstr\":\"3523963445282427\",\"text\":\"zgldh-translator 1.1 \\u53d1\\u5e03\\u3002 \\u589e\\u52a0\\u4e86\\u5c0f\\u529f\\u80fd\\uff1a\\u70b9\\u51fb\\u53f3\\u952e\\u83dc\\u5355\\u7684\\u7ffb\\u8bd1\\u9879\\u540e\\uff0c\\u81ea\\u52a8\\u6253\\u5f00\\u767e\\u5ea6\\u7ffb\\u8bd1\\u9875\\u9762\\u3002 www.zgldh.com\\/tools\\/trans\\/zgldh-translator.xpi\",\"source\":\"<a href=\\\"http:\\/\\/weibo.com\\/\\\" rel=\\\"nofollow\\\">\\u65b0\\u6d6a\\u5fae\\u535a<\\/a>\",\"favorited\":false,\"truncated\":false,\"in_reply_to_status_id\":\"\",\"in_reply_to_user_id\":\"\",\"in_reply_to_screen_name\":\"\",\"geo\":null,\"reposts_count\":0,\"comments_count\":0,\"attitudes_count\":0,\"mlevel\":0,\"visible\":{\"type\":0,\"list_id\":0}},\"allow_all_comment\":false,\"avatar_large\":\"http:\\/\\/tp4.sinaimg.cn\\/1423136987\\/180\\/1266905817\\/1\",\"verified_reason\":\"\",\"follow_me\":false,\"online_status\":0,\"bi_followers_count\":18,\"lang\":\"zh-cn\",\"star\":0,\"mbtype\":0,\"mbrank\":0,\"block_word\":0}');

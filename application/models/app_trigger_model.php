@@ -96,7 +96,7 @@ class App_trigger_model extends MY_Model
     }
     
     /**
-     * key应当对应着app_trigger表内的顺序
+     * key应当对应着app_trigger表内的app_trigger_id
      * 
      * @var array
      */
@@ -112,7 +112,17 @@ class App_trigger_model extends MY_Model
             'DateTimeMinutesCycleAppTriggerPeer', 
             'NobelMetalChangeAppTriggerPeer', 
             'NobelMetalUpToAppTriggerPeer',     // 10
-            'NobelMetalDownToAppTriggerPeer' 
+            'NobelMetalDownToAppTriggerPeer',
+            'WeatherTemperatureAppTriggerPeer',
+            'WeatherConditionAppTriggerPeer',
+            'WeatherTemperatureTomorrowAppTriggerPeer',
+            'WeatherConditionTomorrowAppTriggerPeer',
+            'WeatherAirQualityIndexAppTriggerPeer',
+            'WeatherWindAppTriggerPeer',
+            'WeatherWindTomorrowAppTriggerPeer',
+            'WeatherRelativeHumidityAppTriggerPeer',
+            'WeatherUltraVioletIndexAppTriggerPeer',    //20
+            null
             );
     
     /**
