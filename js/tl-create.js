@@ -4,6 +4,8 @@
 $(function(){
     var error_modal = $('#error-modal');
     error_modal.modal({show:false});
+    var active_modal= $('#active-modal');
+    active_modal.modal({show:false});
     function showErrorModal(message)
     {
         error_modal.find('.modal-body p').html(message);
@@ -244,20 +246,31 @@ $(function(){
     	$.getJSON(url,function(re){
     		if(re && re.success)
     		{
-    			var triggers = re.data;
-    			trigger_tiles.cleanBox();
-    			trigger_tiles.current_app_id = app_id;
-    			setMask($('#step_2'));
-    			for(var i = 0;i<triggers.length;i++)
-    			{
-    				var trigger = triggers[i];
-    				var tile = trigger_tiles.create(trigger.trigger_id,trigger.name,trigger.description);
-    				trigger_tiles.appendTile(tile);
-    			}
-    			var step_3 = $('#step_3');
-    			step_3.removeClass('hide').find('strong').text(app_name);
-    			setHeight(step_3);
-    			$.scrollTo(step_3,200);
+    		    if(re.data['un_actived'] == true)
+    		    {
+    		        var tile = app_tiles.create(app_id,app_name,null,true);
+    		        active_modal.find('.active-app-tile-container').empty().append(tile);
+    		        active_modal.find('.active-app-name').text(app_name);
+    		        active_modal.find('.modal-body .active-form-container').html(re.data['active_form']);
+    		        active_modal.modal('show');
+    		    }
+    		    else
+		        {
+        			var triggers = re.data;
+        			trigger_tiles.cleanBox();
+        			trigger_tiles.current_app_id = app_id;
+        			setMask($('#step_2'));
+        			for(var i = 0;i<triggers.length;i++)
+        			{
+        				var trigger = triggers[i];
+        				var tile = trigger_tiles.create(trigger.trigger_id,trigger.name,trigger.description);
+        				trigger_tiles.appendTile(tile);
+        			}
+        			var step_3 = $('#step_3');
+        			step_3.removeClass('hide').find('strong').text(app_name);
+        			setHeight(step_3);
+        			$.scrollTo(step_3,200);
+		        }
     		}
     		else
     		{

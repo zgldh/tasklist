@@ -17,8 +17,15 @@ class DateTimeAppPeer extends AppPeer
         $CI = & get_instance ();
         $CI->load->model ( 'App_active_model', 'app_active_model', true );
         
-        $actived_peer = AppActivePeer::model()->create($this->app_id,$user_id);
-        $actived_peer->save();
+        $actived_peer = AppActivePeer::model ()->create ( $this->app_id, $user_id );
+        $actived_peer->save ();
         return $actived_peer;
+    }
+    /*
+     * (non-PHPdoc) @see AppPeer::getActiveForm()
+     */
+    public function getActiveForm()
+    {
+        return null;
     }
 }

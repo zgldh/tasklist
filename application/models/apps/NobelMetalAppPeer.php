@@ -21,4 +21,11 @@ class NobelMetalAppPeer extends AppPeer
         $actived_peer->save ();
         return $actived_peer;
     }
+    /*
+     * (non-PHPdoc) @see AppPeer::getActiveForm()
+     */
+    public function getActiveForm()
+    {
+        return null;
+    }
 }

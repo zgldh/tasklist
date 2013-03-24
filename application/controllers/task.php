@@ -38,6 +38,8 @@ class Task extends MY_Controller
 	    $this->javascript_css_manager->addStyleFile('/css/tl-create.css');
 	    $this->javascript_css_manager->addJavascriptFile('/js/tl-create.js');
 	    $this->javascript_css_manager->addJavascriptFile('/js/jqScroll.js');
+	    $this->javascript_css_manager->addJavascriptFile('/js/select2/select2.min.js');
+	    $this->javascript_css_manager->addStyleFile('/js/select2/select2.css');
 
 		$this->view('/task/create');
 	}

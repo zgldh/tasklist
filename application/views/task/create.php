@@ -127,6 +127,21 @@
 	</div>
 </div>
 
+<div id="active-modal" class="modal hide fade message" tabindex="-1" role="dialog" aria-labelledby="error-modal-label" aria-hidden="true" data-backdrop="static">
+	<div class="modal-header"> 
+		<h3 id="active-modal-label"><span class="active-app-name"></span> 需要激活--您只需激活一次</h3>
+	</div>
+	<div class="modal-body row">
+        <div class="span3 metro active-app-tile-container">
+        </div>
+        <div class="span6 active-form-container"></div>
+	</div> 
+	<div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+        <button class="btn btn-primary">确认激活</button>
+    </div>
+</div>
+
 
 <a id="app-tile-template" class="tile app hide">
     <div class="image-wrapper">

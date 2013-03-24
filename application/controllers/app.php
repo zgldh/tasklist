@@ -57,6 +57,10 @@ class App extends MY_Controller
 		$response->output();
 	}
 	
+	/**
+	 * 点击一个 triger app 以后的处理。 1：可能返回trigger列表， 2： 可能返回"需要激活"页面
+	 * @param int $app_id
+	 */
 	public function ajax_app_triggers($app_id)
 	{
 		$this->needLoginOrExit();
@@ -86,7 +90,13 @@ class App extends MY_Controller
 		}
 		else
 		{
-		    //TODO NEXT 还没有激活。 需要用户手动设置并确认。
+    		$data = array(
+    		        'un_actived'=>true,
+    		        'active_form'=>$app->getActiveForm()
+    		        );
+    		$response->setData($data);
+    		$response->setSuccess();
+    		$response->output();
 		}
 	}
 	

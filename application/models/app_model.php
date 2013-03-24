@@ -186,6 +186,10 @@ abstract class AppPeer extends BasePeer
      * @return AppActivePeer
      */
     abstract public function autoActive($user_id);
+    /**
+     * 得到本应用的激活表单html 
+     */
+    abstract public function getActiveForm();
     
     /**
      * 得到 应用 的名字
@@ -230,6 +234,24 @@ abstract class AppPeer extends BasePeer
         
         $triggers = AppTriggerPeer::model()->getByAppId($this->app_id,$trigger_level);
         return $triggers;
+    }
+    
+
+    /**
+     * 输出|渲染一个应用 的html
+     *
+     * @param string $view_name
+     * @param array $vars
+     *            = array()
+     * @param boolean $return
+     *            = FALSE 如果是true,则返回html结果
+     * @return Ambigous <void, string>
+     */
+    protected function getAppView($view_name, $vars = array(), $return = FALSE)
+    {
+        $ci = & get_instance ();
+        $html = $ci->load->view ( 'app/' . $view_name, $vars, $return );
+        return $html;
     }
 }
 

@@ -15,4 +15,12 @@ class WeatherAppPeer extends AppPeer
     {
         return false;
     }
+    /*
+     * (non-PHPdoc) @see AppPeer::getActiveForm()
+     */
+    public function getActiveForm()
+    {
+        $form = $this->getAppView('WeatherActiveForm.php',null,true);
+        return $form;
+    }
 }

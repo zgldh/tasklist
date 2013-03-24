@@ -16,4 +16,13 @@ class SinaWeiboAppPeer extends AppPeer
     {
         return false;
     }
+    /*
+     * (non-PHPdoc) @see AppPeer::getActiveForm()
+     */
+    public function getActiveForm()
+    {
+        // TODO Auto-generated method stub
+        $form = $this->getAppView('SinaWeiboActiveForm.php',null,true);
+        return $form;
+    }
 }
