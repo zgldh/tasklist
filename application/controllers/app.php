@@ -14,7 +14,7 @@ class App extends MY_Controller
 	 */
 	public function flush_count()
 	{
-		$this->needLoginOrExit();
+	    return false;
 
 		$this->loadAppModel();
 		$this->loadAppTriggerModel();
@@ -48,7 +48,15 @@ class App extends MY_Controller
 		{
 		    $app instanceof AppPeer;
 		    $item = $app->getVars();
-		    $item['active'] = $app->getActivedStatusByUser($user_id);
+		    $actived_status = $app->getActivedStatusByUser($user_id);
+		    if($actived_status)
+		    {
+		        $item['active'] = $actived_status->getVars();
+		    }
+		    else 
+		    {
+		        $item['active'] = null;
+		    }
 		    $data[] = $item;
 		}
 		
@@ -137,7 +145,6 @@ class App extends MY_Controller
 	{
 		$this->needLoginOrExit();
 		$response = new Response_JSON();
-		
 		$app_id = (int)$app_id;
 		$this->loadAppCommandModel();
 		$commands = $this->app_command_model->getByAppId($app_id);	//能得到全部trigger

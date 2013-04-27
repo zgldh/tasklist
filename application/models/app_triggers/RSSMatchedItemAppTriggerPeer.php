@@ -1,40 +1,39 @@
 <?php
-class WeatherUltraVioletIndexAppTriggerPeer extends AppTriggerPeer
+class RSSMatchedItemAppTriggerPeer extends AppTriggerPeer
 {
     use app_parameter;
+    private $url = '';
+    private $match_str = '';
     public function __construct($raw = null)
     {
         parent::__construct ( $raw, __CLASS__ );
     }
+    public function getPrivateParameters()
+    {
+    	return array ('url', 'match_str');
+    }
     /**
      * (non-PHPdoc)
      *
-     * @see AppTriggerPeer::getDetailHTML()
+     * @see AppCommandPeer::getDetailHTML()
      */
     public function getDetailHTML()
     {
-        $html = $this->triggerView ( 'WeatherUltraVioletIndexAppTriggerPeer', array ('command' => $this ), true );
+        $html = $this->triggerView( 'RSSMatchedItemAppTriggerPeer', array ('trigger' => $this ), true );
         return $html;
     }
     /**
      * (non-PHPdoc)
      *
-     * @see AppTriggerPeer::getFullDescription()
+     * @see AppCommandPeer::getFullDescription()
      */
     public function getFullDescription($parameters = null)
     {
         $this->praseParameters ( $parameters );
-        
+        $string = sprintf ( "匹配的关键字：%s<br />RSS源地址：%s",$this->match_str,$this->url );
+        $re = $this->getFullDescriptionArray ( $string );
         return $re;
-    }
-    /*
-     * (non-PHPdoc) @see AppTriggerPeer::getPrivateParameters()
-     */
-    public function getPrivateParameters()
-    {
-        // TODO Auto-generated method stub
-    }
-    
+    }  
     /*
      * (non-PHPdoc) @see AppTriggerPeer::generateTimingProcess()
      */

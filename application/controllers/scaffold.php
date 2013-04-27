@@ -47,7 +47,6 @@ class Scaffold extends MY_Controller
                     $parameters[$key] = trim($val);
                 }
                 $parameters = json_encode($parameters);
-        
                 $trigger = $this->app_trigger_model->getByPK($trigger_id);
                 $trigger->parameters = $parameters;
                 $trigger->save();

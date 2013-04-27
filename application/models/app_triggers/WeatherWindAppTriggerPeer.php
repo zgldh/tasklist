@@ -13,7 +13,7 @@ class WeatherWindAppTriggerPeer extends AppTriggerPeer
      */
     public function getDetailHTML()
     {
-        $html = $this->commandView ( 'WeatherWindAppTriggerPeer', array ('command' => $this ), true );
+        $html = $this->triggerView( 'WeatherWindAppTriggerPeer', array ('command' => $this ), true );
         return $html;
     }
     /**
@@ -26,17 +26,6 @@ class WeatherWindAppTriggerPeer extends AppTriggerPeer
         $this->praseParameters ( $parameters );
         
         return $re;
-    }
-    /*
-     * (non-PHPdoc) @see AppTriggerPeer::execute()
-     */
-    public function execute($data = null)
-    {
-        if($data)
-        {
-            $this->praseParameters($data);
-        }
-        // TODO WeatherWindAppTriggerPeer::execute
     }
 	/* (non-PHPdoc)
      * @see AppTriggerPeer::getPrivateParameters()

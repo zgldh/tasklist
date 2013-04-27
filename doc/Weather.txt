@@ -1,0 +1,19 @@
+[weather.com.cn的json数据如何解析]
+
+URL: http://www.weather.com.cn/data/sk/101180101.html
+JSON:
+{
+	"weatherinfo":
+	{
+		"city":"郑州",					//城市名字
+		"cityid":"101180101",			//城市id
+		"temp":"13",					//当前温度 摄氏度
+		"WD":"东南风",					//风向
+		"WS":"2级",						//风力等级
+		"SD":"49%",						//相对湿度
+		"WSE":"2",						//风力数字
+		"time":"19:00",					//记录时间
+		"isRadar":"1",					//是否有雷达图
+		"Radar":"JC_RADAR_AZ9371_JB"	//雷达图地址  http://www.weather.com.cn/html/radar/JC_RADAR_AZ9371_JB.shtml  
+	}
+}

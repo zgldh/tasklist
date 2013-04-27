@@ -1,8 +1,8 @@
 <?php
+require_once (APPPATH . 'libraries/trait/can_to_next.php');
 class Task_model extends MY_Model
-{
+{   
     const TABLE = 'task';
-    
     /**
      *
      * @param int $task_id            
@@ -221,6 +221,8 @@ class Task_model extends MY_Model
  */
 class TaskPeer extends BasePeer
 {
+    use can_to_next;
+    
     const PK = 'task_id';
     const STATUS_PENDING = 'pending';
     const STATUS_ACTIVE = 'active';
@@ -636,14 +638,20 @@ class TaskPeer extends BasePeer
     public function runCommands()
     {
         $commands = $this->getCommands ();
-        foreach ( $commands as $command )
+        $command = array_pop($commands);
+        
+        if($command)
         {
             $command instanceof TaskCommandPeer;
             $command->execute ();
+            $this->setCanMoveToNext($command->canMoveToNext());
+	        $this->times ++;
+	        return $this->save ();
         }
-        
-        $this->times ++;
-        return $this->save ();
+        else
+       {
+        	return false;
+        }
     }
     public function setupNextTimingProcess($timing_process = null)
     {

@@ -1,9 +1,11 @@
 <?php
-
-if (! defined ( 'BASEPATH' ))
-    exit ( 'No direct script access allowed' );
+require_once (APPPATH . 'libraries/trait/can_to_next.php');
+//if (! defined ( 'BASEPATH' ))
+//   exit ( 'No direct script access allowed' );
 class Cronjob extends MY_Controller
 {
+	use can_to_next;
+	
     public function index()
     {
         echo 'hi cronjob!';
@@ -83,7 +85,6 @@ class Cronjob extends MY_Controller
             $report->send ();
         }
     }
-    
     /**
      * 轮询 timing_process表， 判断并执行 task
      */
@@ -99,7 +100,7 @@ class Cronjob extends MY_Controller
         
         $this->timeStart ();
         $max_seconds = $max_time_seconds - 10;
-        
+
         $this->loadProcessLogModel ();
         $this->loadTimingProcessModel ();
         $limit = new DB_Limit ( 100 );
@@ -121,7 +122,7 @@ class Cronjob extends MY_Controller
                 $timings = $this->timing_process_model->getRunnableBefore ( null, $limit );
                 if (count ( $timings ) == 0)
                 {
-                    sleep ( 1 );
+                    usleep ( 10 );
                     continue;
                 }
                 
@@ -136,7 +137,10 @@ class Cronjob extends MY_Controller
                     elseif ($timing->isStatusCommand ())
                     {
                 		$timing->runCommand ();
-                    	$timing->next ();
+	                    if($timing->canMoveToNext())
+	                    {
+	                    	$timing->next ();
+	                    }
                     }
                 }
             }

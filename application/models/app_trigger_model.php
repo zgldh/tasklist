@@ -11,28 +11,28 @@ class App_trigger_model extends MY_Model
      */
     public function parseFormParameters($parameters)
     {
-        $trigger_id = $this->getData ( $parameters, 'id' );
-        $trigger = $this->getByPK ( $trigger_id );
+        $app_trigger_id = $this->getData ( $parameters, 'id' );
+        $trigger = $this->getByPK ( $app_trigger_id );
         $trigger->praseParameters ( $parameters );
         return $trigger;
     }
     
     /**
      *
-     * @param int $trigger_id            
+     * @param int $app_trigger_id            
      * @return AppTriggerPeer
      */
-    public function getByPK($trigger_id)
+    public function getByPK($app_trigger_id)
     {
-        if ($this->cache_pk->hasData ( $trigger_id ))
+        if ($this->cache_pk->hasData ( $app_trigger_id ))
         {
-            return $this->cache_pk->getData ( $trigger_id );
+            return $this->cache_pk->getData ( $app_trigger_id );
         }
         
-        $raw = $this->db->get_where ( self::TABLE, array (AppTriggerPeer::PK => $trigger_id ) )->row_array ();
+        $raw = $this->db->get_where ( self::TABLE, array (AppTriggerPeer::PK => $app_trigger_id ) )->row_array ();
         $trigger = $raw ? $this->factory ( $raw ) : null;
         
-        $this->cache_pk->setData ( $trigger_id, $trigger );
+        $this->cache_pk->setData ( $app_trigger_id, $trigger );
         
         return $trigger;
     }
@@ -122,6 +122,8 @@ class App_trigger_model extends MY_Model
             'WeatherWindTomorrowAppTriggerPeer',
             'WeatherRelativeHumidityAppTriggerPeer',
             'WeatherUltraVioletIndexAppTriggerPeer',    //20
+            'RSSNewItemAppTriggerPeer',    
+            'RSSMatchedItemAppTriggerPeer',    
             null
             );
     
@@ -132,9 +134,9 @@ class App_trigger_model extends MY_Model
      */
     public function factory($trigger_raw)
     {
-        $trigger_id = $this->getData ( $trigger_raw, 'trigger_id' );
+        $app_trigger_id = $this->getData ( $trigger_raw, 'app_trigger_id' );
         $trigger_map = self::$APP_TRIGGER_MAP;
-        $class_name = @$trigger_map [$trigger_id];
+        $class_name = @$trigger_map [$app_trigger_id];
         $peer = null;
         if ($class_name)
         {
@@ -149,7 +151,7 @@ class App_trigger_model extends MY_Model
     protected function columns()
     {
         return array(
-                'trigger_id',
+                'app_trigger_id',
                 'app_id',
                 'name',
                 'description',
@@ -160,7 +162,7 @@ class App_trigger_model extends MY_Model
     }
 }
 /**
- * @property int $trigger_id = null 应用触发条件id
+ * @property int $app_trigger_id = null 应用触发条件id
  * @property int $app_id = null 应用ID
  * @property string $name = null 应用触发条件名字
  * @property string $description = null 应用触发条件描述
@@ -175,7 +177,7 @@ class App_trigger_model extends MY_Model
  */
 abstract class AppTriggerPeer extends BasePeer
 {
-    const PK = 'trigger_id';
+    const PK = 'app_trigger_id';
     
     /**
      * 必须重载
@@ -199,7 +201,7 @@ abstract class AppTriggerPeer extends BasePeer
     }
     public function getPrimaryKeyValue()
     {
-        return $this->trigger_id;
+        return $this->app_trigger_id;
     }
     public function save()
     {
@@ -292,7 +294,7 @@ abstract class AppTriggerPeer extends BasePeer
     
     /**
      * 生成一个数组， array(
-     * 'trigger_id'=>$id,
+     * 'app_trigger_id'=>$id,
      * 'description'=>$html )
      * 
      * @param string $html            
@@ -300,7 +302,7 @@ abstract class AppTriggerPeer extends BasePeer
      */
     protected function getFullDescriptionArray($html)
     {
-        $re = array ('trigger_id' => $this->trigger_id, 'description' => $html );
+        $re = array ('app_trigger_id' => $this->app_trigger_id, 'description' => $html );
         return $re;
     }
     

@@ -113,14 +113,14 @@ $(function(){
     		label_tag: $('#trigger-tile-template h3'),
     		description_tag: $('#trigger-tile-template p'),
             current_app_id: null,
-    		create: function(trigger_id,title,description)
+    		create: function(app_trigger_id,title,description)
     		{
     			this.label_tag.text(title);
     			this.description_tag.text(description);
     			var tile = this.template_tag.clone();
     			tile.removeAttr('id').removeClass('hide');
-    			tile.addClass('trigger_'+trigger_id);
-    			tile.data('trigger_id',trigger_id);
+    			tile.addClass('trigger_'+app_trigger_id);
+    			tile.data('app_trigger_id',app_trigger_id);
 
     			return tile;
     		},
@@ -142,7 +142,7 @@ $(function(){
             current_trigger_id: null,
             setup: function(app_trigger)
             {
-                this.current_trigger_id = app_trigger.trigger_id;
+                this.current_trigger_id = app_trigger.app_trigger_id;
             	this.trigger_detail_box.html(app_trigger.detial_html);
             },
             cleanBox: function()
@@ -185,7 +185,7 @@ $(function(){
             current_command_id: null,
             setup: function(app_command)
             {
-                this.current_command_id = app_command.command_id;
+                this.current_command_id = app_command.app_command_id;
                 this.command_detail_box.html(app_command.detial_html);
             },
             cleanBox: function()
@@ -263,7 +263,7 @@ $(function(){
         			for(var i = 0;i<triggers.length;i++)
         			{
         				var trigger = triggers[i];
-        				var tile = trigger_tiles.create(trigger.trigger_id,trigger.name,trigger.description);
+        				var tile = trigger_tiles.create(trigger.app_trigger_id,trigger.name,trigger.description);
         				trigger_tiles.appendTile(tile);
         			}
         			var step_3 = $('#step_3');
@@ -282,7 +282,31 @@ $(function(){
             showErrorModal(text);
         });
     });
-
+    //确认激活-by GuanRenjie
+    var primary_btn = $('.btn-primary');
+    primary_btn.live('click',function(){
+    	var btn = $(this);
+    	if(btn.disabled)
+    	{
+    		return false;
+    	}
+    	btn.disabled = true;
+    	var formData = $('#postform').serialize();
+		$.ajax({
+			url:"activeApp",
+			data:formData,
+			type: 'post',
+			success: function(re){
+				btn.disabled = false;
+			},
+			error: function(a,b,c)
+			{
+				alert('Net work error');
+				btn.disabled = false;
+			}
+		});
+    });
+    //
     var trigger_btn = $('#triggers-box .tile.triggers');
     trigger_btn.live('click',function(){
     	var btn = $(this);
@@ -291,8 +315,8 @@ $(function(){
             return false;
         }
         btn.disabled = true;
-        var trigger_id = btn.data('trigger_id');
-        var url = trigger_tiles.getDataURL()+trigger_id;
+        var app_trigger_id = btn.data('app_trigger_id');
+        var url = trigger_tiles.getDataURL()+app_trigger_id;
         $.getJSON(url,function(re){
             if(re && re.success)
             {
@@ -427,7 +451,7 @@ $(function(){
                 for(var i = 0;i<commands.length;i++)
                 {
                     var command = commands[i];
-                    var tile = command_tiles.create(command.command_id,command.name,command.description);
+                    var tile = command_tiles.create(command.app_command_id,command.name,command.description);
                     command_tiles.appendTile(tile);
                 }
                 var step_7 = $('#step_7');

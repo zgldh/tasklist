@@ -2,6 +2,8 @@
 class NobelMetalFetchPriceAppCommandPeer extends AppCommandPeer
 {
     use app_parameter;
+    use can_to_next;
+    
     public function __construct($raw = null)
     {
         parent::__construct ( $raw, __CLASS__ );

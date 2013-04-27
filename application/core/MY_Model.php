@@ -182,7 +182,7 @@ class DB_Cache
         return @$this->_data [$key];
     }
     /**
-     * useage: <br />$cache->setData(12, $peer); <br />
+     * @example $cache->setData(12, $peer); <br />
      * or <br />
      * $cache->setData($peer);  
      * @param int|BasePeer $key
@@ -327,6 +327,16 @@ abstract class BasePeer
         {
             return MY_Model::timestampToDatetimeString ( $timestamp ,$format);
         }
+    }
+    
+    /**
+     * 
+     * @return CI_Controller
+     */
+    public function &getCI()
+    {
+        $CI = & get_instance();
+        return $CI;
     }
 }
 

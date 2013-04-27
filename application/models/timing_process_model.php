@@ -1,4 +1,5 @@
 <?php
+require_once (APPPATH . 'libraries/trait/can_to_next.php');
 /**
  * Timing_Progress_model 处理模型<br />
  * 其实是基于时间的消息钩子。<br />
@@ -100,6 +101,7 @@ class Timing_process_model extends MY_Model
     }
     /**
      * 得到可以执行的 TimingProcessPeer
+     * XXX 数量一多，可能导致有的timing process一直处于队尾无法被执行。
      *
      * @param string $last_datetime
      *            = null '2012-12-12 12:12:12', 为null则自动为当前时间
@@ -257,24 +259,20 @@ class Timing_process_model extends MY_Model
  */
 class TimingProcessPeer extends BasePeer
 {
+	use can_to_next;
+	
     const PK = 'process_id';
     
     /**
-     * 忽略状态
-     *
-     * @var int
+     * @var int 忽略状态
      */
     const STATUS_IGNORE = 0;
     /**
-     * 条件判断状态
-     *
-     * @var int
+     * @var int 条件判断状态
      */
     const STATUS_TRIGGER = 1;
     /**
-     * 命令执行状态
-     *
-     * @var int
+     * @var int 命令执行状态
      */
     const STATUS_COMMAND = 2;
     
@@ -402,6 +400,7 @@ class TimingProcessPeer extends BasePeer
     {
         $task = $this->getTask ();
         $task->runCommands ();
+        $this->setCanMoveToNext($task->canMoveToNext());
     }
     
     /**
@@ -448,6 +447,7 @@ class TimingProcessPeer extends BasePeer
         $trigger->setNextTimingProcess($this);
         $this->save();
     }
+    
 }
 
 ?>

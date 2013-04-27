@@ -28,17 +28,6 @@ class WeatherWindTomorrowAppTriggerPeer extends AppTriggerPeer
         return $re;
     }
     /*
-     * (non-PHPdoc) @see AppCommandPeer::execute()
-     */
-    public function execute($data = null)
-    {
-        if ($data)
-        {
-            $this->praseParameters ( $data );
-        }
-        // TODO WeatherWindTomorrowAppTriggerPeer::execute
-    }
-    /*
      * (non-PHPdoc) @see AppTriggerPeer::getPrivateParameters()
      */
     public function getPrivateParameters()

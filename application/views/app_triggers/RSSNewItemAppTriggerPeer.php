@@ -1,16 +1,14 @@
-<?php $trigger instanceof DateTimeMinutesCycleAppTriggerPeer; ?>
-<form class="DateTimeMinutesCycle form-horizontal">
+<?php $trigger instanceof RSSNewItemAppTriggerPeer; ?>
+<form class="RSSNewItem form-horizontal">
 	<input name="trigger[id]" value="<?php echo $trigger->app_trigger_id;?>" type="hidden" />
 	<div class="control-group">
-		<label class="control-label">每隔</label>
+		<label class="control-label">请输入RSS源地址：</label>
 		<div class="controls">
 			<div class="input-append">
-				<input name="trigger[minutes]" type="text" value="10" />
-				<span class="add-on">分钟</span>
+				<input type="text" name="trigger[url]" >
 			</div>
 		</div>
 	</div>
-	
 	<div class="form-actions">
 		<button type="submit">设为条件</button>
 	</div>

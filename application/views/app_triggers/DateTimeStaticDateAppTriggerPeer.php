@@ -1,7 +1,7 @@
 <?php $trigger instanceof DateTimeStaticDateAppTriggerPeer; ?>
 <?php $date = getdate(time() + 86400);?>
 <form class="DateTimeStaticDate form-horizontal">
-	<input name="trigger[id]" value="<?php echo $trigger->trigger_id;?>" type="hidden" />
+	<input name="trigger[id]" value="<?php echo $trigger->app_trigger_id;?>" type="hidden" />
 	<div class="control-group">
 		<label class="control-label">在特定日期为</label>
 		<div class="controls">

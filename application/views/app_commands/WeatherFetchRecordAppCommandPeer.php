@@ -1,5 +1,5 @@
-<?php $command instanceof NobelMetalFetchPriceAppCommandPeer; ?>
-<form class="NobelMetalFetchPrice form-horizontal">
+<?php $command instanceof WeatherFetchRecordAppCommandPeer; ?>
+<form class="WeatherFetchRecordAppCommandPeer form-horizontal">
 	<input name="command[id]" value="<?php echo $command->app_command_id;?>" type="hidden" />
 	<div class="control-group">
 		<label class="control-label"></label>

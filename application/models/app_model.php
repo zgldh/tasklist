@@ -91,7 +91,10 @@ class App_model extends MY_Model
             'SinaWeiboAppPeer', 
             'EmailAppPeer', 
             'NobelMetalAppPeer', 
-            'WeatherAppPeer' );
+            'WeatherAppPeer',
+    		'WeixinAppPeer',
+    		'RSSAppPeer'
+    		);
     
     /**
      *

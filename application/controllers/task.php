@@ -32,7 +32,6 @@ class Task extends MY_Controller
 	public function create()
 	{
 	    $this->needLoginOrExit('/task/create');	    
-
 	    $this->setTitle("新建任务--自动任务");
 	    $this->navbar->setHeaderTitle('新建任务');
 	    $this->javascript_css_manager->addStyleFile('/css/tl-create.css');
@@ -40,7 +39,6 @@ class Task extends MY_Controller
 	    $this->javascript_css_manager->addJavascriptFile('/js/jqScroll.js');
 	    $this->javascript_css_manager->addJavascriptFile('/js/select2/select2.min.js');
 	    $this->javascript_css_manager->addStyleFile('/js/select2/select2.css');
-
 		$this->view('/task/create');
 	}
 	/**
@@ -81,7 +79,6 @@ class Task extends MY_Controller
 	public function active($task_id)
 	{
 	    $this->needLoginOrExit();
-	    
 	    $response = new Response_JSON();
 	    $this->loadTaskModel();
 	    $task = $this->task_model->getByPK($task_id);
@@ -105,7 +102,25 @@ class Task extends MY_Controller
 	    }
 	    $response->output();
 	}
-
+	/**
+	 * 将一个应用激活
+	 */
+	public function activeApp()
+	{
+		$this->needLoginOrExit();
+		//////////////////////////////////
+		/*
+		if($data = $this->inputPost('weather'))
+		{
+			$data = array(
+					'app_id' => $title,
+					'user_id' => $this->webuser->getUserId(),
+					'actived' => 1
+			);
+			$this->db->insert('app_active', $data);
+		}
+		*/
+	}
 	public function delete($task_id)
 	{
 		$this->needLoginOrExit();

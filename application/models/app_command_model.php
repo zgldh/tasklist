@@ -1,5 +1,6 @@
 <?php
 require_once (APPPATH . 'libraries/trait/app_parameters.php');
+require_once (APPPATH . 'libraries/trait/can_to_next.php');
 class App_command_model extends MY_Model
 {
     const TABLE = 'app_command';
@@ -111,7 +112,9 @@ class App_command_model extends MY_Model
             'SinaWeiboTextStatusAppCommandPeer', 
             'SinaWeiboPictureStatusAppCommandPeer', 
             'NobelMetalFetchPriceAppCommandPeer', 
-            null, null, null, null, null, null,     // 10
+    		'WeixinSendAppCommandPeer',
+    		'WeatherFetchRecordAppCommandPeer',
+             null, null, null, null, null,     // 10
     null );
     
     /**
@@ -121,9 +124,9 @@ class App_command_model extends MY_Model
      */
     public function factory($command_raw)
     {
-        $command_id = $this->getData ( $command_raw, 'command_id' );
+        $app_command_id = $this->getData ( $command_raw, 'app_command_id' );
         $command_map = self::$APP_COMMAND_MAP;
-        $class_name = @$command_map [$command_id];
+        $class_name = @$command_map [$app_command_id];
         $peer = null;
         if ($class_name)
         {
@@ -149,7 +152,7 @@ class App_command_model extends MY_Model
     }
 }
 /**
- * @property int $command_id = null 应用命令id
+ * @property int $app_command_id = null 应用命令id
  * @property int $app_id = null 应用ID
  * @property string $name = null 应用命令名字
  * @property string $description = null 应用命令描述
@@ -164,7 +167,7 @@ class App_command_model extends MY_Model
  */
 abstract class AppCommandPeer extends BasePeer
 {
-    const PK = 'command_id';
+    const PK = 'app_command_id';
     function __construct($raw = null)
     {
         parent::__construct ( $raw, __CLASS__ );
@@ -175,7 +178,7 @@ abstract class AppCommandPeer extends BasePeer
     }
     public function getPrimaryKeyValue()
     {
-        return $this->command_id;
+        return $this->app_command_id;
     }
     public function save()
     {
@@ -233,6 +236,7 @@ abstract class AppCommandPeer extends BasePeer
     /**
      * 执行本命令
      * @param object/array $data = null
+     * @return boolean 成功返回true， 否则返回false
      */
     abstract public function execute($data = null);
 
@@ -273,7 +277,7 @@ abstract class AppCommandPeer extends BasePeer
      */
     protected function getFullDescriptionArray($html)
     {
-        $re = array ('command_id' => $this->command_id, 'description' => $html );
+        $re = array ('app_command_id' => $this->app_command_id, 'description' => $html );
         return $re;
     }
     

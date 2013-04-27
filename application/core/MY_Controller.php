@@ -132,6 +132,21 @@ class MY_Controller extends CI_Controller{
      * @var Kitco_gold_model
      */
     public $kitco_gold_model = null;
+    /**
+     * 
+     * @var Weather_city_model
+     */
+    public $weather_city_model = null;
+    /**
+     * 
+     * @var Weather_config_model
+     */
+    public $weather_config_model = null;
+    /**
+     * 
+     * @var Weather_record_model
+     */
+    public $weather_record_model = null;
     
     function loadUserModel()
     {
@@ -191,6 +206,18 @@ class MY_Controller extends CI_Controller{
     	$this->load->model('Kitco_gold_model','kitco_gold_model',true);
     }
     
+    function loadWeatherCityModel()
+    {
+    	$this->load->model('Weather_city_model','weather_city_model',true);
+    }
+    function loadWeatherConfigModel()
+    {
+    	$this->load->model('Weather_config_model','weather_config_model',true);
+    }
+    function loadWeatherRecordModel()
+    {
+    	$this->load->model('Weather_record_model','weather_record_model',true);
+    }
     
     function loadSaeTAuthV2()
     {

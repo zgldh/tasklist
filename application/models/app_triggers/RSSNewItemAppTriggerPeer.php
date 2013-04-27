@@ -1,38 +1,37 @@
 <?php
-class WeatherUltraVioletIndexAppTriggerPeer extends AppTriggerPeer
+class RSSNewItemAppTriggerPeer extends AppTriggerPeer
 {
     use app_parameter;
+    private $url = '';
     public function __construct($raw = null)
     {
         parent::__construct ( $raw, __CLASS__ );
     }
+    public function getPrivateParameters()
+    {
+    	return array ('url');
+    }
     /**
      * (non-PHPdoc)
      *
-     * @see AppTriggerPeer::getDetailHTML()
+     * @see AppCommandPeer::getDetailHTML()
      */
     public function getDetailHTML()
     {
-        $html = $this->triggerView ( 'WeatherUltraVioletIndexAppTriggerPeer', array ('command' => $this ), true );
+        $html = $this->triggerView( 'RSSNewItemAppTriggerPeer', array ('trigger' => $this ), true );
         return $html;
     }
     /**
      * (non-PHPdoc)
      *
-     * @see AppTriggerPeer::getFullDescription()
+     * @see AppCommandPeer::getFullDescription()
      */
     public function getFullDescription($parameters = null)
     {
         $this->praseParameters ( $parameters );
-        
+        $string = sprintf ( "RSS源地址：%s",$this->url );
+        $re = $this->getFullDescriptionArray ( $string );
         return $re;
-    }
-    /*
-     * (non-PHPdoc) @see AppTriggerPeer::getPrivateParameters()
-     */
-    public function getPrivateParameters()
-    {
-        // TODO Auto-generated method stub
     }
     
     /*

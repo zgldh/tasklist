@@ -1,6 +1,6 @@
 <?php
-require_once ('commands/UrlRequestCommandPeer.php');
-require_once ('commands/SendEmailCommandPeer.php');
+require_once (APPPATH . 'libraries/trait/can_to_next.php');
+
 class Task_command_model extends MY_Model
 {
     const TABLE = 'task_command';
@@ -143,7 +143,7 @@ class Task_command_model extends MY_Model
     public function generateByAppTrigger($app_command)
     {
         $command = new TaskCommandPeer();
-        $command->app_command_id = $app_command->command_id;
+        $command->app_command_id = $app_command->app_command_id;
         $command->parameters = $app_command->serializeParameters ();
         return $command;
     }
@@ -159,6 +159,8 @@ class Task_command_model extends MY_Model
  */
 class TaskCommandPeer extends BasePeer
 {
+	use can_to_next;
+	
     const PK = 'command_id';
     function __construct($raw = null)
     {
@@ -247,6 +249,7 @@ class TaskCommandPeer extends BasePeer
         $app_command = $this->getAppCommand();
         $app_command->praseParameters($this->getParameters());
         $result = $app_command->execute();
+        $this->setCanMoveToNext($app_command->canMoveToNext());
         return $result;
     }
 }

@@ -1,15 +1,14 @@
 <?php
-class EmailSendMailAppCommandPeer extends AppCommandPeer
+class WeixinSendAppCommandPeer extends AppCommandPeer
 {
     use app_parameter;
-    use can_to_next;
     
-    private $email_title = '';
-    private $email_content = '';
+    private $weixin_title = '';
+    private $weixin_content = '';
     
     public function getPrivateParameters()
     {
-        return array ('email_title', 'email_content' );
+        return array ('weixin_title', 'weixin_content' );
     }
     
     public function __construct($raw = null)
@@ -24,7 +23,7 @@ class EmailSendMailAppCommandPeer extends AppCommandPeer
      */
     public function getDetailHTML()
     {
-        $html = $this->commandView ( 'EmailSendMailAppCommandPeer', array ('command' => $this ), true );
+        $html = $this->commandView ( 'WeixinSendAppCommandPeer', array ('command' => $this ), true );
         return $html;
     }
     /**
@@ -48,8 +47,6 @@ class EmailSendMailAppCommandPeer extends AppCommandPeer
         {
             $this->praseParameters($data);
         }
-        //It is for test;
-        $this->setCanMoveToNext(false);
-        // TODO EmailSendMailAppCommandPeer::execute
+        // TODO WeixinSendAppCommandPeer::execute
     }
 }

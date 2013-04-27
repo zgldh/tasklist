@@ -2,14 +2,14 @@
 class Task_trigger_model extends MY_Model
 {
     const TABLE = 'task_trigger';
-    public function getByPK($trigger_id)
+    public function getByPK($task_trigger_id)
     {
-        if ($this->cache_pk->hasData ( $trigger_id ))
+        if ($this->cache_pk->hasData ( $task_trigger_id ))
         {
-            return $this->cache_pk->getData ( $trigger_id );
+            return $this->cache_pk->getData ( $task_trigger_id );
         }
         
-        $raw = $this->db->get_where ( self::TABLE, array (TaskTriggerPeer::PK => $trigger_id ) )->row_array ();
+        $raw = $this->db->get_where ( self::TABLE, array (TaskTriggerPeer::PK => $task_trigger_id ) )->row_array ();
         $task_trigger = $raw ? $this->makeTriggerPeer ( $raw->type, $raw ) : null;
         
         $this->cache_pk->setData ( $task_trigger );
@@ -77,7 +77,7 @@ class Task_trigger_model extends MY_Model
     public function generateByAppTrigger($app_trigger)
     {
         $trigger = new TaskTriggerPeer ();
-        $trigger->app_trigger_id = $app_trigger->trigger_id;
+        $trigger->app_trigger_id = $app_trigger->app_trigger_id;
         $trigger->parameters = $app_trigger->serializeParameters ();
         return $trigger;
     }
@@ -87,7 +87,7 @@ class Task_trigger_model extends MY_Model
     protected function columns()
     {
         return array(
-                'trigger_id',
+                'task_trigger_id',
                 'task_id',
                 'app_trigger_id',
                 'parameters',
@@ -109,7 +109,7 @@ class Task_trigger_model extends MY_Model
 
 /**
  *
- * @property int $trigger_id = 0
+ * @property int $task_trigger_id = 0
  * @property int $task_id = 0 条件所属的任务
  * @property int $app_trigger_id = 0 本触发条件所属应用的触发条件的id
  * @property string $parameters = '' 本条件的参数, json格式
@@ -119,7 +119,7 @@ class Task_trigger_model extends MY_Model
  */
 class TaskTriggerPeer extends BasePeer
 {
-    const PK = 'trigger_id';
+    const PK = 'task_trigger_id';
     function __construct($raw = null)
     {
         parent::__construct ( $raw, __CLASS__ );
@@ -130,7 +130,7 @@ class TaskTriggerPeer extends BasePeer
     }
     public function getPrimaryKeyValue()
     {
-        return $this->trigger_id;
+        return $this->task_trigger_id;
     }
     public function save()
     {
